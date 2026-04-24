@@ -190,7 +190,7 @@
      ============================================================ */
 
   /* ---------- .frame：每页主内容容器 ---------- */
-  .frame{flex:1;display:flex;flex-direction:column;min-height:0}
+  .frame{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
   /* 当 .frame 同时加了 grid 类时，grid 的 display:grid 覆盖 flex */
   .frame.grid-2-7-5,
   .frame.grid-2-6-6,
@@ -294,8 +294,8 @@
     opacity:.72;
     margin-top:.6vh;
   }
-  /* 当 stat-card 用于 grid-4（2x2），数字可以更大 */
-  .grid-4 .stat-card .stat-nb{font-size:7.5vw}
+  /* 当 stat-card 用于 grid-4（2x2），数字适度放大；若页面有标题+引文在上方，可内联 style 覆盖为更小值 */
+  .grid-4 .stat-card .stat-nb{font-size:5vw}
   /* 当只有 3 个，字也可以稍大 */
   .grid-3 .stat-card .stat-nb{font-size:6.8vw}
 
