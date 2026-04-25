@@ -183,6 +183,26 @@
   body.light-bg #nav .dot.active{background:rgba(var(--ink-rgb),.9)}
   #hint{position:fixed;bottom:3vh;right:3vw;z-index:30;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.4;mix-blend-mode:difference;color:#aaa}
 
+  /* ============ Fragments（页内逐项显示） ============ */
+  .fragment{
+    opacity:0;
+    transform:translateY(18px);
+    filter:blur(6px);
+    transition:
+      opacity .45s ease,
+      transform .45s ease,
+      filter .45s ease;
+    will-change:opacity,transform,filter;
+  }
+  .fragment.visible{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+  }
+  .fragment.instant{
+    transition:none;
+  }
+
   /* ============================================================
      ============ LAYOUTS API · 面向 agent 的类（v2）============
      所有 layouts.md 中的骨架都基于下面这套命名。
@@ -412,7 +432,7 @@
 
 <canvas id="bg-dark" class="bg"></canvas>
 <canvas id="bg-light" class="bg"></canvas>
-<div id="hint">← → 翻页 · ESC 索引</div>
+<div id="hint">点击 / Space 逐项显示 · ← → 导航</div>
 
 <div id="deck">
 
@@ -561,6 +581,43 @@ slides.forEach((s,i)=>{
   nav.appendChild(b);
 });
 
+function fragmentsOf(slide){
+  return Array.from(slide.querySelectorAll('.fragment'));
+}
+
+function resetFragments(slide, visibleCount=0, instant=false){
+  fragmentsOf(slide).forEach((el, i)=>{
+    if(instant) el.classList.add('instant');
+    el.classList.toggle('visible', i < visibleCount);
+    if(instant){
+      requestAnimationFrame(()=>el.classList.remove('instant'));
+    }
+  });
+  slide.dataset.fragmentIndex=String(visibleCount);
+}
+
+function revealNextFragment(){
+  const slide=slides[idx];
+  const frags=fragmentsOf(slide);
+  if(!frags.length) return false;
+  const current=Number(slide.dataset.fragmentIndex || 0);
+  if(current >= frags.length) return false;
+  frags[current].classList.add('visible');
+  slide.dataset.fragmentIndex=String(current + 1);
+  return true;
+}
+
+function hidePrevFragment(){
+  const slide=slides[idx];
+  const frags=fragmentsOf(slide);
+  if(!frags.length) return false;
+  const current=Number(slide.dataset.fragmentIndex || 0);
+  if(current <= 0) return false;
+  frags[current - 1].classList.remove('visible');
+  slide.dataset.fragmentIndex=String(current - 1);
+  return true;
+}
+
 function go(n){
   if(lock)return;
   idx=Math.max(0,Math.min(total-1,n));
@@ -571,6 +628,16 @@ function go(n){
   const th=el.dataset.theme || (el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));
   document.body.classList.toggle('light-bg',th==='light');
   lock=true;setTimeout(()=>lock=false,700);
+}
+
+function forward(){
+  if(revealNextFragment()) return;
+  go(idx+1);
+}
+
+function backward(){
+  if(hidePrevFragment()) return;
+  go(idx-1);
 }
 
 /* =============== ESC 索引视图 =============== */
@@ -614,8 +681,8 @@ function toggleOverview(){
 addEventListener('keydown',e=>{
   if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}
   if(overviewOn)return;
-  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown')go(idx+1);
-  if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp')go(idx-1);
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '||e.key==='ArrowDown'){e.preventDefault();forward();}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'||e.key==='ArrowUp'){e.preventDefault();backward();}
   if(e.key==='Home')go(0);
   if(e.key==='End')go(total-1);
 });
@@ -623,7 +690,7 @@ addEventListener('keydown',e=>{
 let wheelTO=null,wheelAcc=0;
 addEventListener('wheel',e=>{
   wheelAcc+=e.deltaY+e.deltaX;
-  if(Math.abs(wheelAcc)>50){go(idx+(wheelAcc>0?1:-1));wheelAcc=0;}
+  if(Math.abs(wheelAcc)>50){(wheelAcc>0?forward:backward)();wheelAcc=0;}
   clearTimeout(wheelTO);wheelTO=setTimeout(()=>wheelAcc=0,150);
 },{passive:true});
 
@@ -632,8 +699,10 @@ addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].client
 addEventListener('touchend',e=>{
   const dx=(e.changedTouches[0].clientX-tx);
   const dy=(e.changedTouches[0].clientY-ty);
-  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(idx+(dx<0?1:-1));
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))(dx<0?forward:backward)();
 },{passive:true});
+
+slides.forEach(slide=>resetFragments(slide,0,true));
 
 go(0);
 </script>
