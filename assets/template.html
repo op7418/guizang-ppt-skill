@@ -701,6 +701,10 @@ addEventListener('touchend',e=>{
   const dy=(e.changedTouches[0].clientY-ty);
   if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))(dx<0?forward:backward)();
 },{passive:true});
+addEventListener('click',e=>{
+  if(e.target.closest('#nav,#overview')) return;
+  forward();
+});
 
 slides.forEach(slide=>resetFragments(slide,0,true));
 

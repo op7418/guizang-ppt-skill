@@ -7,6 +7,7 @@
 - [基础 Slide 外壳](#基础-slide-外壳)
 - [字体 Typography](#字体-typography)
 - [Chrome & Foot](#chrome--foot)
+- [Fragments 逐项显示](#fragments-逐项显示)
 - [Callout 引用框](#callout-引用框)
 - [Stat 数字矩阵](#stat-数字矩阵)
 - [Platform 平台卡](#platform-平台卡)
@@ -93,6 +94,27 @@
 - `chrome.right` 总是放页码 `NN / TOTAL` （TOTAL 为总页数）
 - `foot.title` 是中文说明，`foot.right` 是英文 act 标记
 - chrome 和 foot 共同构成杂志感的"页眉页脚"
+
+---
+
+## Fragments 逐项显示
+
+给需要逐步揭示的元素加 `.fragment` class，讲者按 → / Space / 滚轮 / 滑动 / 点击可一项项显示。
+
+适合场景：
+- 长列表逐条讲解
+- pipeline step 一步一步揭示
+- 对比页"先说 before，再说 after"
+
+用法：
+
+```html
+<li class="fragment">第一点</li>
+<li class="fragment">第二点</li>
+<li class="fragment">第三点</li>
+```
+
+所有 fragment 揭示完后，再按一次才翻到下一页。没加 `.fragment` class 的 slide 行为不变。
 
 ---
 
