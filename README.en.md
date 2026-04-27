@@ -13,6 +13,8 @@ A [Claude Code / Claude Agent Skills](https://agentskills.io/) skill that genera
 - 📐 **Horizontal swipe navigation**: ← → arrows / scroll wheel / touch swipe / bottom dots / ESC for index
 - 🎨 **5 curated theme presets**: Ink Classic / Indigo Porcelain / Forest Ink / Kraft Paper / Dune
 - 🧩 **10 page layouts**: cover, act divider, big numbers, lead image + text, image grid, pipeline, hero question, big quote, before/after, image + text mix
+- 🖼 **Image planning, not generation**: decide per-slide image needs, return prompts / roles / ratios / filenames / paths / animations, then verify user-supplied assets
+- ◫ **Missing-image placeholders**: missing `images/...` files render as translucent placeholders in HTML
 - 📄 **Single HTML file** — no build, no server, open directly in the browser
 
 ## Fits / Doesn't fit
@@ -59,12 +61,12 @@ Once installed, Claude Code auto-detects the skill. Trigger phrases:
 
 The skill is a structured 6-step flow; Claude walks you through each:
 
-1. **Clarify intent** — 6-question checklist: audience, duration, source material, images, theme, hard constraints
-2. **Copy template** — `assets/template.html` → project folder, update `<title>`, swap theme vars
-3. **Fill content** — pick from 10 layout skeletons, paste, edit copy (with class-name pre-flight + theme rhythm plan)
-4. **Self-check** — match against `references/checklist.md`; P0 issues must all pass
-5. **Preview** — open the HTML in a browser
-6. **Iterate** — use inline styles to tune font size, height, spacing
+1. **Clarify intent** — 6-question checklist: audience, duration, source material, images, theme, hard constraints; if the user has no images, ask whether to reserve missing-image slots or build a text-only deck
+2. **Plan images and motion** — write `visual_intent` / `motion_level` per slide; only output an image requirement table when image slots are requested, and do not call image-generation APIs
+3. **Copy template** — `assets/template.html` → project folder, update `<title>`, swap theme vars
+4. **Fill content** — pick from 10 layout skeletons, edit copy / image paths, and keep placeholders only when image slots were requested
+5. **Self-check and image QA** — use `references/checklist.md`; check missing files, ratios, naming, style consistency, relevance, and readability
+6. **Preview / iterate** — open the HTML in a browser, then tune font size, height, spacing with inline styles
 
 Full spec in [`SKILL.md`](./SKILL.md).
 
@@ -79,6 +81,7 @@ guizang-ppt-skill/
 │   └── template.html     ← runnable seed HTML (CSS + WebGL + swipe JS pre-wired)
 └── references/
     ├── components.md     ← component catalog (type, color, grid, icons, callout, stat, pipeline)
+    ├── image-workflow.md ← image planning and QA (prompts, roles, ratios, placeholders)
     ├── layouts.md        ← 10 layout skeletons (paste-ready)
     ├── themes.md         ← 5 theme presets (pick, don't customize)
     └── checklist.md      ← quality checklist (P0 / P1 / P2 / P3 tiers)

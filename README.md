@@ -15,6 +15,8 @@
 - 📐 **横向左右翻页**:键盘 ← → / 滚轮 / 触屏滑动 / 底部圆点 / ESC 索引
 - 🎨 **5 套主题色预设**:墨水经典 / 靛蓝瓷 / 森林墨 / 牛皮纸 / 沙丘
 - 🧩 **10 种页面布局**:开场封面、章节幕封、数据大字报、左文右图、图片网格、Pipeline、悬念问题、大引用、Before/After 对比、图文混排
+- 🖼 **图片规划而非生图**:逐页判断是否需要图片,输出 prompt / 角色 / 比例 / 文件名 / 路径 / 动效,用户补图后再验收
+- ◫ **缺图占位**:HTML 中图片路径未找到时自动显示半透明空缺层,方便按清单补齐素材
 - 📄 **单文件 HTML**:不需要构建、不需要服务器,浏览器直接打开
 
 ## 适合 / 不适合
@@ -61,12 +63,12 @@ git clone https://github.com/op7418/guizang-ppt-skill.git ~/.claude/skills/guiza
 
 Skill 本身是结构化的 6 步工作流,Claude 会逐步引导:
 
-1. **需求澄清** — 6 问清单:受众、时长、素材、图片、主题色、硬约束
-2. **拷贝模板** — `assets/template.html` → 项目目录,改 `<title>`,换主题色
-3. **填充内容** — 从 10 种 layout 骨架里挑、粘、改文案(先做类名预检 + 主题节奏规划)
-4. **自检** — 对照 `references/checklist.md`,P0 级问题必须全过
-5. **预览** — 浏览器直接打开
-6. **迭代** — inline style 改字号/高度/间距
+1. **需求澄清** — 6 问清单:受众、时长、素材、图片、主题色、硬约束;如果用户没准备图片,先确认是预留补图空缺还是做无图版
+2. **图片与动效规划** — 每页写 `visual_intent` / `motion_level`;仅在需要补图时输出图片需求清单,不调用生图 API
+3. **拷贝模板** — `assets/template.html` → 项目目录,改 `<title>`,换主题色
+4. **填充内容** — 从 10 种 layout 骨架里挑、粘、改文案;仅在用户选择预留补图时保留占位
+5. **自检与图片验收** — 对照 `references/checklist.md`,检查缺失、比例、命名、风格、内容关联和阅读遮挡
+6. **预览 / 迭代** — 浏览器直接打开,inline style 改字号/高度/间距
 
 详细说明见 [`SKILL.md`](./SKILL.md)。
 
@@ -80,6 +82,7 @@ guizang-ppt-skill/
 │   └── template.html     ← 完整可运行的种子 HTML(CSS + WebGL + 翻页 JS 全配好)
 └── references/
     ├── components.md     ← 组件手册(字体、色、网格、图标、callout、stat、pipeline)
+    ├── image-workflow.md ← 图片规划与验收(prompt、角色、比例、缺图占位)
     ├── layouts.md        ← 10 种页面布局骨架(可直接粘贴)
     ├── themes.md         ← 5 套主题色预设(只能选不能自定义)
     └── checklist.md      ← 质量检查清单(P0 / P1 / P2 / P3 分级)

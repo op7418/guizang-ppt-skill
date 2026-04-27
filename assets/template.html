@@ -166,6 +166,40 @@
   .frame-img{overflow:hidden;position:relative;background:rgba(0,0,0,.04);box-sizing:border-box;width:100%;border-radius:4px}
   .slide.dark .frame-img{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12)}
   .frame-img > img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .frame-img.is-missing,
+  .img-slot.is-missing{
+    background:
+      linear-gradient(135deg,rgba(var(--ink-rgb),.06),rgba(var(--ink-rgb),.015)),
+      repeating-linear-gradient(135deg,rgba(127,127,127,.18) 0 1px,transparent 1px 12px);
+    border:1px dashed rgba(127,127,127,.45);
+    box-shadow:inset 0 0 0 999px rgba(255,255,255,.06);
+  }
+  .slide.dark .frame-img.is-missing,
+  .slide.dark .img-slot.is-missing{
+    background:
+      linear-gradient(135deg,rgba(var(--paper-rgb),.08),rgba(var(--paper-rgb),.02)),
+      repeating-linear-gradient(135deg,rgba(255,255,255,.14) 0 1px,transparent 1px 12px);
+    box-shadow:inset 0 0 0 999px rgba(0,0,0,.10);
+  }
+  .frame-img.is-missing > img{opacity:0}
+  .frame-img.is-missing::after,
+  .img-slot.is-missing::after{
+    content:attr(data-missing-label);
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:2vh 2vw;
+    text-align:center;
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1.7;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    opacity:.58;
+    pointer-events:none;
+  }
   .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
   .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
   .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
@@ -565,6 +599,20 @@ const deck=document.getElementById('deck');
 const slides=deck.querySelectorAll('.slide');
 const nav=document.getElementById('nav');
 let idx=0,total=slides.length,lock=false;
+
+// 图片缺失检查:用户尚未放入图片时,自动在对应 frame 绘制半透明空缺层。
+document.querySelectorAll('.frame-img > img').forEach(img=>{
+  const frame=img.closest('.frame-img');
+  const markMissing=()=>{
+    const label=frame?.dataset.missingLabel || img.dataset.missingLabel || img.getAttribute('alt') || img.getAttribute('src') || 'Missing Image';
+    if(frame){
+      frame.classList.add('is-missing');
+      frame.dataset.missingLabel='MISSING · '+label;
+    }
+  };
+  img.addEventListener('error',markMissing);
+  if(img.complete && img.naturalWidth===0) markMissing();
+});
 
 // 关键：矫正 deck 宽度为 total * 100vw，否则翻页会错位
 deck.style.width=(total*100)+'vw';
