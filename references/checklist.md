@@ -169,8 +169,8 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 
 **做法**:
 - 主内容最低边缘与分页组件之间至少留 `3vh` 呼吸空间
-- P23 需要底部对齐时用 `.swiss-img-split.align-image-bottom`,模板已内置 `--nav-safe-bottom:8vh`
-- 其他页面需要贴底时,给主体容器加 `.nav-safe-bottom` 或 `.nav-safe-bottom-tight`
+- 需要贴底时,给主体容器加模板内置的 `.nav-safe-bottom` 或 `.nav-safe-bottom-tight`
+- 不要为了底部对齐启用 P23/P24 实验结构;正式 Swiss deck 优先用 S15/S16/S22 图片槽位
 - 不要手写 `bottom:2vh` / `bottom:0` 放说明文字;这会和 nav 抢位置
 
 **自检**:
@@ -447,9 +447,9 @@ Dark hero 可以用 Holographic Dispersion（钛金色散）等带中心结构�
 
 ### 13e. Swiss 图文混排不能只用一种
 
-- 7-8 页 Swiss 测试 deck 至少使用 6 个不同 P 编号版式
-- 有 2-3 张配图时,至少使用两种图片承载方式:P22 主视觉 / P23 单图解释 / P24 证据墙 / P15 矩阵 / P16 小报
-- P23 默认底对齐:文字块和图片底部对齐,不要因为担心 nav 就退回顶部对齐;先控制图片高度
+- 7-8 页 Swiss 测试 deck 至少使用 6 个不同 S 编号版式
+- 有 2-3 张配图时,至少使用两种图片承载方式:S22 主视觉 / S15 矩阵图片格 / S16 小报图片格 / S08 对照或地图组件
+- 需要底部对齐时,优先控制图片高度并使用 `.nav-safe-bottom` / `.nav-safe-bottom-tight`,不要让图片或 caption 碰到 nav
 - 白底信息图容器必须白底、无描边;不要用灰框包白图
 
 ### 13f. Swiss 中文大标题要降级
