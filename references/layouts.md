@@ -58,7 +58,7 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
 
 ### D. 主题色与主题节奏
 
-- 主题色从 `references/themes.md` 的 5 套预设里选一套,不允许自定义 hex 值
+- 主题色从 `references/themes.md` 的 6 套预设里选一套,不允许自定义 hex 值
 - 主题节奏(每页用 light / dark / hero light / hero dark 哪一个)在下文"主题节奏规划"一节有硬规则,生成前必读
 - 两件事都要在挑布局之前决定,避免返工
 
@@ -509,7 +509,7 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
   </div>
   <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
     <div class="kicker" data-anim>Quote · 金句</div>
-    <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
+    <blockquote style="font-family:var(--serif-display-zh); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
       <span data-anim="line" style="display:block">"没有交接,</span>
       <span data-anim="line" style="display:block">所有人都在构建。"</span>
     </blockquote>

@@ -341,11 +341,11 @@ CSS 里 `.frame-img img` 已经预设 `object-position:top`，只裁底。
 ### 4. 字体分工：标题衬线、正文非衬线
 
 **做法**：
-- 大标题、重点 quote、数字大字 → **衬线字体**（Noto Serif SC + Playfair Display + Source Serif）
+- 大标题、重点 quote、数字大字 → **衬线字体**（Noto Serif SC / 可选本地授权中文展示字体 + Playfair Display + Source Serif）
 - 正文、描述、pipeline 步骤名 → **非衬线字体**（Noto Sans SC + Inter）
 - 元数据、代码、标签 → **等宽字体**（IBM Plex Mono + JetBrains Mono）
 
-所有字体用 Google Fonts CDN 引入，模板里已预设。
+模板默认只通过 Google Fonts CDN 引入可用字体。若主题使用 `--serif-display-zh` 指向仓耳今楷 / Tsanger Jinkai 这类商业字体,必须依赖用户本机已合法安装的字体;不要把字体文件打进 deck 或仓库。
 
 ### 4b. 图片不要用 `align-self:end` 贴底
 

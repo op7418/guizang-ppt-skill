@@ -45,11 +45,11 @@
 | Class | 用途 | 字体 |
 |---|---|---|
 | `.display` | 超大号英文（Hero 页） | Playfair Display 700, 11vw |
-| `.display-zh` | 超大号中文标题 | Noto Serif SC 700, 7.8vw |
-| `.h1-zh` | 页面主标题 | Noto Serif SC 700, 4.6vw |
-| `.h2-zh` | 副标题 | Noto Serif SC 600, 3.2vw |
-| `.h3-zh` | 流水线步骤标题 | Noto Serif SC 500, 1.9vw |
-| `.lead` | 引导段（比 body 大） | Noto Serif SC 400, 1.9vw |
+| `.display-zh` | 超大号中文标题 | `--serif-display-zh`, 700, 7.8vw |
+| `.h1-zh` | 页面主标题 | `--serif-display-zh`, 700, 4.6vw |
+| `.h2-zh` | 副标题 | `--serif-display-zh`, 600, 3.2vw |
+| `.h3-zh` | 流水线步骤标题 | `--serif-display-zh`, 500, 1.9vw |
+| `.lead` | 引导段（比 body 大） | `--serif-display-zh`, 400, 1.9vw |
 | `.body-zh` | **正文/描述（非衬线）** | Noto Sans SC 400, 1.22vw |
 | `.body-serif` | 正文（衬线） | Noto Serif SC 400, 1.3vw |
 | `.kicker` | 小节提示（标题上方） | IBM Plex Mono, 12px uppercase |
@@ -58,9 +58,12 @@
 | `.mid-num` | 中号数字 | Playfair Display 700, 5.5vw |
 
 **核心规则**：
-- **衬线**（`serif-zh` / `serif-en`）：标题、重点金句、数字 —— 用于"视觉重音"
+- **展示衬线**（`serif-display-zh` / `serif-en`）：标题、重点金句、lead、数字 —— 用于"视觉重音"
+- **正文衬线**（`serif-zh`）：长段衬线正文。默认是 Noto Serif SC,也作为展示字体的回退
 - **非衬线**（`sans-zh`）：正文描述、大段阅读内容 —— 用于"信息密度"
 - **等宽**（`mono`）：kicker、meta、foot 的英文标签 —— 用于"装饰节奏"
+
+`--serif-display-zh` 可在主题里指向本机已合法安装的中文展示字体（例如仓耳今楷 / Tsanger Jinkai）。模板不分发商业字体;没装时应自动回落到 `--serif-zh`。
 
 **强调技巧**：
 - `<em class="en">英文词</em>` —— 把英文词渲染成 Playfair Display 斜体（很好看）
@@ -229,9 +232,11 @@
 <div style="display:flex;gap:1.6vw;flex-wrap:wrap">
   <div class="tag">早上 10 点起床</div>
   <div class="tag">周二 / 四下午健身</div>
-  <div class="tag">晚上照样看剧 · 玩游戏</div>
+  <div class="tag accent">钛金主题锚点</div>
 </div>
 ```
+
+`.tag.accent` 使用当前主题的 `--accent`,适合钛金开物这类需要一点金色题签的页面。只用 1-2 个,不要整组全加 accent。
 
 ---
 
@@ -365,7 +370,7 @@
 <span class="hi">一次性爆发</span>
 ```
 
-在文字底部生成一条半透明高亮条。深色主题用亮条，浅色主题用暗条（CSS 已处理）。
+在文字底部生成一条半透明高亮条。高亮色跟随当前主题的 `--accent`（CSS 已处理）。
 
 **适合场景**：只对关键 1-3 个词使用，不要大面积用。
 
