@@ -11,20 +11,23 @@
   :root{
     /* ============ 主题色(默认:🖋 墨水经典) ============
        切换主题:从 references/themes.md 复制对应的 :root 块
-       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb)
-       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb),无需逐处改 */
+       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb / --paper-tint / --ink-tint / --accent / --accent-rgb)
+       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb) / var(--accent-rgb),无需逐处改 */
     --ink:#0a0a0b;
     --ink-rgb:10,10,11;
     --paper:#f1efea;
     --paper-rgb:241,239,234;
     --paper-tint:#e8e5de;
     --ink-tint:#18181a;
+    --accent:#8a6f3d;
+    --accent-rgb:138,111,61;
 
     /* ============ 字体(跨主题固定) ============ */
     --mono:"IBM Plex Mono",ui-monospace,monospace;
     --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
     --serif-body-en:"Source Serif 4",Georgia,serif;
     --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --serif-display-zh:var(--serif-zh);
     --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -65,23 +68,26 @@
   .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
 
   .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .tag.accent{color:var(--accent);border-color:rgba(var(--accent-rgb),.75)}
   .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
+  .rule.accent{background:var(--accent);opacity:.72}
   .rule.v{width:1px;height:100%;margin:0}
+  .accent{color:var(--accent)}
 
   /* ============ 字体规则 ============
-     · 衬线（Noto Serif SC / Playfair）：大标题、重点金句、数字
+     · 衬线（Noto Serif SC / 可选本地授权中文展示字体 / Playfair）：大标题、重点金句、数字
      · 非衬线（Noto Sans SC）：正文描述、body、补充说明
      · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
   */
   .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
   .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
-  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
-  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
-  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
-  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
+  .display-zh{font-family:var(--serif-display-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-display-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-display-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-display-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
   .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
   .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
-  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
+  .lead{font-family:var(--serif-display-zh);font-weight:400;font-size:1.9vw;line-height:1.4;opacity:.85}
   .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
   .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
   .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
@@ -111,11 +117,11 @@
   .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
 
   /* ============ Callout（引用框） ============ */
-  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-display-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
   .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
   .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
   .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+  .callout .q-big{font-family:var(--serif-display-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
 
   /* ============ Platform（平台卡） ============ */
   .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
@@ -141,8 +147,8 @@
   /* ============ Signature / Highlight ============ */
   .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
   .hi{position:relative;display:inline}
-  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
-  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
+  .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--accent-rgb),.22);z-index:-1}
+  .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--accent-rgb),.16);z-index:-1}
 
   /* ============ Icons（Lucide via CDN） ============ */
   .ico{width:1em;height:1em;display:inline-block;vertical-align:-.12em;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -215,21 +221,21 @@
 
   /* ---------- 标题层级（API 名称，衬线为主） ---------- */
   .h-hero{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:900;
     font-size:10vw;
     line-height:.96;
     letter-spacing:-.02em;
   }
   .h-xl{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:700;
     font-size:6.2vw;
     line-height:1.08;
     letter-spacing:-.01em;
   }
   .h-sub{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:500;
     font-size:3.1vw;
     line-height:1.25;
@@ -237,7 +243,7 @@
     opacity:.7;
   }
   .h-md{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:600;
     font-size:2.3vw;
     line-height:1.3;
@@ -247,7 +253,7 @@
 
   /* ---------- lead 引语 ---------- */
   .lead{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:400;
     font-size:1.75vw;
     line-height:1.5;
@@ -294,7 +300,7 @@
     margin-top:.4vh;
   }
   .stat-card .stat-nb .stat-unit{
-    font-family:var(--serif-zh);
+    font-family:var(--serif-display-zh);
     font-weight:500;
     font-size:.38em;
     letter-spacing:0;

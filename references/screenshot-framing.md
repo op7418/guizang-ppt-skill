@@ -88,7 +88,9 @@ ratio:21:9, background:grid, padding:standard, inset:subtle, shadow:none, corner
 
 背景图之后由程序复用到每张截图中。不要把背景当作单张 slide 来画,背景图内部不能有标题、页脚、边框、logo、人物或明显主体。
 
-### Style A · 5 套主题背景
+### Style A · 5 套内置主题背景
+
+Style A 有 6 套主题色,其中前 5 套带内置截图背景。⚜️ 钛金开物暂不内置独立 WebP 背景;需要截图美化时优先使用 `monocle-classic.webp` 或 `dune.webp` 作为低对比底图,再在页面里用 `--accent:#b89556` 做金色锚点。
 
 | 主题 | 内置资产 | 背景语义 |
 |---|---|---|

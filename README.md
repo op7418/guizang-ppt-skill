@@ -75,7 +75,7 @@ Guizang PPT Skill 的持续迭代获得 **360 安全龙虾** 金牌赞助和 [�
 - 📐 **横向左右翻页**:键盘 ← → / 滚轮 / 触屏滑动 / 底部圆点 / ESC 索引
 - 🧩 **Style A 10 种布局**:封面、章节、数据大字报、图文、图片网格、Pipeline、对比等
 - 🧱 **Style B 22 种锁定版式**:Cover、Statement、KPI Tower、Loop Diagram、Duo Compare、Image Hero、Closing Manifesto 等
-- 🎨 **主题色预设**:Style A 5 套电子墨水主题,Style B 4 套瑞士高饱和锚点色
+- 🎨 **主题色预设**:Style A 6 套电子墨水主题,Style B 4 套瑞士高饱和锚点色
 - 🖼 **Codex 可选配图流程**:可用 GPT-Image 2.0 / GPT-M 2.0 生成纪实照片、信息图、流程图、系统关系图、UI 情景图,并按模板比例插入
 - 📰 **多平台封面**:可用同一套视觉规则生成公众号 21:9、公众号分享卡 1:1、小红书 3:4、视频号横版等封面
 - 📴 **低性能静态模式**:按 `B` 可关闭 WebGL / canvas 动画,让动态内容退回静态背景
@@ -245,6 +245,7 @@ guizang-ppt-skill/
 ├── assets/
 │   ├── template.html         ← Style A 电子杂志风模板
 │   ├── template-swiss.html   ← Style B 瑞士国际主义模板
+│   ├── theme-previews/       ← 主题预览小图
 │   └── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 ├── scripts/
 │   └── validate-swiss-deck.mjs ← 瑞士风版式校验器
@@ -253,7 +254,7 @@ guizang-ppt-skill/
     ├── layouts.md        ← 10 种页面布局骨架(可直接粘贴)
     ├── layouts-swiss.md  ← 22 种瑞士风锁定版式
     ├── swiss-layout-lock.md ← 瑞士风还原度和版式硬约束
-    ├── themes.md         ← 5 套主题色预设(只能选不能自定义)
+    ├── themes.md         ← 6 套主题色预设(只能选不能自定义)
     ├── themes-swiss.md   ← 4 套瑞士风锚点色
     ├── image-prompts.md  ← GPT-Image 2.0 / GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义
@@ -273,8 +274,9 @@ guizang-ppt-skill/
 | <img src="https://github.com/user-attachments/assets/bcc1cc4c-5e8e-4467-ae8d-f5801ae73657" width="260" alt="森林墨主题预览"> | 🌿 **森林墨** | `#1a2e1f` / `#f5f1e8`。自然、可持续、文化、非虚构内容。 |
 | <img src="https://github.com/user-attachments/assets/dfea080e-e916-417e-93cd-0a3628de84ca" width="260" alt="牛皮纸主题预览"> | 🍂 **牛皮纸** | `#2a1e13` / `#eedfc7`。怀旧、人文、阅读、历史、文学分享。 |
 | <img src="https://github.com/user-attachments/assets/f3705592-9a72-4dbc-9818-df3aea61bc75" width="260" alt="沙丘主题预览"> | 🌙 **沙丘** | `#1f1a14` / `#f0e6d2`。艺术、设计、创意、时尚和画廊感内容。 |
+| <img src="./assets/theme-previews/titanium-gilt.svg" width="260" alt="钛金开物主题预览"> | ⚜️ **钛金开物** | `#0c0d10` / `#f4efe5` / `#b89556`。高端视觉提案、东方工业美学、AI 视觉工作流。可选本地授权仓耳今楷展示字体。 |
 
-切换主题只需替换 `template.html` 开头 `:root{}` 里的 6 行变量,其他 CSS 全走 `var(--...)`。
+切换主题只需替换 `template.html` 开头 `:root{}` 里的主题变量,其他 CSS 全走 `var(--...)`。`钛金开物` 额外提供 `--serif-display-zh` 字体栈:如果本机安装了合法授权的仓耳今楷 / Tsanger Jinkai,大标题会自动优先使用;未安装则回落到 `Noto Serif SC`。
 
 ### Style B 瑞士主题
 

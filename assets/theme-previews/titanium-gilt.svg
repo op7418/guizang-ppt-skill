@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="292" viewBox="0 0 520 292" role="img" aria-labelledby="title desc">
+  <title id="title">Titanium Gilt theme preview</title>
+  <desc id="desc">A dark titanium and champagne paper editorial preview with satin gold accent lines.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4efe5"/>
+      <stop offset="1" stop-color="#e7ddc9"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0d10"/>
+      <stop offset="1" stop-color="#18191d"/>
+    </linearGradient>
+    <pattern id="grain" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="3" r=".45" fill="#b89556" opacity=".22"/>
+      <circle cx="11" cy="8" r=".38" fill="#0c0d10" opacity=".12"/>
+      <circle cx="7" cy="13" r=".32" fill="#ffffff" opacity=".18"/>
+    </pattern>
+  </defs>
+  <rect width="520" height="292" rx="0" fill="url(#paper)"/>
+  <rect width="520" height="292" fill="url(#grain)" opacity=".5"/>
+  <rect x="28" y="24" width="464" height="244" fill="none" stroke="#0c0d10" stroke-opacity=".18"/>
+  <rect x="36" y="32" width="216" height="228" fill="url(#ink)"/>
+  <path d="M36 88H252M36 146H252M36 204H252" stroke="#b89556" stroke-opacity=".42"/>
+  <path d="M284 64H462M284 92H406" stroke="#0c0d10" stroke-width="8" stroke-linecap="square"/>
+  <path d="M284 120H468M284 136H448M284 152H420" stroke="#0c0d10" stroke-opacity=".48" stroke-width="5"/>
+  <path d="M284 195H468" stroke="#b89556" stroke-width="2"/>
+  <circle cx="440" cy="224" r="28" fill="#b89556"/>
+  <circle cx="440" cy="224" r="18" fill="none" stroke="#f4efe5" stroke-width="2" opacity=".85"/>
+  <text x="52" y="74" font-family="Georgia, serif" font-size="26" fill="#f4efe5" letter-spacing="1">TITANIUM</text>
+  <text x="52" y="114" font-family="Georgia, serif" font-size="40" fill="#b89556" letter-spacing="-1">GILT</text>
+  <text x="52" y="232" font-family="IBM Plex Mono, Menlo, monospace" font-size="11" fill="#f4efe5" opacity=".68" letter-spacing="2">STYLE A / EDITORIAL</text>
+  <text x="284" y="224" font-family="IBM Plex Mono, Menlo, monospace" font-size="11" fill="#0c0d10" opacity=".62" letter-spacing="2">LOCAL DISPLAY FONT READY</text>
+</svg>

@@ -14,7 +14,7 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 ### 风格 A · 电子杂志 × 电子墨水（默认）
 
 - **WebGL 流体 / 等高线 / 色散背景**（hero 页可见）
-- **衬线标题（Noto Serif SC + Playfair Display）+ 非衬线正文 + 等宽元数据**
+- **衬线标题（Noto Serif SC / 可选本地授权中文展示字体 + Playfair Display）+ 非衬线正文 + 等宽元数据**
 - 适合：人文分享、行业观察、商业发布、需要"杂志感"的演讲
 - 模板：`assets/template.html` · 主题色：`references/themes.md` · 布局：`references/layouts.md`
 - 美学锚点：像 *Monocle* 杂志贴上了代码
@@ -67,7 +67,7 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 | 3 | **分享时长?** | 15 分钟 ≈ 10 页,30 分钟 ≈ 20 页,45 分钟 ≈ 25-30 页 |
 | 4 | **有没有原始素材?**(文档 / 数据 / 旧 PPT / 文章链接) | 有素材就基于素材,没有就帮他搭 |
 | 5 | **有没有图片或截图?希望怎么处理?** | 决定图文版式、图片槽位、截图是否需要 CleanShot X 式适配或 GPT-M 2.0 重构 |
-| 6 | **想要哪套主题色?** | 杂志风 5 套(`themes.md`) / 瑞士风 4 套(`themes-swiss.md`),挑一 |
+| 6 | **想要哪套主题色?** | 杂志风 6 套(`themes.md`) / 瑞士风 4 套(`themes-swiss.md`),挑一 |
 | 7 | **有没有硬约束?**(必须包含 XX 数据 / 不能出现 YY) | 避免返工 |
 
 #### 风格选择参考(问题 1)
@@ -178,9 +178,9 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 每次拷贝完 template.html 第一件事:grep 一下"[必填]" 确认全部替换完。
 
-#### 2.2 · 选定主题色(5 套预设 · 不允许自定义)
+#### 2.2 · 选定主题色(6 套预设 · 不允许自定义)
 
-本 skill **只允许从 5 套精心调配的预设里选一套**,不接受用户自定义 hex 值——颜色搭配错了画面瞬间变丑,保护美学比给自由更重要。
+本 skill **只允许从 6 套精心调配的预设里选一套**,不接受用户自定义 hex 值——颜色搭配错了画面瞬间变丑,保护美学比给自由更重要。
 
 | # | 主题 | 适合 |
 |---|------|------|
@@ -189,17 +189,20 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 | 3 | 🌿 森林墨 | 自然 / 可持续 / 文化 / 非虚构 |
 | 4 | 🍂 牛皮纸 | 怀旧 / 人文 / 文学 / 独立杂志 |
 | 5 | 🌙 沙丘 | 艺术 / 设计 / 创意 / 画廊 |
+| 6 | ⚜️ 钛金开物 | 高端视觉提案 / 东方工业美学 / AI 视觉工作流 |
 
 **操作**:
 1. 基于内容主题推荐一套,或直接问用户选哪一套
 2. 打开 `references/themes.md`,找到对应主题的 `:root` 块
-3. **整体替换** `assets/template.html`(已拷贝版本)开头 `:root{` 块里标有"主题色"注释的那几行(`--ink` / `--ink-rgb` / `--paper` / `--paper-rgb` / `--paper-tint` / `--ink-tint`)
-4. 其他 CSS 都走 `var(--...)`,无需任何其他改动
+3. **整体替换** `assets/template.html`(已拷贝版本)开头 `:root{` 块里标有"主题色"注释的那几行(`--ink` / `--ink-rgb` / `--paper` / `--paper-rgb` / `--paper-tint` / `--ink-tint` / `--accent` / `--accent-rgb`)
+4. 如果主题块包含 `--serif-display-zh`,也一并复制;它只影响大标题、金句、lead 等展示文字
+5. 其他 CSS 都走 `var(--...)`,无需任何其他改动
 
 **硬规则**:
 - 一份 deck 只用一套主题,不要中途换色
-- 不要接受用户给的任意 hex 值——委婉拒绝并展示 5 套让选
+- 不要接受用户给的任意 hex 值——委婉拒绝并展示 6 套让选
 - 不要混搭(例如 ink 取墨水经典、paper 取沙丘)——会彻底违和
+- ⚜️ 钛金开物中的仓耳今楷 / Tsanger Jinkai 只是**本地已授权字体优先项**。不要下载、打包或分发字体文件;没装字体时让浏览器回落到 `Noto Serif SC`
 
 ### Step 3 · 填充内容
 
@@ -463,6 +466,7 @@ guizang-ppt-skill/
 ├── assets/
 │   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件）
 │   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件）
+│   ├── theme-previews/       ← 主题预览小图（用于 README）
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
@@ -473,7 +477,7 @@ guizang-ppt-skill/
     ├── swiss-layout-lock.md  ← 风格 B · 原始 22P 版式锁,正文页必须按这里登记
     ├── layouts-swiss.md      ← 风格 B · 原始 22P 骨架说明 + 少量明确标注的实验区
     ├── swiss-map-component.md ← 风格 B · S08 地图扩展组件(MapLibre 点位/连线/卡片/控制)
-    ├── themes.md             ← 风格 A · 5 套主题色预设（只能选不能自定义）
+    ├── themes.md             ← 风格 A · 6 套主题色预设（只能选不能自定义）
     ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设（IKB / 柠檬黄 / 柠檬绿 / 安全橙）
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射

@@ -73,7 +73,7 @@ Guizang PPT Skill is supported by **360 Security Lobster** as Gold Sponsor and b
 - 📐 **Horizontal swipe navigation**: ← → arrows / scroll wheel / touch swipe / bottom dots / ESC for index
 - 🧩 **Style A 10 layouts**: cover, divider, big numbers, image/text, image grid, pipeline, comparison, and more
 - 🧱 **Style B 22 locked layouts**: Cover, Statement, KPI Tower, Loop Diagram, Duo Compare, Image Hero, Closing Manifesto, and more
-- 🎨 **Curated theme presets**: 5 electronic-ink themes for Style A, 4 Swiss anchor-color themes for Style B
+- 🎨 **Curated theme presets**: 6 electronic-ink themes for Style A, 4 Swiss anchor-color themes for Style B
 - 🖼 **Optional Codex image flow**: generate documentary photos, infographics, flow diagrams, system maps, and UI scenes with GPT-Image 2.0 / GPT-M 2.0, then insert them at template-safe ratios
 - 📰 **Social covers**: generate 21:9 WeChat cover images, 1:1 share cards, 3:4 Xiaohongshu covers, video thumbnails, and related variants
 - 📴 **Low-power static mode**: press `B` to turn WebGL / canvas animation into static visuals
@@ -244,6 +244,7 @@ guizang-ppt-skill/
 ├── assets/
 │   ├── template.html         ← Style A editorial magazine template
 │   ├── template-swiss.html   ← Style B Swiss template
+│   ├── theme-previews/       ← Small theme preview images
 │   └── screenshot-backgrounds/ ← bundled WebP screenshot backgrounds: 5 style-a / 4 style-b
 ├── scripts/
 │   └── validate-swiss-deck.mjs ← Swiss layout validator
@@ -252,7 +253,7 @@ guizang-ppt-skill/
     ├── layouts.md        ← 10 layout skeletons (paste-ready)
     ├── layouts-swiss.md  ← 22 locked Swiss layouts
     ├── swiss-layout-lock.md ← Swiss fidelity and layout hard rules
-    ├── themes.md         ← 5 theme presets (pick, don't customize)
+    ├── themes.md         ← 6 theme presets (pick, don't customize)
     ├── themes-swiss.md   ← 4 Swiss anchor-color themes
     ├── image-prompts.md  ← GPT-Image 2.0 / GPT-M 2.0 image types, ratios, and base prompts
     ├── screenshot-framing.md ← CleanShot X-style screenshot framing semantics
@@ -272,8 +273,9 @@ Pick from `references/themes.md`. **Custom hex values are not allowed** — prot
 | <img src="https://github.com/user-attachments/assets/bcc1cc4c-5e8e-4467-ae8d-f5801ae73657" width="260" alt="Forest Ink theme preview"> | 🌿 **Forest Ink** | `#1a2e1f` / `#f5f1e8`. Nature, sustainability, culture, non-fiction. |
 | <img src="https://github.com/user-attachments/assets/dfea080e-e916-417e-93cd-0a3628de84ca" width="260" alt="Kraft Paper theme preview"> | 🍂 **Kraft Paper** | `#2a1e13` / `#eedfc7`. Nostalgic, humanist, literary, indie zines. |
 | <img src="https://github.com/user-attachments/assets/f3705592-9a72-4dbc-9818-df3aea61bc75" width="260" alt="Dune theme preview"> | 🌙 **Dune** | `#1f1a14` / `#f0e6d2`. Art, design, creative, fashion, gallery-like decks. |
+| <img src="./assets/theme-previews/titanium-gilt.svg" width="260" alt="Titanium Gilt theme preview"> | ⚜️ **Titanium Gilt** | `#0c0d10` / `#f4efe5` / `#b89556`. Premium visual proposals, eastern industrial aesthetics, and AI visual workflows. Includes an optional local Tsanger Jinkai display-font stack. |
 
-Switching themes only requires replacing the 6 variables at the top of `template.html`'s `:root{}` block — all other CSS flows through `var(--...)`.
+Switching themes only requires replacing the theme variables at the top of `template.html`'s `:root{}` block — all other CSS flows through `var(--...)`. `Titanium Gilt` also provides `--serif-display-zh`: if a legally licensed Tsanger Jinkai font is installed locally, display titles use it automatically; otherwise the deck falls back to `Noto Serif SC`.
 
 ### Style B Swiss Themes
 
