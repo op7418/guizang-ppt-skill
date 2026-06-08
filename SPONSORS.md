@@ -8,6 +8,7 @@ Guizang PPT Skill 是由 [歸藏](https://x.com/op7418) 创建和维护的开源
 |--------|-------------|------|
 | 360 安全龙虾 | 金牌赞助 | 支持 guizang-ppt-skill 的持续维护、模板测试与开源传播。 |
 | [真格 Token Grant](https://zhenfund.feishu.cn/share/base/form/shrcn1lAANF659o7EpWnxlR1VOh?sessionid=) | Grant Supporter | 通过 Token Grant 支持项目的模板迭代、配图流程验证与开源维护。 |
+| [Atlas Cloud](https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=guizang-ppt-skill) | API 赞助 | 为本项目配图与封面工作流（GPT-Image-2 / 图像生成）提供 Atlas Cloud API 支持。Atlas Cloud 是全模态推理平台，提供 OpenAI 兼容的图像生成、视频生成与 LLM 统一 API。 |
 
 ## 赞助用途
 

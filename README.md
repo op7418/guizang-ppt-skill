@@ -67,7 +67,7 @@ npx skills add https://github.com/op7418/guizang-ppt-skill --skill guizang-ppt-s
   <img src="https://github.com/user-attachments/assets/5b0c22c8-aff4-4219-900d-6af8604c57a8" alt="360 安全龙虾金牌赞助" width="100%">
 </a>
 
-Guizang PPT Skill 的持续迭代获得 **360 安全龙虾** 金牌赞助和 [真格 Token Grant](https://zhenfund.feishu.cn/share/base/form/shrcn1lAANF659o7EpWnxlR1VOh?sessionid=) 支持。更多信息见 [SPONSORS.md](./SPONSORS.md)。
+Guizang PPT Skill 的持续迭代获得 **360 安全龙虾** 金牌赞助和 [真格 Token Grant](https://zhenfund.feishu.cn/share/base/form/shrcn1lAANF659o7EpWnxlR1VOh?sessionid=) 支持，并获得 [Atlas Cloud](https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=guizang-ppt-skill) API 赞助（为本项目图像生成工作流提供 OpenAI 兼容 API 支持）。更多信息见 [SPONSORS.md](./SPONSORS.md)。
 
 ## 效果
 
