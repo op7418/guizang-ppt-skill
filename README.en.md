@@ -65,7 +65,7 @@ Redesign this product screenshot as a 16:10 slide visual.
   <img src="https://github.com/user-attachments/assets/5b0c22c8-aff4-4219-900d-6af8604c57a8" alt="360 Security Lobster Gold Sponsor" width="100%">
 </a>
 
-Guizang PPT Skill is supported by **360 Security Lobster** as Gold Sponsor and by [ZhenFund Token Grant](https://zhenfund.feishu.cn/share/base/form/shrcn1lAANF659o7EpWnxlR1VOh?sessionid=). See [SPONSORS.md](./SPONSORS.md) for details.
+Guizang PPT Skill is supported by **360 Security Lobster** as Gold Sponsor, by [ZhenFund Token Grant](https://zhenfund.feishu.cn/share/base/form/shrcn1lAANF659o7EpWnxlR1VOh?sessionid=), and by [Atlas Cloud](https://www.atlascloud.ai/?utm_source=github&utm_medium=link&utm_campaign=guizang-ppt-skill) as API sponsor (OpenAI-compatible image generation API for this project's image workflow). See [SPONSORS.md](./SPONSORS.md) for details.
 
 ## What you get
 
