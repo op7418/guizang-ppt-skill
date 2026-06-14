@@ -387,6 +387,20 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 组件细节(字体、颜色、网格、图标、callout、stat-card 等)在 `references/components.md`。
 
+#### 3.3 · HTML 实体规范（跨平台必做）
+
+**HTML 内容里的特殊标点必须用实体，禁止直接写原字符**（Windows GBK 编码会把 `·` `→` 等 UTF-8 字符损坏成乱码）。常用速查：`&middot;` `&mdash;` `&ndash;` `&rarr;` `&larr;` `&yen;` `&amp;` `&times;`。用 `Write` 工具写入文件，不要用 PowerShell `Set-Content`。
+
+**⚠️ JS 字符串例外**：`element.textContent = '&larr;'` 会原样输出 `&larr;` 文字。JS 里直接写 Unicode：`← → · — ¥`，或改用 `element.innerHTML`。
+
+验收见 checklist `0-G`。
+
+#### 3.4 · motion 代码两个必须保留的守卫
+
+改写或简化 motion 代码时（如制作 standalone 离线包），必须保留：① `playSlide` 开头的低功耗模式提前返回（`if(window.__lowPowerMode){ revealStatic(slide); return; }`）；② recipe 执行前把所有 `[data-anim]` 容器批量设为 `opacity:1`，再由 WAAPI 按需覆盖。缺少任一，部分页面内容在静态模式下将不可见。
+
+验收见 checklist `0-I`。
+
 ### Step 4 · 对照检查清单自检
 
 生成完一定要打开 `references/checklist.md`，逐项对照。里面总结了**真实迭代过程中踩过的所有坑**，P0 级别的问题（emoji、图片撑破、标题换行、字体分工）必须全部通过。
