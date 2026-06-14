@@ -184,6 +184,25 @@ Swiss validation:
 node scripts/validate-swiss-deck.mjs path/to/index.html
 ```
 
+## Standalone Packaging
+
+The generated deck normally requires Google Fonts CDN and a local `assets/` folder. To share the deck as a **fully self-contained file** that works offline and without any folder structure, run:
+
+```bash
+# default: index.html → index_standalone.html (same directory)
+py scripts/build-standalone.py index.html
+
+# explicit output path
+py scripts/build-standalone.py input.html output.html
+
+# skip font embedding (faster, requires network for fonts)
+py scripts/build-standalone.py --no-fonts input.html
+```
+
+The script embeds Google Fonts Inter + JetBrains Mono (Latin subsets only, ~184KB), `motion.min.js` (base64 data: URI), and Lucide icons (inline SVG). Output is ~1.8MB and opens directly in any browser — ideal for sending over messaging apps or email.
+
+**Requirements**: Python 3.8+, no third-party packages; needs internet access once to download fonts (~5 seconds), then fully offline.
+
 ## Codex Image Flow
 
 In Codex, after the first deck draft is ready, the agent can ask whether the user wants generated visuals. Once confirmed, choose an image type or style. Common types include:
@@ -244,9 +263,11 @@ guizang-ppt-skill/
 ├── assets/
 │   ├── template.html         ← Style A editorial magazine template
 │   ├── template-swiss.html   ← Style B Swiss template
+│   ├── motion.min.js         ← Motion One local copy (offline fallback, ~64KB)
 │   └── screenshot-backgrounds/ ← bundled WebP screenshot backgrounds: 5 style-a / 4 style-b
 ├── scripts/
-│   └── validate-swiss-deck.mjs ← Swiss layout validator
+│   ├── validate-swiss-deck.mjs ← Swiss layout validator
+│   └── build-standalone.py     ← offline packager: embeds fonts/motion/icons into a single shareable HTML
 └── references/
     ├── components.md     ← component catalog (type, color, grid, icons, callout, stat, pipeline)
     ├── layouts.md        ← 10 layout skeletons (paste-ready)

@@ -387,6 +387,20 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 组件细节(字体、颜色、网格、图标、callout、stat-card 等)在 `references/components.md`。
 
+#### 3.3 · HTML 实体规范（跨平台必做）
+
+**HTML 内容里的特殊标点必须用实体，禁止直接写原字符**（Windows GBK 编码会把 `·` `→` 等 UTF-8 字符损坏成乱码）。常用速查：`&middot;` `&mdash;` `&ndash;` `&rarr;` `&larr;` `&yen;` `&amp;` `&times;`。用 `Write` 工具写入文件，不要用 PowerShell `Set-Content`。
+
+**⚠️ JS 字符串例外**：`element.textContent = '&larr;'` 会原样输出 `&larr;` 文字。JS 里直接写 Unicode：`← → · — ¥`，或改用 `element.innerHTML`。
+
+验收见 checklist `0-G`。
+
+#### 3.4 · motion 代码两个必须保留的守卫
+
+改写或简化 motion 代码时（如制作 standalone 离线包），必须保留：① `playSlide` 开头的低功耗模式提前返回（`if(window.__lowPowerMode){ revealStatic(slide); return; }`）；② recipe 执行前把所有 `[data-anim]` 容器批量设为 `opacity:1`，再由 WAAPI 按需覆盖。缺少任一，部分页面内容在静态模式下将不可见。
+
+验收见 checklist `0-I`。
+
 ### Step 4 · 对照检查清单自检
 
 生成完一定要打开 `references/checklist.md`，逐项对照。里面总结了**真实迭代过程中踩过的所有坑**，P0 级别的问题（emoji、图片撑破、标题换行、字体分工）必须全部通过。
@@ -439,6 +453,16 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 23. **组件角色要正确**——S15/S16 图片格需要 caption 信息锚点;S22 的 KPI/说明是必选;数据专用版式必须有真实数据,不能靠文案硬填
 24. **通用/非通用版式要分清**——S03/S08/S11/S19 较通用;S06/S07/S20/S21/S22 是数据/案例专用;S14/S15/S17 是结构专用
 
+### Step 4.5 · （可选）打包为独立离线文件
+
+如果 deck 需要**转发给他人在没有网络或本地服务器的环境下查看**，运行打包脚本：
+
+```bash
+py scripts/build-standalone.py index.html output_standalone.html
+```
+
+脚本会自动内嵌 Google Fonts（仅 Latin 子集）、`motion.min.js`（data: URI）和 Lucide 图标（内联 SVG），输出单文件约 1.8MB，浏览器离线可直接打开。详见脚本顶部 docstring。
+
 ### Step 5 · 本地预览
 
 直接在浏览器打开 `index.html` 就行。macOS 下：
@@ -466,7 +490,8 @@ guizang-ppt-skill/
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
-│   └── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
+│   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
+│   └── build-standalone.py     ← 离线打包:内嵌字体/motion/Lucide，输出单文件可转发 HTML
 └── references/
     ├── components.md         ← 组件手册（字体、色、网格、图标、callout、stat、pipeline、动效... 风格 A 适用）
     ├── layouts.md            ← 风格 A · 10 种页面布局骨架（可直接粘贴,含动效标记）

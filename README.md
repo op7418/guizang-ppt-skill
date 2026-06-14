@@ -186,6 +186,25 @@ Skill 本身是结构化工作流,Agent 会逐步引导:
 node scripts/validate-swiss-deck.mjs path/to/index.html
 ```
 
+## 独立文件打包
+
+生成的 deck 默认依赖 Google Fonts CDN 和本地 `assets/` 目录。如果需要**转发给他人在没有网络或本地文件夹的环境下查看**，可以用打包脚本生成完全独立的单文件 HTML：
+
+```bash
+# 默认：index.html → index_standalone.html（同目录）
+py scripts/build-standalone.py index.html
+
+# 指定输出路径
+py scripts/build-standalone.py input.html output.html
+
+# 跳过字体内嵌（更快，但需要网络加载字体）
+py scripts/build-standalone.py --no-fonts input.html
+```
+
+脚本会自动内嵌：Google Fonts Inter + JetBrains Mono（仅 Latin 子集，约 184KB）、`motion.min.js`（base64 data: URI）、Lucide 图标（内联 SVG）。输出单文件约 1.8MB，浏览器离线直接打开，可发送微信/邮件/Telegram 附件。
+
+**依赖**：Python 3.8+，无需安装第三方包；需要打包时联网下载字体（约 5 秒），之后可完全离线使用。
+
 ## Codex 配图能力
 
 在 Codex 环境中,完成 deck 初稿后可以主动询问用户是否需要生成配图。用户确认后,再询问图片类型或风格,常用类型包括:
@@ -245,9 +264,11 @@ guizang-ppt-skill/
 ├── assets/
 │   ├── template.html         ← Style A 电子杂志风模板
 │   ├── template-swiss.html   ← Style B 瑞士国际主义模板
+│   ├── motion.min.js         ← Motion One 本地副本(离线兜底,约 64KB)
 │   └── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 ├── scripts/
-│   └── validate-swiss-deck.mjs ← 瑞士风版式校验器
+│   ├── validate-swiss-deck.mjs ← 瑞士风版式校验器
+│   └── build-standalone.py     ← 离线打包:内嵌字体/motion/图标，输出单文件可转发 HTML
 └── references/
     ├── components.md     ← 组件手册(字体、色、网格、图标、callout、stat、pipeline)
     ├── layouts.md        ← 10 种页面布局骨架(可直接粘贴)
