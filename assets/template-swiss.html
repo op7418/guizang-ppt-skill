@@ -599,6 +599,65 @@
   body.low-power #hint{color:var(--accent);opacity:.72}
   body.dark-bg.low-power #hint{color:var(--paper);opacity:.72}
 
+  /* ============ Mobile Read Mode ============
+     如果生成页定义 window.MOBILE_FIT_SLIDES=[...每页16:9截图...],
+     手机端自动隐藏交互 deck,改用图片版 slide 展示;默认 fit-contain,
+     双击或点 ZOOM 可放大并拖动阅读细节。 */
+  #mobile-fit-deck{display:none}
+  @media (max-width:900px){
+    body.has-mobile-fit{background:#111;overflow:hidden}
+    body.has-mobile-fit #deck,
+    body.has-mobile-fit #nav,
+    body.has-mobile-fit #hint,
+    body.has-mobile-fit canvas.bg{display:none!important}
+    body.has-mobile-fit #mobile-fit-deck{
+      position:fixed;inset:0;z-index:120;
+      display:flex;flex-wrap:nowrap;
+      width:100vw;height:100dvh;
+      background:#111;color:#fff;
+      transition:transform .45s cubic-bezier(.2,0,.38,.9);
+      touch-action:none;
+    }
+    body.has-mobile-fit .mobile-fit-slide{
+      width:100vw;height:100dvh;flex:0 0 100vw;
+      display:grid;place-items:center;
+      padding:12px 12px 48px;
+      overflow:hidden;
+    }
+    body.has-mobile-fit .mobile-fit-stage{
+      display:grid;place-items:center;
+      max-width:100%;max-height:calc(100dvh - 64px);
+      transform:translate3d(var(--mobile-fit-x,0px),var(--mobile-fit-y,0px),0) scale(var(--mobile-fit-scale,1));
+      transform-origin:center center;
+      transition:transform .24s cubic-bezier(.2,0,.38,.9);
+      will-change:transform;
+    }
+    body.has-mobile-fit .mobile-fit-slide img{
+      display:block;max-width:100%;max-height:calc(100dvh - 64px);
+      width:auto;height:auto;object-fit:contain;
+      background:var(--paper);user-select:none;-webkit-user-drag:none;
+    }
+    body.has-mobile-fit .mobile-fit-slide.is-zoomed .mobile-fit-stage{
+      transition:none;
+    }
+    body.has-mobile-fit .mobile-fit-ui{
+      position:fixed;left:0;right:0;bottom:0;z-index:130;
+      height:44px;display:flex;align-items:center;justify-content:space-between;
+      gap:10px;padding:0 14px;background:rgba(0,0,0,.72);color:#fff;
+      font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+      -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)
+    }
+    body.has-mobile-fit .mobile-fit-ui-main{
+      min-width:0;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    }
+    body.has-mobile-fit .mobile-fit-ui button{
+      border:0;background:transparent;color:#fff;
+      font:inherit;letter-spacing:.12em;padding:10px 6px
+    }
+    body.has-mobile-fit .mobile-fit-ui button.is-active{color:var(--accent)}
+    body.has-mobile-fit .mobile-fit-hint{opacity:.62}
+  }
+
   /* ESC 索引页: 动画元素强制可见 (覆盖 motion-ready 的 opacity:0) */
   #overview [data-anim]{opacity:1!important;transform:none!important}
   #overview .slide *{animation:none!important;transition:none!important}
@@ -1596,6 +1655,154 @@ addEventListener('touchend',e=>{
 const initialSlideParam = new URLSearchParams(location.search).get('slide');
 const initialSlide = initialSlideParam ? Number(initialSlideParam) - 1 : 0;
 go(Number.isFinite(initialSlide) ? initialSlide : 0);
+
+/* Headless capture helper: use ?captureSlide=N when exporting per-slide screenshots.
+   It force-jumps after initial scripts settle, avoiding transition timing/cache quirks. */
+const captureSlideParam = new URLSearchParams(location.search).get('captureSlide');
+if(captureSlideParam){
+  setTimeout(()=>{
+    const n = Math.max(0, Math.min(total - 1, Number(captureSlideParam) - 1));
+    lock = false;
+    idx = n;
+    window.__currentSlideIndex = idx;
+    deck.style.transition = 'none';
+    deck.style.transform = `translateX(${-idx*100}vw)`;
+    nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+    const el=slides[idx];
+    const isDark = el.classList.contains('dark') || el.classList.contains('accent');
+    document.body.classList.toggle('dark-bg', isDark);
+    darkMode = isDark;
+    if(window.__playSlide) window.__playSlide(idx);
+  }, 180);
+}
+
+/* =============== Mobile Read Mode ===============
+   生成器可在页面末尾设置 window.MOBILE_FIT_SLIDES,
+   然后调用 window.__initMobileFit?.()。
+   注意: script 注释中不要出现 HTML 结束标签,否则浏览器会提前结束脚本。
+   手机端默认完整显示每页 16:9 静态截图,并支持双击/按钮放大拖动阅读。 */
+function initMobileFit(){
+  const images = Array.isArray(window.MOBILE_FIT_SLIDES) ? window.MOBILE_FIT_SLIDES : [];
+  if(!images.length || document.getElementById('mobile-fit-deck')) return;
+
+  document.body.classList.add('has-mobile-fit');
+  const mobileDeck = document.createElement('div');
+  mobileDeck.id = 'mobile-fit-deck';
+  images.forEach((item, i)=>{
+    const page = document.createElement('section');
+    page.className = 'mobile-fit-slide';
+    const stage = document.createElement('div');
+    stage.className = 'mobile-fit-stage';
+    const img = document.createElement('img');
+    img.src = typeof item === 'string' ? item : item.src;
+    img.alt = (typeof item === 'string' ? '' : item.alt) || `Slide ${i+1}`;
+    img.loading = i < 2 ? 'eager' : 'lazy';
+    img.draggable = false;
+    stage.appendChild(img);
+    page.appendChild(stage);
+    mobileDeck.appendChild(page);
+  });
+  document.body.appendChild(mobileDeck);
+
+  const ui = document.createElement('div');
+  ui.className = 'mobile-fit-ui';
+  ui.innerHTML = '<button type="button" data-dir="-1">PREV</button><button type="button" data-action="zoom">ZOOM</button><div class="mobile-fit-ui-main"><span class="mobile-fit-count"></span><span class="mobile-fit-hint"> · 双击放大 · 拖动阅读</span></div><button type="button" data-dir="1">NEXT</button>';
+  document.body.appendChild(ui);
+
+  let mobileIdx = Math.max(0, Math.min(images.length - 1, idx || 0));
+  const count = ui.querySelector('.mobile-fit-count');
+  const zoomBtn = ui.querySelector('[data-action="zoom"]');
+  let zoom = 1, panX = 0, panY = 0;
+  const clamp = (v, min, max)=>Math.max(min, Math.min(max, v));
+  const activeSlide = ()=>mobileDeck.children[mobileIdx];
+  const activeStage = ()=>activeSlide()?.querySelector('.mobile-fit-stage');
+  const activeImg = ()=>activeSlide()?.querySelector('img');
+  function panBounds(){
+    const img = activeImg();
+    if(!img) return {x:0,y:0};
+    const w = img.offsetWidth * zoom;
+    const h = img.offsetHeight * zoom;
+    return {
+      x: Math.max(0, (w - window.innerWidth) / 2 + 24),
+      y: Math.max(0, (h - (window.innerHeight - 44)) / 2 + 24)
+    };
+  }
+  function applyZoom(){
+    const slide = activeSlide();
+    const stage = activeStage();
+    if(!stage || !slide) return;
+    if(zoom <= 1){
+      zoom = 1; panX = 0; panY = 0;
+    }else{
+      const bounds = panBounds();
+      panX = clamp(panX, -bounds.x, bounds.x);
+      panY = clamp(panY, -bounds.y, bounds.y);
+    }
+    stage.style.setProperty('--mobile-fit-scale', zoom);
+    stage.style.setProperty('--mobile-fit-x', `${panX}px`);
+    stage.style.setProperty('--mobile-fit-y', `${panY}px`);
+    slide.classList.toggle('is-zoomed', zoom > 1);
+    zoomBtn?.classList.toggle('is-active', zoom > 1);
+    if(zoomBtn) zoomBtn.textContent = zoom > 1 ? 'FIT' : 'ZOOM';
+  }
+  function resetZoom(){
+    zoom = 1; panX = 0; panY = 0; applyZoom();
+  }
+  function toggleZoom(){
+    if(zoom > 1) resetZoom();
+    else { zoom = window.matchMedia('(orientation: portrait)').matches ? 2.25 : 1.7; panX = 0; panY = 0; applyZoom(); }
+  }
+  function mobileGo(n){
+    mobileIdx = Math.max(0, Math.min(images.length - 1, n));
+    resetZoom();
+    mobileDeck.style.transform = `translateX(${-mobileIdx * 100}vw)`;
+    count.textContent = `${String(mobileIdx + 1).padStart(2,'0')} / ${String(images.length).padStart(2,'0')}`;
+  }
+  ui.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.dataset.action === 'zoom') toggleZoom();
+      else mobileGo(mobileIdx + Number(btn.dataset.dir));
+    });
+  });
+
+  let sx=0, sy=0, startX=0, startY=0, moved=false, lastTap=0;
+  mobileDeck.addEventListener('touchstart', e=>{
+    if(e.touches.length !== 1) return;
+    sx=e.touches[0].clientX;sy=e.touches[0].clientY;
+    startX=panX;startY=panY;moved=false;
+  },{passive:true});
+  mobileDeck.addEventListener('touchmove', e=>{
+    if(e.touches.length !== 1 || zoom <= 1) return;
+    const dx=e.touches[0].clientX-sx;
+    const dy=e.touches[0].clientY-sy;
+    if(Math.abs(dx)>3 || Math.abs(dy)>3) moved=true;
+    panX=startX+dx;panY=startY+dy;applyZoom();
+    e.preventDefault();
+  },{passive:false});
+  mobileDeck.addEventListener('touchend', e=>{
+    const dx=e.changedTouches[0].clientX-sx;
+    const dy=e.changedTouches[0].clientY-sy;
+    const now = Date.now();
+    const tap = Math.abs(dx)<8 && Math.abs(dy)<8 && !moved;
+    if(tap && now-lastTap<320){toggleZoom();lastTap=0;return;}
+    if(tap){lastTap=now;return;}
+    if(zoom <= 1 && Math.abs(dx)>40 && Math.abs(dx)>Math.abs(dy)) mobileGo(mobileIdx + (dx<0 ? 1 : -1));
+  },{passive:false});
+  addEventListener('resize', applyZoom, {passive:true});
+
+  addEventListener('keydown', e=>{
+    if(!matchMedia('(max-width:900px)').matches) return;
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){
+      e.preventDefault();e.stopImmediatePropagation();mobileGo(mobileIdx+1);
+    }else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){
+      e.preventDefault();e.stopImmediatePropagation();mobileGo(mobileIdx-1);
+    }
+  }, true);
+
+  mobileGo(mobileIdx);
+}
+window.__initMobileFit = initMobileFit;
+initMobileFit();
 </script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
