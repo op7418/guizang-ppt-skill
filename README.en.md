@@ -75,6 +75,7 @@ Guizang PPT Skill is supported by **360 Security Lobster** as Gold Sponsor and b
 - 🧱 **Style B 22 locked layouts**: Cover, Statement, KPI Tower, Loop Diagram, Duo Compare, Image Hero, Closing Manifesto, and more
 - 🎨 **Curated theme presets**: 5 electronic-ink themes for Style A, 4 Swiss anchor-color themes for Style B
 - 🖼 **Optional Codex image flow**: generate documentary photos, infographics, flow diagrams, system maps, and UI scenes with GPT-Image 2.0 / GPT-M 2.0, then insert them at template-safe ratios
+- 📱 **Mobile Read Mode**: inject per-slide screenshots for Style B so phones can show the full slide, zoom in, and drag to read details
 - 📰 **Social covers**: generate 21:9 WeChat cover images, 1:1 share cards, 3:4 Xiaohongshu covers, video thumbnails, and related variants
 - 📴 **Low-power static mode**: press `B` to turn WebGL / canvas animation into static visuals
 - 📄 **Single HTML file** — no build, no server, open directly in the browser

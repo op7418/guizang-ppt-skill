@@ -77,6 +77,7 @@ Guizang PPT Skill 的持续迭代获得 **360 安全龙虾** 金牌赞助和 [�
 - 🧱 **Style B 22 种锁定版式**:Cover、Statement、KPI Tower、Loop Diagram、Duo Compare、Image Hero、Closing Manifesto 等
 - 🎨 **主题色预设**:Style A 5 套电子墨水主题,Style B 4 套瑞士高饱和锚点色
 - 🖼 **Codex 可选配图流程**:可用 GPT-Image 2.0 / GPT-M 2.0 生成纪实照片、信息图、流程图、系统关系图、UI 情景图,并按模板比例插入
+- 📱 **Mobile Read Mode**:Style B 可注入每页截图,手机端完整展示、双击/按钮放大、拖动阅读细节
 - 📰 **多平台封面**:可用同一套视觉规则生成公众号 21:9、公众号分享卡 1:1、小红书 3:4、视频号横版等封面
 - 📴 **低性能静态模式**:按 `B` 可关闭 WebGL / canvas 动画,让动态内容退回静态背景
 - 📄 **单文件 HTML**:不需要构建、不需要服务器,浏览器直接打开

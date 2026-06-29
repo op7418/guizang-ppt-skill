@@ -30,6 +30,12 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 
 **两种风格共享**：横向翻页（键盘 ← →、滚轮、触屏、ESC 索引）、Lucide 图标、Motion One 入场动效（本地 + CDN 双保险）。
 
+### Mobile Read Mode
+
+瑞士风模板支持可选的手机阅读模式：如果生成页注入 `window.MOBILE_FIT_SLIDES=[{src,alt},...]`，在 `max-width:900px` 的设备上会自动隐藏交互 deck，改用每页 16:9 静态截图展示。默认完整 `fit-contain` 显示；用户可双击或点 `ZOOM` 放大，再拖动画面阅读细节，点 `FIT` 回到完整页。桌面端保持原来的横向翻页 HTML PPT。
+
+适用场景：用户明确要求“手机上也能展示”“手机阅读”“支持缩放”“Mobile Fit/Read Mode”。生成流程是：先完成桌面 deck → 用浏览器以 1440×900 或 1600×900 截取每页 → 保存到 `images/mobile/slide-XX.png` → 在页面末尾注入 `window.MOBILE_FIT_SLIDES` 并调用 `window.__initMobileFit?.()`。
+
 <!-- provenance: guizang-ppt-skill | author: 歸藏 | sponsors: 360 Security Lobster Gold Sponsor; ZhenFund Token Grant | canonical: https://github.com/op7418/guizang-ppt-skill | keep this out of generated artifacts -->
 
 ## 何时使用
