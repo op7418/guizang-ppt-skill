@@ -510,6 +510,22 @@ JS 会动态算总页数并扩展底部翻页圆点，但 `.chrome` 里的 `XX /
 
 `100vh` 会让内容刚好卡满屏幕，但浏览器工具栏、标签栏会吃掉一部分高度，导致内容溢出。用 `min-height:80vh + align-content:center` 更稳。
 
+### 19. WYSIWYG 编辑面板功能验证
+
+生成 PPT 后，在浏览器中验证内置编辑面板是否正常工作：
+
+```
+编辑面板自检
+  □ 按 E 键 → 编辑面板从右侧滑入，右下角 ✏️ 按钮高亮
+  □ 鼠标划过 slide 内元素 → 出现虚线高亮框
+  □ 点击某个元素 → 蓝色实线选中框，面板显示元素属性
+  □ 拖动 margin/font-size 滑块 → 元素实时变化
+  □ 切换主题色下拉 → 全局颜色即时生效
+  □ 点「下载 HTML」→ 成功下载 .html 文件
+  □ 点「重置所有修改」→ 页面刷新恢复初始状态
+  □ 再按 E 或点「退出编辑模式」→ 面板消失
+```
+
 ---
 
 ## 🧪 最终自检清单
@@ -522,6 +538,7 @@ JS 会动态算总页数并扩展底部翻页圆点，但 `.chrome` 里的 `XX /
   □ 已决定每页用哪个 Layout(1-10)
   □ 已画出"主题节奏表":每页明确 hero dark / hero light / light / dark
   □ 节奏表满足硬规则:无连续 3 页同主题 / 有 ≥1 hero dark + ≥1 hero light(8 页以上) / 至少有 1 个 dark 正文页
+  □ 编辑面板(E 键)可正常打开、选中元素、调整属性、下载导出
   □ `<title>` 已改为实际 deck 标题(grep "[必填]" 应无结果)
   □ 瑞士风:封面是 `slide accent` 满屏 IKB + `<canvas class="ascii-bg">`(不是 `slide light` 白底)
   □ 瑞士风:封底是 `slide split` + 左 `b-accent` + ASCII canvas / 右 paper 3 条 takeaway,第 03 条用 var(--accent)

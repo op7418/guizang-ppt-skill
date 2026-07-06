@@ -1,0 +1,70 @@
+/* ============ WYSIWYG 编辑面板 - Style A Magazine ============ */
+/* 浮动触发按钮 */
+#edit-float-btn{position:fixed;bottom:2vh;right:7vw;z-index:31;width:34px;height:34px;border:1px solid rgba(var(--paper-rgb),.2);background:var(--ink);color:var(--paper);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.5;transition:opacity .2s}
+#edit-float-btn:hover{opacity:.85}
+body.light-bg #edit-float-btn{border-color:rgba(var(--ink-rgb),.12);background:var(--paper);color:var(--ink)}
+
+/* 编辑模式下元素高亮 */
+.edit-mode .slide *{transition:outline .08s}
+.edit-mode .slide :hover:not(canvas):not([data-no-edit]){outline:1.5px dashed rgba(var(--paper-rgb),.35);outline-offset:1px}
+body.light-bg.edit-mode .slide :hover:not(canvas):not([data-no-edit]){outline-color:rgba(var(--ink-rgb),.28)}
+.edit-mode .selected{outline:2px solid var(--ink)!important;outline-offset:2px}
+body.light-bg.edit-mode .selected{outline-color:var(--ink)!important}
+.edit-mode #nav,.edit-mode #hint,.edit-mode #edit-float-btn,.edit-mode canvas,.edit-mode .bg{pointer-events:none!important}
+
+/* 编辑面板 — 默认暗底(匹配 dark slide) */
+#edit-panel{position:fixed;top:0;right:-360px;width:340px;height:100vh;z-index:50;background:rgba(var(--ink-rgb),.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid rgba(var(--paper-rgb),.1);overflow-y:auto;padding:20px;font-family:var(--sans-zh);font-size:13px;color:var(--paper);display:flex;flex-direction:column;gap:16px;transition:right .25s ease;scrollbar-width:thin}
+.edit-mode #edit-panel{right:0}
+body.light-bg #edit-panel{background:rgba(var(--paper-rgb),.97);border-left-color:rgba(var(--ink-rgb),.08);color:var(--ink)}
+
+#edit-panel .ep-header{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid rgba(var(--paper-rgb),.12)}
+body.light-bg #edit-panel .ep-header{border-bottom-color:rgba(var(--ink-rgb),.1)}
+#edit-panel .ep-close{background:none;border:none;font-size:20px;cursor:pointer;color:rgba(var(--paper-rgb),.55);line-height:1;padding:0}
+body.light-bg #edit-panel .ep-close{color:rgba(var(--ink-rgb),.45)}
+#edit-panel .ep-close:hover{color:var(--paper)}
+body.light-bg #edit-panel .ep-close:hover{color:var(--ink)}
+#edit-panel .ep-section{display:flex;flex-direction:column;gap:10px}
+#edit-panel .ep-section-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(var(--paper-rgb),.45);margin-bottom:2px;display:flex;gap:8px;align-items:baseline}
+body.light-bg #edit-panel .ep-section-title{color:rgba(var(--ink-rgb),.45)}
+#edit-panel .ep-section-title .ep-el-info{font-family:var(--serif-zh);font-size:12px;text-transform:none;letter-spacing:0;color:var(--paper);font-weight:500}
+body.light-bg #edit-panel .ep-section-title .ep-el-info{color:var(--ink)}
+
+#edit-panel .ep-row{display:flex;align-items:center;gap:6px}
+#edit-panel .ep-row .ep-label{min-width:62px;font-size:11px;color:rgba(var(--paper-rgb),.55);flex-shrink:0}
+body.light-bg #edit-panel .ep-row .ep-label{color:rgba(var(--ink-rgb),.55)}
+#edit-panel .ep-row select,#edit-panel .ep-row input[type=number]{padding:4px 6px;font-size:11px;border:1px solid rgba(var(--paper-rgb),.15);background:transparent;color:var(--paper);font-family:inherit;min-width:0}
+body.light-bg #edit-panel .ep-row select,body.light-bg #edit-panel .ep-row input[type=number]{border-color:rgba(var(--ink-rgb),.12);color:var(--ink)}
+#edit-panel .ep-row input[type=color]{width:26px;height:24px;border:1px solid rgba(var(--paper-rgb),.15);padding:2px;background:transparent;cursor:pointer}
+body.light-bg #edit-panel .ep-row input[type=color]{border-color:rgba(var(--ink-rgb),.12)}
+#edit-panel .ep-row input[type=range]{flex:1;accent-color:var(--paper);height:4px;min-width:40px}
+body.light-bg #edit-panel .ep-row input[type=range]{accent-color:var(--ink)}
+#edit-panel .ep-row .ep-val{min-width:44px;text-align:right;font-family:var(--mono);font-size:10px;color:rgba(var(--paper-rgb),.55)}
+body.light-bg #edit-panel .ep-row .ep-val{color:rgba(var(--ink-rgb),.55)}
+#edit-panel .ep-row button.nudge{width:20px;height:20px;border:1px solid rgba(var(--paper-rgb),.15);background:transparent;color:rgba(var(--paper-rgb),.55);cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0}
+body.light-bg #edit-panel .ep-row button.nudge{border-color:rgba(var(--ink-rgb),.12);color:rgba(var(--ink-rgb),.45)}
+#edit-panel .ep-row button.nudge:hover{background:rgba(var(--paper-rgb),.1);color:var(--paper)}
+body.light-bg #edit-panel .ep-row button.nudge:hover{background:rgba(var(--ink-rgb),.08);color:var(--ink)}
+
+#edit-panel .ep-group{border:0}
+#edit-panel .ep-group summary{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:rgba(var(--paper-rgb),.45);cursor:pointer;padding:6px 0;border-bottom:1px solid rgba(var(--paper-rgb),.12);margin-bottom:8px}
+body.light-bg #edit-panel .ep-group summary{color:rgba(var(--ink-rgb),.45);border-bottom-color:rgba(var(--ink-rgb),.1)}
+#edit-panel .ep-group[open] summary{color:var(--paper)}
+body.light-bg #edit-panel .ep-group[open] summary{color:var(--ink)}
+
+#edit-panel textarea{width:100%;padding:8px;font-size:11px;font-family:inherit;resize:vertical;border:1px solid rgba(var(--paper-rgb),.15);background:transparent;color:var(--paper)}
+body.light-bg #edit-panel textarea{border-color:rgba(var(--ink-rgb),.12);color:var(--ink)}
+#edit-panel textarea:focus{outline:1px solid var(--paper)}
+body.light-bg #edit-panel textarea:focus{outline-color:var(--ink)}
+
+#edit-panel .ep-actions{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid rgba(var(--paper-rgb),.12);margin-top:auto;flex-shrink:0}
+body.light-bg #edit-panel .ep-actions{border-top-color:rgba(var(--ink-rgb),.1)}
+#edit-panel .ep-actions button{padding:10px;font-size:13px;font-family:inherit;cursor:pointer;border:1px solid rgba(var(--paper-rgb),.2);background:transparent;color:var(--paper)}
+body.light-bg #edit-panel .ep-actions button{border-color:rgba(var(--ink-rgb),.15);color:var(--ink)}
+#edit-panel .ep-actions button:hover{opacity:.82}
+#edit-panel .ep-actions .ep-btn-primary{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+body.light-bg #edit-panel .ep-actions .ep-btn-primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#edit-panel .ep-actions .ep-btn-danger{color:#c0392b}
+#edit-panel .ep-clear-btn{font-size:11px;padding:4px 10px;border:1px solid rgba(var(--paper-rgb),.15);background:transparent;color:rgba(var(--paper-rgb),.55);cursor:pointer}
+body.light-bg #edit-panel .ep-clear-btn{color:rgba(var(--ink-rgb),.45)}
+
+@media(max-width:600px){#edit-panel{width:280px}}

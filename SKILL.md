@@ -439,15 +439,23 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 23. **组件角色要正确**——S15/S16 图片格需要 caption 信息锚点;S22 的 KPI/说明是必选;数据专用版式必须有真实数据,不能靠文案硬填
 24. **通用/非通用版式要分清**——S03/S08/S11/S19 较通用;S06/S07/S20/S21/S22 是数据/案例专用;S14/S15/S17 是结构专用
 
-### Step 5 · 本地预览
+### Step 5 · 注入编辑面板 + 本地预览
 
-直接在浏览器打开 `index.html` 就行。macOS 下：
+生成完成后，先注入 WYSIWYG 编辑面板（编辑面板代码存放在独立文件中，不在模板里，避免增加 agent 读模板的 token 开销）：
+
+```bash
+node "<SKILL_ROOT>/scripts/inject-edit-panel.mjs" "项目/XXX/ppt/index.html"
+```
+
+脚本会自动检测风格 A/B，注入对应的 CSS + 面板 HTML + JS。
+
+然后直接在浏览器打开 `index.html`：
 
 ```bash
 open "项目/XXX/ppt/index.html"
 ```
 
-不需要本地服务器。图片走相对路径 `images/xxx.png`。
+按 `E` 键或点击右下角 ✏️ 按钮即可进入编辑模式，点击页面元素实时调整 CSS 属性（margin、padding、字号、颜色等），修改满意后点「下载 HTML」导出。
 
 ### Step 6 · 迭代
 
@@ -462,11 +470,17 @@ guizang-ppt-skill/
 ├── SKILL.md                  ← 你正在读
 ├── assets/
 │   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件）
-│   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件）
+│   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件,含注入标记）
+│   ├── edit-panel/           ← WYSIWYG 编辑面板资源(生成后注入,不在模板中)
+│   │   ├── style-a.css       ← 风格 A 面板样式
+│   │   ├── style-b.css       ← 风格 B 面板样式
+│   │   ├── panel.html        ← 共享面板 HTML 片段
+│   │   └── editor.js         ← 共享编辑逻辑(自动检测风格 A/B)
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
-│   └── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
+│   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
+│   └── inject-edit-panel.mjs   ← WYSIWYG 编辑面板注入:自动检测风格,注入 CSS+HTML+JS
 └── references/
     ├── components.md         ← 组件手册（字体、色、网格、图标、callout、stat、pipeline、动效... 风格 A 适用）
     ├── layouts.md            ← 风格 A · 10 种页面布局骨架（可直接粘贴,含动效标记）
@@ -495,6 +509,7 @@ guizang-ppt-skill/
 6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
 7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
 8. 生成后先运行 `node scripts/validate-swiss-deck.mjs path/to/index.html`,再读 `checklist.md` 自检
+9. 注入 WYSIWYG 编辑面板:`node scripts/inject-edit-panel.mjs path/to/index.html`，注入后按 `E` 键即可在浏览器中可视化编辑
 
 **动效相关**:模板已把 Motion One 的加载和 recipe 逻辑内嵌到底部 module script。你不需要改 JS,只需要按 `layouts.md` / `layouts-swiss.md` 的骨架在 HTML 里加 `data-anim` / `data-animate` 即可。离线演示靠 `assets/motion.min.js`,断网时自动降级为"无动画但内容可读"。风格 B 模板必须保留 `B` 键低功耗模式:切换后停止 WebGL/ASCII canvas RAF,取消正在运行的 Web Animations,并把当前页内容直接 reveal 到静态最终态。
 

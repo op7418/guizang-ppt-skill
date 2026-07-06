@@ -443,6 +443,8 @@
     .pipeline{grid-template-columns:repeat(2,1fr)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
   }
+
+  /* @edit-panel-css */
 </style>
 </head>
 <body>
@@ -475,6 +477,8 @@
 <canvas id="bg-dark" class="bg"></canvas>
 <canvas id="bg-light" class="bg"></canvas>
 <div id="hint">← → 翻页 · B 静态 · ESC 索引</div>
+
+<!-- @edit-panel -->
 
 <div id="deck">
 
@@ -732,6 +736,9 @@ addEventListener('touchend',e=>{
 
 go(0);
 </script>
+
+<!-- @edit-panel-js -->
+
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>lucide.createIcons();</script>
 

@@ -1,0 +1,50 @@
+/* ============ WYSIWYG 编辑面板 - Style B Swiss ============ */
+/* 浮动触发按钮 */
+#edit-float-btn{position:fixed;bottom:2vh;right:7vw;z-index:31;width:34px;height:34px;border:1px solid rgba(0,0,0,.12);background:var(--paper);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;opacity:.4;transition:opacity .2s}
+#edit-float-btn:hover{opacity:.85}
+body.dark-bg #edit-float-btn{border-color:rgba(255,255,255,.15);background:var(--ink);color:var(--paper)}
+
+/* 编辑模式下元素高亮 */
+.edit-mode .slide *{transition:outline .08s}
+.edit-mode .slide :hover:not(canvas):not(.ascii-canvas):not([data-no-edit]){outline:1.5px dashed rgba(0,0,0,.28);outline-offset:1px}
+body.dark-bg.edit-mode .slide :hover:not(canvas):not(.ascii-canvas):not([data-no-edit]){outline-color:rgba(255,255,255,.3)}
+.edit-mode .selected{outline:2px solid var(--accent)!important;outline-offset:2px}
+.edit-mode #nav,.edit-mode #hint,.edit-mode #edit-float-btn,.edit-mode canvas,.edit-mode .bg{pointer-events:none!important}
+
+/* 编辑面板 */
+#edit-panel{position:fixed;top:0;right:-360px;width:340px;height:100vh;z-index:50;background:rgba(250,250,248,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-left:1px solid rgba(0,0,0,.08);overflow-y:auto;padding:20px;font-family:var(--sans),var(--sans-zh);font-size:13px;color:var(--text-primary);display:flex;flex-direction:column;gap:16px;transition:right .25s var(--ease-prod);scrollbar-width:thin}
+.edit-mode #edit-panel{right:0}
+body.dark-bg #edit-panel{background:rgba(10,10,10,.97);border-left-color:rgba(255,255,255,.08);color:var(--paper)}
+
+#edit-panel .ep-header{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid var(--border-subtle)}
+#edit-panel .ep-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--text-secondary);line-height:1;padding:0}
+#edit-panel .ep-close:hover{color:var(--text-primary)}
+#edit-panel .ep-section{display:flex;flex-direction:column;gap:10px}
+#edit-panel .ep-section-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-helper);margin-bottom:2px;display:flex;gap:8px;align-items:baseline}
+#edit-panel .ep-section-title .ep-el-info{font-family:var(--sans);font-size:11px;text-transform:none;letter-spacing:0;color:var(--accent);font-weight:500}
+
+#edit-panel .ep-row{display:flex;align-items:center;gap:6px}
+#edit-panel .ep-row .ep-label{min-width:62px;font-size:11px;color:var(--text-secondary);flex-shrink:0}
+#edit-panel .ep-row select,#edit-panel .ep-row input[type=number]{padding:4px 6px;font-size:11px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-primary);font-family:inherit;min-width:0}
+#edit-panel .ep-row input[type=color]{width:26px;height:24px;border:1px solid var(--border-subtle);padding:2px;background:transparent;cursor:pointer}
+#edit-panel .ep-row input[type=range]{flex:1;accent-color:var(--accent);height:4px;min-width:40px}
+#edit-panel .ep-row .ep-val{min-width:44px;text-align:right;font-family:var(--mono);font-size:10px;color:var(--text-secondary)}
+#edit-panel .ep-row button.nudge{width:20px;height:20px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-secondary);cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:0}
+#edit-panel .ep-row button.nudge:hover{background:var(--grey-1);color:var(--text-primary)}
+body.dark-bg #edit-panel .ep-row button.nudge:hover{background:rgba(255,255,255,.08)}
+
+#edit-panel .ep-group{border:0}
+#edit-panel .ep-group summary{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text-helper);cursor:pointer;padding:6px 0;border-bottom:1px solid var(--border-subtle);margin-bottom:8px}
+#edit-panel .ep-group[open] summary{color:var(--accent)}
+
+#edit-panel textarea{width:100%;padding:8px;font-size:11px;font-family:inherit;resize:vertical;border:1px solid var(--border-subtle);background:transparent;color:var(--text-primary)}
+#edit-panel textarea:focus{outline:1px solid var(--accent)}
+
+#edit-panel .ep-actions{display:flex;flex-direction:column;gap:8px;padding-top:16px;border-top:1px solid var(--border-subtle);margin-top:auto;flex-shrink:0}
+#edit-panel .ep-actions button{padding:10px;font-size:13px;font-family:inherit;cursor:pointer;border:1px solid var(--border-subtle);background:transparent;color:var(--text-primary)}
+#edit-panel .ep-actions button:hover{opacity:.82}
+#edit-panel .ep-actions .ep-btn-primary{background:var(--accent);color:var(--accent-on);border-color:var(--accent)}
+#edit-panel .ep-actions .ep-btn-danger{color:#c00}
+#edit-panel .ep-clear-btn{font-size:11px;padding:4px 10px;border:1px solid var(--border-subtle);background:transparent;color:var(--text-secondary);cursor:pointer}
+
+@media(max-width:600px){#edit-panel{width:280px}}
