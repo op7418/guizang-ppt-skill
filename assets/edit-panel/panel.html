@@ -1,0 +1,21 @@
+<!-- WYSIWYG 编辑面板 -->
+<div id="edit-panel">
+  <div class="ep-header"><span>编辑模式</span><button class="ep-close" title="退出编辑 (E)">×</button></div>
+  <div class="ep-section">
+    <div class="ep-section-title">全局设置</div>
+    <div class="ep-row"><span class="ep-label">主题色</span><select id="ep-theme"><option value="">当前主题</option></select></div>
+    <div class="ep-row"><span class="ep-label">整体缩放</span><input type="range" id="ep-zoom" min="0.7" max="1.5" step="0.05" value="1"><span class="ep-val" id="ep-zoom-val">1.0x</span></div>
+    <div class="ep-row" id="ep-spacing-row"><span class="ep-label">间距档位</span><select id="ep-spacing"><option value="compact">紧凑</option><option value="normal" selected>标准</option><option value="loose">宽松</option></select></div>
+  </div>
+  <div class="ep-section" id="ep-el-section" style="display:none">
+    <div class="ep-section-title">元素属性 <span class="ep-el-info" id="ep-el-tag"></span></div>
+    <div id="ep-props"></div>
+    <div style="margin-top:8px"><button class="ep-clear-btn" id="ep-clear-styles">清除此元素所有修改</button></div>
+  </div>
+  <div class="ep-actions">
+    <button class="ep-btn-primary" id="ep-download">⬇ 下载 HTML</button>
+    <button id="ep-reset">↺ 重置所有修改</button>
+    <button id="ep-exit">✕ 退出编辑模式</button>
+  </div>
+</div>
+<button id="edit-float-btn" title="编辑模式 (E)"><i data-lucide="pencil"></i></button>
