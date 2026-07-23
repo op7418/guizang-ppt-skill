@@ -633,6 +633,21 @@ slides.forEach((s,i)=>{
   nav.appendChild(b);
 });
 
+function deckLockMs(){
+  const deckEl = document.getElementById('deck');
+  if (!deckEl) return 60;
+  const cs = getComputedStyle(deckEl);
+  const d = cs.transitionDuration || '0s';
+  let max = 0;
+  for (const p of d.split(',')) {
+    const t = p.trim();
+    if (!t) continue;
+    if (t.endsWith('ms')) max = Math.max(max, parseFloat(t));
+    else if (t.endsWith('s')) max = Math.max(max, parseFloat(t) * 1000);
+  }
+  return Math.max(60, max);
+}
+
 function go(n){
   if(lock)return;
   idx=Math.max(0,Math.min(total-1,n));
@@ -645,7 +660,7 @@ function go(n){
   document.body.classList.toggle('light-bg',th==='light');
   /* 动效：翻页过渡中段触发当前页的入场动画（由 motion-boot 注册） */
   if(window.__playSlide) setTimeout(()=>window.__playSlide(idx), 450);
-  lock=true;setTimeout(()=>lock=false,700);
+  lock=true;setTimeout(()=>lock=false,deckLockMs());
 }
 
 /* =============== ESC 索引视图 =============== */
