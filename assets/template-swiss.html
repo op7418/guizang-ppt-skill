@@ -1149,7 +1149,7 @@
     window.__lowPowerMode = stored === '1' || (stored === null && reduced);
     function updateHint(){
       const hint = document.getElementById('hint');
-      if(hint) hint.textContent = `← → 翻页 · B ${window.__lowPowerMode ? '动态' : '静态'} · ESC 索引`;
+      if(hint) hint.textContent = `点击翻页 · ← → · B ${window.__lowPowerMode ? '动态' : '静态'} · ESC 索引`;
     }
     window.__setLowPowerMode = function(on, opts={}){
       window.__lowPowerMode = !!on;
@@ -1168,7 +1168,7 @@
 </script>
 
 <canvas id="bg-grid" class="bg"></canvas>
-<div id="hint">← → 翻页 · B 静态 · ESC 索引</div>
+<div id="hint">点击翻页 · ← → · B 静态 · ESC 索引</div>
 
 <div id="deck">
 
@@ -1540,6 +1540,14 @@ addEventListener('touchend',e=>{
     go(idx+(dx<0?1:-1));
   }
 },{passive:true});
+
+/* 点击翻页：左 1/3 上一页,右 2/3 下一页。前进与键盘/滚轮/触屏一致,先让分步动效消费一步 */
+deck.addEventListener('click',e=>{
+  if(e.target.closest('button,a,input,select,textarea'))return;
+  if(e.clientX/window.innerWidth<1/3){go(idx-1);return;}
+  if(window.__pipeAdvance && window.__pipeAdvance())return;
+  go(idx+1);
+});
 
 const initialSlideParam = new URLSearchParams(location.search).get('slide');
 const initialSlide = initialSlideParam ? Number(initialSlideParam) - 1 : 0;
