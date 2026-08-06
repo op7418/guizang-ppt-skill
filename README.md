@@ -274,7 +274,7 @@ guizang-ppt-skill/
 
 ## 主题色预设
 
-从 `references/themes.md` 里选一套——**不允许自定义 hex 值**,保护美学比给自由更重要。
+从 `references/themes.md` 里选一套——**不允许自定义 hex 值**，保护美学比给自由更重要。
 
 ### Style A 电子杂志主题
 
@@ -290,7 +290,7 @@ guizang-ppt-skill/
 
 ### Style B 瑞士主题
 
-瑞士风从 `references/themes-swiss.md` 里选一套,同样**不允许自定义 hex 值**。
+瑞士风从 `references/themes-swiss.md` 里选一套，同样**不允许自定义 hex 值**，默认推荐克莱因蓝 IKB。
 
 | 预览 | 主题 | 锚点色与适合场景 |
 |------|------|------------------|
@@ -299,7 +299,6 @@ guizang-ppt-skill/
 | <img src="https://github.com/user-attachments/assets/65f7b3f9-3358-419e-b513-f7f2cc24ec76" width="260" alt="柠檬绿瑞士主题预览"> | 🟢 **柠檬绿** | `#C5E803`。生态、可持续、健康、Z 世代品牌。 |
 | <img src="https://github.com/user-attachments/assets/9c3319c9-a134-4657-9a56-211c23411f7f" width="260" alt="安全橙瑞士主题预览"> | 🟠 **安全橙** | `#FF6B35`。警示、新闻、工业、运动、活力主题。 |
 
-如果用户说"瑞士风 PPT"但没有指定颜色,默认推荐克莱因蓝 IKB。
 
 ## 核心设计原则
 
@@ -330,19 +329,19 @@ guizang-ppt-skill/
 
 ## FAQ
 
-**可以导出 PPTX 吗?**
+💡**可以导出 PPTX 吗?**  
 当前核心交付是 HTML。你可以用浏览器演示、截图或录屏。如果需要 PPTX,建议把 HTML 页面作为视觉稿再转换,但这不是当前主流程。
 
-**为什么不允许自定义颜色?**
+💡**为什么不允许自定义颜色?**  
 这个 Skill 的重点是稳定产出。自由选色很容易破坏整体风格,所以只允许从预设主题里选。
 
-**我能加自己的版式吗?**
+💡**我能加自己的版式吗?**  
 可以。Style A 可以在 `references/layouts.md` 里扩展；Style B 更严格,需要同步更新 `template-swiss.html`、`layouts-swiss.md`、`swiss-layout-lock.md` 和校验器。
 
-**Codex 配图是必须的吗?**
+💡**Codex 配图是必须的吗?**  
 不是。没有配图也能生成 PPT。配图流程只在需要照片、信息图、UI 情景图或封面时使用。
 
-**怎么更新到最新版?**
+💡**怎么更新到最新版?**  
 重新运行安装命令,或在本地 skill 目录执行 `git pull`。
 
 ## 贡献
