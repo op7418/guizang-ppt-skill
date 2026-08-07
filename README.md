@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="Guizang PPT Skill：用于网页 PPT、配图和多平台封面的双视觉系统。">
+</p>
+
 # Guizang PPT Skill · 网页 PPT / 配图 / 封面
 
 ![GitHub stars](https://img.shields.io/github/stars/op7418/guizang-ppt-skill?style=flat-square)

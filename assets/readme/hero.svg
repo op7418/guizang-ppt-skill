@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="390" viewBox="0 0 1200 390" role="img" aria-labelledby="title desc">
+  <title id="title">Guizang PPT Skill — single-file HTML decks</title>
+  <desc id="desc">A strict Swiss International Style hero with an editorial specimen, an IKB blue grid specimen, and the project's 10 plus 22 layout system.</desc>
+  <defs>
+    <pattern id="column-grid" width="75" height="390" patternUnits="userSpaceOnUse">
+      <path d="M75 0V390" stroke="#E4E4E0" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="390" fill="#FAFAF8"/>
+  <rect width="1200" height="390" fill="url(#column-grid)"/>
+  <rect x="1" y="1" width="1198" height="388" fill="none" stroke="#0A0A0A" stroke-width="2"/>
+  <rect x="1" y="1" width="14" height="388" fill="#002FA7"/>
+
+  <g id="title-block" transform="translate(48 0)">
+    <text x="0" y="45" fill="#0A0A0A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="12" font-weight="700" letter-spacing="2.5">GUIZANG / PRESENTATION SYSTEM · SINGLE-FILE HTML</text>
+    <path d="M0 62H602" stroke="#0A0A0A" stroke-width="1"/>
+    <text x="0" y="137" fill="#0A0A0A" font-family="Helvetica Neue, Arial, PingFang SC, sans-serif" font-size="70" font-weight="300" letter-spacing="-3">GUIZANG</text>
+    <text x="0" y="229" fill="#0A0A0A" font-family="Helvetica Neue, Arial, PingFang SC, sans-serif" font-size="91" font-weight="600" letter-spacing="-4">PPT</text>
+    <text x="193" y="229" fill="#002FA7" font-family="Helvetica Neue, Arial, PingFang SC, sans-serif" font-size="91" font-weight="300" letter-spacing="-4">SKILL</text>
+    <text x="2" y="274" fill="#0A0A0A" font-family="PingFang SC, Noto Sans SC, Helvetica Neue, sans-serif" font-size="22" font-weight="500">网页 PPT · 配图 · 多平台封面</text>
+    <text x="2" y="305" fill="#737373" font-family="PingFang SC, Noto Sans SC, Helvetica Neue, sans-serif" font-size="14">把文章、想法和旧 PPT，做成可以直接演示的单文件 HTML。</text>
+    <path d="M0 329H602" stroke="#0A0A0A" stroke-width="1"/>
+    <text x="0" y="359" fill="#0A0A0A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700" letter-spacing="1.7">STYLE A / ELECTRONIC MAGAZINE</text>
+    <text x="318" y="359" fill="#002FA7" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700" letter-spacing="1.7">STYLE B / SWISS INTERNATIONAL</text>
+  </g>
+
+  <g id="system-proof">
+    <rect x="695" y="55" width="455" height="266" fill="#FAFAF8" stroke="#0A0A0A" stroke-width="1"/>
+    <text x="714" y="79" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="700" letter-spacing="1.8">TWO VISUAL SYSTEMS / ONE DECK ENGINE</text>
+    <path d="M714 91H1131" stroke="#D4D4D2" stroke-width="1"/>
+
+    <g id="editorial-specimen">
+      <rect x="714" y="105" width="198" height="111" fill="#111111"/>
+      <text x="728" y="123" fill="#8C877E" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="7" letter-spacing="1.5">STYLE A · EDITORIAL / E-INK</text>
+      <text x="728" y="178" fill="#F1E9DA" font-family="Georgia, Songti SC, serif" font-size="49" font-style="italic">Aa.</text>
+      <path d="M728 192H895" stroke="#5F5A52" stroke-width="1"/>
+      <text x="728" y="206" fill="#8C877E" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="7" letter-spacing="1.2">SERIF · STORY · RHYTHM</text>
+    </g>
+
+    <g id="swiss-specimen">
+      <rect x="929" y="105" width="202" height="111" fill="#FAFAF8" stroke="#0A0A0A" stroke-width="1"/>
+      <rect x="929" y="105" width="61" height="111" fill="#002FA7"/>
+      <text x="940" y="132" fill="#FFFFFF" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="8" font-weight="700" letter-spacing="1.3">STYLE B</text>
+      <text x="940" y="191" fill="#FFFFFF" font-family="Helvetica Neue, Arial, sans-serif" font-size="38" font-weight="300">01</text>
+      <text x="1007" y="141" fill="#0A0A0A" font-family="Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="500">SWISS</text>
+      <text x="1007" y="166" fill="#002FA7" font-family="Helvetica Neue, Arial, sans-serif" font-size="21" font-weight="300">16 COL</text>
+      <path d="M1007 179H1114" stroke="#0A0A0A" stroke-width="1"/>
+      <text x="1007" y="199" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="7" letter-spacing="1">GRID · TYPE · FACTS</text>
+    </g>
+
+    <g id="layout-counts">
+      <text x="714" y="269" fill="#0A0A0A" font-family="Helvetica Neue, Arial, sans-serif" font-size="49" font-weight="300">10</text>
+      <text x="781" y="251" fill="#0A0A0A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="700" letter-spacing="1.4">EDITORIAL</text>
+      <text x="781" y="268" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.4">LAYOUTS</text>
+      <path d="M913 231V292" stroke="#D4D4D2" stroke-width="1"/>
+      <text x="934" y="269" fill="#002FA7" font-family="Helvetica Neue, Arial, sans-serif" font-size="49" font-weight="300">22</text>
+      <text x="1001" y="251" fill="#0A0A0A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="700" letter-spacing="1.4">SWISS</text>
+      <text x="1001" y="268" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.4">LAYOUTS</text>
+    </g>
+
+    <path d="M714 292H1131" stroke="#0A0A0A" stroke-width="1"/>
+    <text x="714" y="310" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="8" font-weight="700" letter-spacing="1.5">ONE HTML · ← → NAVIGATION · ESC INDEX · NO BUILD STEP</text>
+  </g>
+
+  <text x="1149" y="359" text-anchor="end" fill="#737373" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" font-weight="700" letter-spacing="1.3">CLAUDE CODE / CODEX / LOCAL AGENTS</text>
+</svg>
