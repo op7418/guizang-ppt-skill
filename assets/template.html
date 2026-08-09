@@ -672,7 +672,11 @@ function startGL(){
   function loop(){
     if(window.__lowPowerMode){glRAF=0;return;}
     const t=(Date.now()-glT0)/1000;
-    drawDark(t);drawLight(t);
+    if(document.body.classList.contains('light-bg')){
+      drawLight(t);
+    } else {
+      drawDark(t);
+    }
     glRAF=requestAnimationFrame(loop);
   }
   glRAF=requestAnimationFrame(loop);
