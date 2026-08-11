@@ -612,6 +612,11 @@
   .card-ink .t-meta,.card-ink .t-cat{color:rgba(255,255,255,.6)}
   .card-accent{background:var(--accent);border:0;color:var(--accent-on)}
   .card-accent .t-meta,.card-accent .t-cat{color:var(--accent-on)}
+  /* Bug fix: dark slide color cascade into light-bg card-fill — reverse override */
+  .slide.dark .card-fill{color:var(--text-primary)}
+  .slide.dark .card-fill h3,.slide.dark .card-fill .t-h-prod{color:var(--text-primary)}
+  .slide.dark .card-fill p,.slide.dark .card-fill .t-body-sm{color:var(--text-secondary)}
+  .slide.dark .card-fill .t-meta,.slide.dark .card-fill .t-helper{color:var(--text-helper)}
 
   /* ============ 动效 (与原模板一致) ============ */
   [data-anim]{opacity:1}

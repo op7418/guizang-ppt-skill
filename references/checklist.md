@@ -303,6 +303,42 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 - 对照原始 PPT 时以实际画面为准;raw CSS helper 只能辅助,不能替代视觉判断
 - 判断问题来源:版式选错 / 必选组件缺失 / 可选组件滥用 / 间距和安全区问题
 - 通用版式(S03/S08/S11/S19)可多用;数据专用(S06/S07/S20/S21/S22)必须有真实数据或案例;结构专用(S14/S15/S17)必须有闭环、矩阵或层级关系
+### 0-G. 特殊字符编码安全
+
+**现象**：页面里 `·`、`→`、`—`、`¥` 等符号显示为乱码（`路`、`鈥?` 等），或 JS 提示文字里出现 `&larr;` 原始字串。
+
+**根因**：① HTML 内容直接写了原始 Unicode 符号，经 PowerShell GBK 管道写入后损坏；② JS 字符串里错用了 HTML 实体（`textContent` 不解析实体）。
+
+**做法**：
+- HTML 内容用实体：`&middot;` `&mdash;` `&ndash;` `&rarr;` `&larr;` `&yen;` `&amp;` `&times;`
+- JS 字符串直接写 Unicode：`← → · — ¥`，或改 `element.innerHTML`（仅硬编码字符串）
+- 用 `Write` 工具写文件，不用 PowerShell `Set-Content`
+
+**自检**：浏览器打开，逐页确认特殊符号显示正常；检查动效提示栏（右下角 hint）无 `&` 开头的字面量。
+
+### 0-H. 暗色页（`.slide.dark`）内 `.card-fill` 文字穿色
+
+**现象**：暗色页里的白底卡片（`.card-fill`）内文字变成白色，白字白底不可见；或 `.t-h-prod`、`h3` 等标题类在白色背景上仍显示白色。
+
+**根因**：`.slide.dark .t-h-prod`（三类选择器高特异度）覆盖了 `.card-fill` 内的文字颜色，导致白底卡片上文字跟随暗色主题变白。
+
+**做法**：`template-swiss.html` 已在 `.card-accent` 规则后添加反覆盖修复；如手写自定义样式，确保 `.slide.dark .card-fill` 的文字色回归 `var(--text-primary)`。
+
+**自检**：目视翻到所有 `.slide.dark` 页，找其中含 `.card-fill`（白底）的页面，确认卡片内文字清晰可读（深色），不是白字白底。
+
+### 0-I. 静态模式下每页内容完整可见
+
+**现象**：默认打开或按 `B` 关闭动效后，部分页面主体内容不可见——卡片区域、时间轴节点、三栏内容整块消失，只剩标题。
+
+**根因A**：`[data-anim]` 容器元素被 CSS `body.motion-ready [data-anim]{opacity:0}` 归零，但 recipe 只给其**子元素**加了动画，容器永远不透明 → 子元素不论如何动都看不见。**根因B**：低功耗模式下 recipe 仍执行，WAAPI 动画在 `opacity:0` 起始帧被取消，元素卡住；无 `data-anim` 属性的 `.dot`、`.label` 不受 CSS 兜底保护。
+
+**做法（模板标准实现）**：① `playSlide` 开头：`if(window.__lowPowerMode){ revealStatic(slide); return; }`；② recipe 执行前批量 `slide.querySelectorAll('[data-anim]').forEach(el=>{ el.style.opacity='1'; el.style.transform='none'; })`。
+
+**自检**：
+1. 打开 deck，**不按 B**，逐页翻看，确认每页内容全部可见（不依赖动效）
+2. 按 `B` 切到静态模式，重新从第 1 页翻到最后，再次确认全部内容可见
+3. 重点检查含 `data-animate="four-cards/three-forces/why-now/split-statement/timeline-walk"` 的页面
+
 ---
 
 ### 0. 生成前必须通过的类名校验(最重要)
@@ -629,6 +665,11 @@ JS 会动态算总页数并扩展底部翻页圆点，但 `.chrome` 里的 `XX /
   □ Before/After 对比页 `<section>` 带 `data-animate="directional"`,左右列标 left/right
   □ Pipeline 页 `<section>` 带 `data-animate="pipeline"`,每 step 标 data-anim="step"
   □ `grep -c 'data-anim' index.html` 数量 ≥ 页数 × 3(平均每页 3 个以上标记)
+  □ 【0-I】不按 B / 按 B 关闭动效后，逐页翻看，每页内容全部可见（无整块消失）
+
+编码与样式
+  □ 【0-G】页面内无乱码（·→—¥ 正常显示），动效 hint 栏无 &larr; 等字面量
+  □ 【0-H】暗色页（.slide.dark）内含 .card-fill 白底卡片的，文字为深色可读
 ```
 
 全勾完，才是合格的 PPT。
