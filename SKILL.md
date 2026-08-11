@@ -174,6 +174,21 @@ git -C "<SKILL_ROOT>" pull --ff-only
 - 配图比例必须匹配最终落位:主视觉 16:9,左文右图 16:10 / 4:3,信息图 16:9 / 16:10,截图再设计 16:10,图文混排小图 3:2 / 3:4,网格图统一高度裁切
 - 生成后的图片放到 `images/` 下,命名遵守 `{页号}-{语义}.{ext}`
 
+#### MiniMax image generation adapter (optional)
+
+When the user explicitly chooses MiniMax, read `references/minimax-image-generation.md` and run the bundled adapter with `MINIMAX_API_KEY` already set in the environment:
+
+```bash
+node "<SKILL_ROOT>/scripts/generate-minimax-image.mjs" \
+  --region global_en \
+  --model image-01 \
+  --prompt "[short deck image prompt]" \
+  --aspect-ratio 16:9 \
+  --output "项目/XXX/ppt/images/03-concept.png"
+```
+
+Choose `global_en` or `cn_zh` to match the account region. The adapter downloads URL responses immediately, decodes base64 responses when requested, and writes the final asset directly into the deck `images/` directory.
+
 ### Step 2 · 拷贝模板
 
 **根据 Step 1 选定的风格,拷贝对应的模板**到目标位置（通常是 `项目/XXX/ppt/index.html`），同时在同级建一个 `images/` 文件夹准备接图片。
@@ -554,6 +569,8 @@ guizang-ppt-skill/
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
+│   ├── generate-minimax-image.mjs ← MiniMax text-to-image adapter with regional endpoint and response handling
+│   ├── generate-minimax-image.test.mjs ← Adapter unit tests with mocked image responses
 │   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
 │   └── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
 └── references/
@@ -565,6 +582,7 @@ guizang-ppt-skill/
     ├── themes.md             ← 风格 A · 5 套主题色预设（只能选不能自定义）
     ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设（IKB / 柠檬黄 / 柠檬绿 / 安全橙）
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
+    ├── minimax-image-generation.md ← MiniMax text-to-image adapter usage and response handling
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
     ├── presenter-mode.md     ← 演讲者 UI、AI 备注结构、观众屏同步与恢复契约
     └── checklist.md          ← 质量检查清单（P0/P1/P2/P3 分级）
@@ -582,7 +600,7 @@ guizang-ppt-skill/
    - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
    - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
 5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
-6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
+6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;使用 MiniMax API 时再读 `minimax-image-generation.md`;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
 7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
 8. 正式演讲先读 `presenter-mode.md`,生成稳定页面 ID 和 `SPEAKER_NOTES`
 9. 生成后先运行 `validate-presenter-mode.mjs`;风格 B 再运行 `validate-swiss-deck.mjs`,最后读 `checklist.md` 自检
