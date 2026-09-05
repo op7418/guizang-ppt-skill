@@ -245,7 +245,10 @@ Swiss validation:
 
 ```bash
 node scripts/validate-swiss-deck.mjs path/to/index.html
+node scripts/validate-swiss-deck.mjs path/to/index.html --static-only
 ```
+
+The default command adds rendered measurements when Playwright is available. Use `--static-only` for deterministic contract checks in CI. P23/P24 require an explicit user request for experimental layouts and the additional `--allow-experimental` flag.
 
 ## Codex Image Flow
 

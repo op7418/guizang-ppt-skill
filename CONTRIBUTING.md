@@ -25,6 +25,14 @@ Screenshots are much more useful than descriptions alone. If possible, include:
 
 Keep PRs focused. A small fix with a screenshot is easier to review than a large rewrite.
 
+Run the complete repository gate before opening a PR:
+
+```bash
+npm run check
+```
+
+It covers the Swiss layout contract, both bundled templates, speaker-note validation, and presenter-runtime synchronization without requiring third-party packages.
+
 For Swiss theme changes:
 
 - Do not invent new default body layouts unless the change is explicitly discussed.
@@ -34,6 +42,8 @@ For Swiss theme changes:
 ```bash
 node scripts/validate-swiss-deck.mjs path/to/index.html
 ```
+
+Use `--static-only` for deterministic CI checks. Use `--allow-experimental` only when the deck owner explicitly requested P23/P24; it does not permit arbitrary layout IDs.
 
 For template changes:
 

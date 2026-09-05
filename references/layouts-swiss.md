@@ -10,7 +10,7 @@
 
 本主题的 golden source 是仓库内的 `assets/template-swiss.html`(由作者本机的原始参考 PPT 派生;原始文件不随仓库分发,`swiss-layout-lock.md` 登记的 S01-S22 即其版式快照)。
 
-生成正文页时不要把 Swiss 当成“自由组合的风格包”。默认只能使用 `references/swiss-layout-lock.md` 登记的 `S01-S22`。每个 slide 都必须在 `<section>` 上写 `data-layout="Sxx"`。
+生成正文页时不要把 Swiss 当成“自由组合的风格包”。默认只能使用 `references/swiss-layout-lock.md` 登记的 `S01-S22`;内置 ASCII 封面和收尾分别使用 `SWISS-COVER-ASCII`、`SWISS-CLOSING-ASCII`。每个 slide 都必须在 `<section>` 上写对应的 canonical `data-layout`。
 
 **关键约束**:
 
@@ -253,7 +253,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:封面 / 章节首页 / 主题宣言。**纯文字结构**(主标题 + 副标 + 元信息),不承载数据。
 
 **默认推荐:IKB 满屏 + ASCII 呼吸场** ⭐
-- `<section class="slide accent">` 满屏 IKB,**不是** light 白底
+- `<section class="slide accent" data-layout="SWISS-COVER-ASCII">` 满屏 IKB,**不是** light 白底
 - `.canvas-card` 内首位插入 `<canvas class="ascii-bg" aria-hidden="true">`,模板底部 IIFE 自动驱动 sin/cos 二维噪声呼吸场
 - 主标题反白 weight 200,微强调字用斜体(`font-style:italic;font-weight:300`)而非 IKB 蓝(底已是蓝、蓝压蓝看不见)
 - **不要**再放编号大字"01"——chrome-min 已经标 01/NN
@@ -264,7 +264,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 **示例代码(IKB 默认变体)**:
 ```html
-<section class="slide accent" data-animate="hero">
+<section class="slide accent" data-layout="SWISS-COVER-ASCII" data-animate="hero" data-slide-id="deck-cover">
   <div class="canvas-card">
     <canvas class="ascii-bg" aria-hidden="true"></canvas>
     <div class="chrome-min">
@@ -286,23 +286,21 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 </section>
 ```
 
-**经典变体(左 ink + 右 paper 对开)** — 仅当全 IKB 不合内容调性时使用:
+**经典视觉片段(左 ink + 右 paper 对开)** — 仅用于理解组件组合,不是完整的登记版式;正式生成必须从 `swiss-layout-lock.md` 选择 canonical 骨架:
 ```html
-<section class="slide" data-animate="cover-reveal">
-  <div class="canvas-card cover-split">
-    <div class="cover-ink">
-      <span class="t-cat">Volume 18 · 2026</span>
-      <h1 class="h-hero">Thin Harness,<br>Fat Skills.</h1>
-      <span class="t-meta">— Kevin · 2026-05</span>
-    </div>
-    <div class="cover-paper">
-      <p class="lead">薄型承载层,厚重技能。</p>
-      <ul class="meta-list">
-        <li>22 PAGES</li><li>SWISS · IKB</li><li>MP-75</li>
-      </ul>
-    </div>
+<div class="canvas-card cover-split">
+  <div class="cover-ink">
+    <span class="t-cat">Volume 18 · 2026</span>
+    <h1 class="h-hero">Thin Harness,<br>Fat Skills.</h1>
+    <span class="t-meta">— Kevin · 2026-05</span>
   </div>
-</section>
+  <div class="cover-paper">
+    <p class="lead">薄型承载层,厚重技能。</p>
+    <ul class="meta-list">
+      <li>22 PAGES</li><li>SWISS · IKB</li><li>MP-75</li>
+    </ul>
+  </div>
+</div>
 ```
 
 ---
@@ -313,11 +311,11 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**带量化数据的时间演化**。每节点必须有「年份 + 量化数值(如 1× / 4× 倍数 / 单位数字)+ 描述」三件套。如果只有节点名没有数据,改用 P11 横向时间线。
 **骨架**:左侧 axis 列 12px 圆点 + 1px 虚线轴 / 右侧节点信息(年份 + 大字数据 + 小标 + 描述)。
 **关键类**:`.timeline-v` `.tl-node` `.tl-axis`(12px 固定列宽,绝对定位 dot 防错位) `.kpi-row-4`
-**动效 recipe**:`timeline-vertical` — 节点按时间顺序由上到下点亮(dot 先 pop 再扩 → 文字横向滑入)
+**动效 recipe**:`progression` — 节点按时间顺序由上到下点亮(dot 先 pop 再扩 → 文字横向滑入)
 **网格规则**:axis 列 = 12px 固定;dot 用 `position:absolute;left:50%;transform:translateX(-50%)` 与虚线对齐
 **示例代码**:
 ```html
-<section class="slide" data-animate="timeline-vertical">
+<section class="slide" data-layout="S02" data-animate="progression" data-slide-id="progression-timeline">
   <div class="canvas-card">
     <header class="chrome-min">...</header>
     <div class="timeline-v">
@@ -343,19 +341,17 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**纯定性论断 / 口号 / 章节切换**。一句话压缩到 8-12 词,**不承载任何数据或列表**。如果需要数据支撑,改用 P18 Why Now;如果是封面,用 P1。
 **骨架**:左 1/3 空白 + 中段巨字陈述(8-10vw, weight 200) + 右下小字注脚 + 底部 hairline。
 **关键类**:`.h-statement`(9.6vw,letter-spacing:-.05em) `.stmt-anchor`
-**动效 recipe**:`statement-rise` — 大字按词序错峰升起(每词延迟 180ms)+ 注脚 fade in
-**示例代码**:
+**动效 recipe**:`statement` — 大字按词序错峰升起(每词延迟 180ms)+ 注脚 fade in
+**排版片段**:下面只展示 statement 的文字层;正式页面必须套入 `swiss-layout-lock.md` 登记的 `S03` 或 `S09` 完整骨架,不要把片段直接当成 slide。
 ```html
-<section class="slide" data-animate="statement-rise">
-  <div class="canvas-card">
-    <header class="chrome-min">...</header>
-    <h1 class="h-statement">
-      <span>Build it</span> <span>once.</span><br>
-      <span>It runs</span> <span>forever.</span>
-    </h1>
-    <span class="stmt-anchor">— Statement 03</span>
-  </div>
-</section>
+<div class="canvas-card">
+  <header class="chrome-min">...</header>
+  <h1 class="h-statement">
+    <span>Build it</span> <span>once.</span><br>
+    <span>It runs</span> <span>forever.</span>
+  </h1>
+  <span class="stmt-anchor">— Statement 03</span>
+</div>
 ```
 
 ---
@@ -366,7 +362,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**6 个对等概念 / 功能列举**(数量必须 = 6,过少用 P5,过多用 P15/P16)。每格仅承载「图标 + 编号 + 短标题 + 一行描述」,**不承载需要展开的数据 / 段落**。
 **骨架**:2×3 网格 / 每格上方 lucide 图标 + 编号 + 短标题 + 一行描述 / 单元间用 hairline 分隔。
 **关键类**:`.cell-6` `.cell-icon-row` `.cell-num`
-**动效 recipe**:`six-cells` — 6 格按 z 形顺序点亮(L→R, T→B,每格延迟 90ms)
+**动效 recipe**:`grid-reveal` — 6 格按 z 形顺序点亮(L→R, T→B,每格延迟 90ms)
 **注意**:**不要自己画 SVG 图标**,用 `<i data-lucide="bookmark"></i>` 引线上 lucide。
 **示例代码**:
 ```html
@@ -389,7 +385,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**3 个对等概念 / 步骤**(数量必须 = 3)。结构同质、**无强烈数据差异**(若数据可比,改用 P6 KPI Tower)。每卡内容比 P4 略多(编号 + 标题 + 1-2 行描述)。
 **骨架**:左侧大标题 + 描述 + 顶部 hairline / 右侧 3 张水平堆叠 sub-card。
 **关键类**:`.sub-card-stack` `.sub-card`(`.card-fill` 灰底,直角)
-**动效 recipe**:`sub-stack` — 主标题先入 → 3 卡阶梯式从右滑入(每卡延迟 140ms)
+**动效 recipe**:`grid-reveal` — 主标题先入 → 3 卡阶梯式从右滑入(每卡延迟 140ms)
 **示例代码**:
 ```html
 <div class="grid-2-9">
@@ -416,7 +412,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**4 项可比量化数据**(必须有真实数值,bar 高度由数据决定)。典型如:成本、容量、计数、效率指标。**禁止**用于无数据的概念列举(那是 P4/P5 的事)。
 **骨架**:4 列均分,每列底部一根不同高度的 IKB 蓝矩形(数据决定高度)+ 顶部图标 + 中段巨数 + 底部标签。
 **关键类**:`.kpi-tower-row` `.bar-tower`(min-height:6vh, max:36vh) `.tower-cap`
-**动效 recipe**:`tower-grow` — 标签先入 → 数字 scale 弹入 → tower scaleY 从 0 拉起(transform-origin:bottom)
+**动效 recipe**:`measure-up` — 标签先入 → 数字 scale 弹入 → tower scaleY 从 0 拉起(transform-origin:bottom)
 **示例代码**:
 ```html
 <div class="kpi-tower-row">
@@ -438,7 +434,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**5-10 项可比量化数据**(必须有真实百分比 / 评分 / 数值,bar 宽度由数据决定)。典型如:benchmark 排名、市场份额、问卷占比。⚠️ **严禁用于无量化数据的概念列举**(那是 P4/P5/P15)— 编造数字会被识破。
 **骨架**:顶部大标题 / 中段空 / 下半部条形列表(每行:文字标签 + 1px 蓝条 0→target width + 末端数字)。
 **关键类**:`.h-bar-chart` `.bar-row` `.bar-fill`(scaleX 动画)
-**动效 recipe**:`hbar-grow` — 大标题先入 → 每行依序 width 0→target(transform-origin:left)+ 末端数字 count-up
+**动效 recipe**:`bar-grow` — 大标题先入 → 每行依序 width 0→target(transform-origin:left)+ 末端数字 count-up
 **示例代码**:
 ```html
 <div class="h-bar-chart">
@@ -483,7 +479,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**deck 收尾**(每个 deck 只有一页)。固定结构:左侧宣言短句 + 右侧 3 条 takeaway(编号 + 标题 + 一行说明)。**不能在中间页使用**(那会与 P1 封面重复)。
 
 **默认推荐:左 IKB+ASCII / 右 paper takeaway** ⭐
-- 用 `<section class="slide split">` + 左半 `.half.b-accent` + ASCII canvas + 右半白底 takeaway
+- 用 `<section class="slide split" data-layout="SWISS-CLOSING-ASCII">` + 左半 `.half.b-accent` + ASCII canvas + 右半白底 takeaway
 - 与 P1 封面的全 IKB 形成"开场全 IKB ↔ 收尾半 IKB"色彩闭环
 - 右侧第 03 条 takeaway 用 `var(--accent)` 强调,把 IKB 蓝从左半穿到右半,完成色彩缝合
 - 大标题反白 weight 200,强调字用斜体(底已是蓝、不要再用 `var(--accent)` 标蓝)
@@ -493,7 +489,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 **示例代码(IKB 默认变体)**:
 ```html
-<section class="slide split" data-animate="split-statement">
+<section class="slide split" data-layout="SWISS-CLOSING-ASCII" data-animate="split-statement" data-slide-id="deck-closing">
   <div class="canvas-card">
     <div class="split-half">
       <!-- 左半 · IKB + ASCII 呼吸场 -->
@@ -548,7 +544,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **适用内容类型**:**口号 / 隐喻 / 章节切换**(同 P3,但加几何点阵装饰)。用于一个 deck 内**避免连续两页都是 P3**;通常用作"概念定义"前的视觉调味页。
 **骨架**:中段 7vw 巨字三行宣言 / 右上角 36vw 圆点矩阵 + 左下角描边圆环矩阵。
 **关键类**:`.dot-mat`(SVG mask 实心点)`.ring-mat`(描边圆)`.cross-mat`(× 网格)
-**动效 recipe**:`matrix-statement` — 文字逐行入 → 点阵 mask-position 从左推到右
+**动效 recipe**:`statement` — 文字逐行入 → 点阵随内容渐显
 **示例代码**:
 ```html
 <div class="canvas-card">
@@ -707,10 +703,10 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 **示例代码**:
 ```html
-<section class="slide light" data-animate="image-hero">
+<section class="slide light" data-layout="S22" data-animate="image-hero" data-slide-id="image-evidence">
   <div class="canvas-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden">
     <div data-anim="img" style="position:relative;flex:0 0 60%;overflow:hidden;background:var(--grey-1)">
-      <img src="images/22-product-scene.png" alt="[必填] 图片说明" loading="eager"
+      <img src="images/22-product-scene.png" alt="[必填] 图片说明" loading="eager" data-image-slot="s22-hero-21x9"
            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%">
       <div class="chrome-min" style="position:absolute;top:0;left:0;right:0;color:rgba(255,255,255,.9);padding:5.6vh 5vw 0">
         <div class="l">Section · Case / Visual Evidence</div>
@@ -740,7 +736,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ## 历史实验区(默认禁用)
 
-下面的 P23/P24 是早期为了探索图文混排加入的实验版式。它们不属于原始 22P,默认不要用于正式生成。除非用户明确说“我要实验新图文版式”,否则请使用 S22 或 S15/S16 的图片槽位。
+下面的 P23/P24 是早期为了探索图文混排加入的实验版式。它们不属于原始 22P,默认不要用于正式生成。除非用户明确说“我要实验新图文版式”,否则请使用 S22 或 S15/S16 的图片槽位。明确启用后用 `--allow-experimental` 校验;这个开关只放行 P23/P24,不会放行其他自定义 ID。
 
 ### P23 · Swiss Image Split · 左文右图 / 右文左图(实验,默认禁用)
 
@@ -758,7 +754,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 - 右图宽度大,标题不要超过 3 行,正文控制在 2-3 个短段或 3 条 bullet
 
 ```html
-<section class="slide light" data-animate="grid-reveal">
+<section class="slide light" data-layout="P23" data-animate="grid-reveal" data-slide-id="visual-argument">
   <div class="canvas-card">
     <div class="chrome-min">
       <div class="l">Section · Visual Argument</div>
@@ -777,7 +773,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
         </div>
         <figure class="tile">
           <div class="frame-img r-16x10 fit-contain">
-            <img src="images/23-visual-evidence.png" alt="[必填] 图片说明">
+            <img src="images/23-visual-evidence.png" alt="[必填] 图片说明" data-image-slot="p23-visual-16x10">
           </div>
           <figcaption class="swiss-img-caption"><strong>[必填] 图片标题</strong><span>16:10 · fit-contain</span></figcaption>
         </figure>
@@ -803,7 +799,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 - 如果用户原始截图比例混乱,先按 `screenshot-framing.md` 做 CleanShot X 式程序化适配;只有太长、太窄或需要重构信息时,才用 GPT-M 2.0 重生成同一比例的"截图再设计"
 
 ```html
-<section class="slide light" data-animate="grid-reveal">
+<section class="slide light" data-layout="P24" data-animate="grid-reveal" data-slide-id="evidence-grid">
   <div class="canvas-card">
     <div class="chrome-min">
       <div class="l">Section · Evidence Grid</div>
@@ -815,9 +811,9 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
         <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(6.6vw,11.6vh);line-height:.96;letter-spacing:-.035em">[必填] 三个证据,一个结论</h2>
       </div>
       <div class="swiss-img-grid" data-anim="up">
-        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-a.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>01</strong><span>[必填] 证据 A</span></figcaption></figure>
-        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-b.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>02</strong><span>[必填] 证据 B</span></figcaption></figure>
-        <figure class="tile"><div class="frame-img h-26 fit-contain swiss-lined"><img src="images/24-proof-c.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>03</strong><span>[必填] 关键证据</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-a.png" alt="[必填]" data-image-slot="p24-proof-a"></div><figcaption class="swiss-img-caption"><strong>01</strong><span>[必填] 证据 A</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-b.png" alt="[必填]" data-image-slot="p24-proof-b"></div><figcaption class="swiss-img-caption"><strong>02</strong><span>[必填] 证据 B</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain swiss-lined"><img src="images/24-proof-c.png" alt="[必填]" data-image-slot="p24-proof-c"></div><figcaption class="swiss-img-caption"><strong>03</strong><span>[必填] 关键证据</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -852,8 +848,8 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 | 产品规格 / benchmark | P21 Tech Spec |
 | 案例图 + 数据落地 | P22 Image Hero |
 | 地点 / 路线 / 人物住所关系 | S08 + Swiss Map Component |
-| 单图解释论点 / 图文混排 | P23 Swiss Image Split |
-| 2-3 张图片/截图/图表证据链 | P24 Swiss Evidence Grid |
+| 单图解释论点 / 图文混排 | 默认 S22 Image Hero(主图 + 3 项数据);无数据时改造 S16 卡片;仅在用户明确要求实验版式时用 P23 |
+| 2-3 张图片/截图/图表证据链 | 默认 S15/S16 图片格改造;仅在用户明确要求实验版式时用 P24 |
 
 ---
 
@@ -876,8 +872,8 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 | 多步骤流程(无数据) | P11 Horizontal Timeline | |
 | 8-12 项同类 | P15 Image Matrix | |
 | deck 收尾 | P9 Closing(每 deck 仅 1 次) | |
-| 1 张核心图片 + 一段解释 | P23 Swiss Image Split | P22(除非图片是主角且有 KPI) |
-| 2-3 张同类图片 | P24 Evidence Grid | P4/P16(文字卡片,不是图片证据) |
+| 1 张核心图片 + 一段解释 | S22(图片为主角且有 3 项数据) / S16 卡片改造 | 默认使用 P23(除非用户明确要求实验版式) |
+| 2-3 张同类图片 | S15/S16 图片格改造 | 默认使用 P24(除非用户明确要求实验版式) |
 
 **雷区案例**:用 P7 H-Bar Chart 展示「智能补全 / 实时协作 / 自主代理」这种**无可比百分比的概念列举**,编造 96/88/78 之类数字 → **数据不可信,版式滥用**。这种内容应该用 P2(若有时间维度)或 P3 Statement(若是论断)。
 

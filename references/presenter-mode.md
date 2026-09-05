@@ -179,6 +179,8 @@ node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html --target-minutes 30
 ```
 
+正式 deck 没有 slide 时校验失败。只有维护尚未填充页面的空模板时才使用 `--runtime-only`;`--target-minutes` 缺值、非数字或不大于 0 时属于命令用法错误并返回退出码 2。
+
 浏览器实测至少包含：进入演讲模式、弹窗允许/拦截、前后翻页且预览 iframe 不重载、内嵌宫格替换预览与选页返回、首页/尾页、尾页预览结束态、尾页重新开始、观众窗口关闭后显示“未连接”、重新打开后恢复同步、退出演讲后观众屏关闭或显示结束遮罩、备注保存、计时、排练记录、自动翻页暂停/恢复、激光笔、圈选、清除、黑屏、白屏、冻结、设置面板与演前检查。
 
 至少在一组常用尺寸和一组小屏尺寸下检查：当前页/下一页上下排列，两个 iframe 宽高比均为 `16:9`，且没有超出各自容器。

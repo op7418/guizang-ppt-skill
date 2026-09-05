@@ -52,7 +52,7 @@
 - **a. 构建脚本**(推荐):`scripts/build-templates.mjs` 把 `src/runtime.js` + 各主题 `src/style-*.css` + 皮肤 HTML 组装成各 template*.html。模板仍是完整单文件,但源头唯一。
 - **b. 文档约定**:不引入构建,把 runtime 段落用 `<!-- SHARED-RUNTIME v3 -->` 注释标记,改动时用脚本校验各份一致。成本低但漂移风险仍在。
 
-当前演讲者模式已先落地 Phase 1b 的防漂移护栏:`scripts/check-presenter-runtime-sync.mjs` 与 `.github/workflows/presenter-runtime-sync.yml`。它不替代长期的共享源提取,但可以防止修改只落到其中一份模板。
+当前演讲者模式已先落地 Phase 1b 的防漂移护栏:`scripts/check-presenter-runtime-sync.mjs` 与 `.github/workflows/presenter-runtime-sync.yml`。工作流保留原有 required-check 名称,但已扩展为运行 `npm run check`,同时覆盖 Swiss layout 契约和两套模板 smoke test。它不替代长期的共享源提取,但可以防止修改只落到其中一份模板。
 
 如果未来合并 Bento 分支,以 `main` 上的演讲者运行时为上游,采用 `main → bento` 的合并方向;不要用旧 Bento 模板反向覆盖 `main`。
 

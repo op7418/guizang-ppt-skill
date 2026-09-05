@@ -1,0 +1,15 @@
+{
+  "name": "guizang-ppt-skill",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Quality checks for the Guizang HTML deck skill.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/validate-swiss-layout-contract.test.mjs tests/validate-presenter-cli.test.mjs",
+    "validate:templates": "node scripts/check-presenter-runtime-sync.mjs && node scripts/validate-presenter-mode.mjs assets/template.html --runtime-only && node scripts/validate-presenter-mode.mjs assets/template-swiss.html && node scripts/validate-swiss-deck.mjs assets/template-swiss.html --static-only",
+    "check": "npm run test && npm run validate:templates"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
