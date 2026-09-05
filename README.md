@@ -247,7 +247,10 @@ node scripts/validate-presenter-mode.mjs path/to/index.html --target-minutes 30
 
 ```bash
 node scripts/validate-swiss-deck.mjs path/to/index.html
+node scripts/validate-swiss-deck.mjs path/to/index.html --static-only
 ```
+
+默认命令会在 Playwright 可用时追加真实渲染测量;`--static-only` 只跑确定性的契约检查,适合 CI。P23/P24 仅在用户明确要求实验版式时使用,并追加 `--allow-experimental`。
 
 ## Codex 配图能力
 

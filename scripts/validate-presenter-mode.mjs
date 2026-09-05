@@ -2,13 +2,33 @@
 import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
-const file=process.argv[2];
-const targetArg=process.argv.find(x=>x.startsWith('--target-minutes='));
-const targetIndex=process.argv.indexOf('--target-minutes');
-const targetMinutes=Number(targetArg?.split('=')[1]??(targetIndex>=0?process.argv[targetIndex+1]:NaN));
+const [file,...args]=process.argv.slice(2);
+let targetMinutes=NaN;
+let targetProvided=false;
+let runtimeOnly=false;
+let cliError='';
 
-if(!file){
-  console.error('Usage: node scripts/validate-presenter-mode.mjs <index.html> [--target-minutes 30]');
+for(let i=0;i<args.length;i++){
+  const arg=args[i];
+  if(arg==='--runtime-only'){
+    runtimeOnly=true;
+  }else if(arg==='--target-minutes'){
+    targetProvided=true;
+    const value=args[++i];
+    if(value===undefined||value.startsWith('--'))cliError='--target-minutes requires a positive number.';
+    else targetMinutes=Number(value);
+  }else if(arg.startsWith('--target-minutes=')){
+    targetProvided=true;
+    targetMinutes=Number(arg.slice('--target-minutes='.length));
+  }else{
+    cliError=`Unknown option: ${arg}`;
+  }
+}
+
+if(!file||file.startsWith('--')||cliError||(targetProvided&&(!Number.isFinite(targetMinutes)||targetMinutes<=0))){
+  if(cliError)console.error(`ERROR ${cliError}`);
+  else if(targetProvided)console.error('ERROR --target-minutes requires a positive number.');
+  console.error('Usage: node scripts/validate-presenter-mode.mjs <index.html> [--target-minutes 30] [--runtime-only]');
   process.exit(2);
 }
 
@@ -39,7 +59,11 @@ function extractArray(name){
 
 const slideTags=[...source.matchAll(/<section\b(?=[^>]*\bclass="[^"]*\bslide\b[^"]*")[^>]*>/g)].map(m=>m[0]);
 const slideIds=slideTags.map((tag,i)=>tag.match(/\bdata-slide-id="([^"]+)"/)?.[1]||'');
-if(!slideIds.length)warnings.push('No slides found; only the reusable presenter runtime can be validated.');
+if(!slideIds.length){
+  const message='No slides found; only the reusable presenter runtime can be validated.';
+  if(runtimeOnly)warnings.push(message);
+  else errors.push(`${message} Pass --runtime-only only when checking an intentionally empty template.`);
+}
 
 slideIds.forEach((id,i)=>{
   if(!id)errors.push(`Slide ${i+1}: missing data-slide-id.`);

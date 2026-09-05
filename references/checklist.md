@@ -40,6 +40,8 @@
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html
 ```
 
+正式 deck 为 0 页时必须失败;只有维护未填充页面的空模板时才加 `--runtime-only`。`--target-minutes` 必须提供大于 0 的数字,无效参数不能静默跳过预算检查。
+
 浏览器里关闭观众窗口,确认状态变化;再点击“重新打开观众屏”,确认它恢复到演讲者当前页。再逐项实测内嵌宫格选页返回、计时、排练、自动翻页暂停/恢复、激光笔、圈选、清除、黑屏、白屏、冻结、设置组件和演前检查。缩小浏览器窗口再检查一次:当前页与下一页仍上下排列,两个 iframe 的 `width / height` 仍约等于 `16 / 9`,且没有超出预览容器。
 
 ### 0-S. Swiss locked mode:正文页必须来自原始 22P
@@ -60,7 +62,7 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 
 **校验会拦截**:
 - 未登记版式 / 缺少 `data-layout`
-- P23/P24 实验结构
+- 默认拦截 P23/P24 实验结构;只有用户明确要求时才用匹配的 `data-layout` 并加 `--allow-experimental`
 - SVG 里写可见文字
 - S22 图片未绑定 `s22-hero-21x9`
 - S22 照片使用 `object-position:top center`

@@ -16,6 +16,7 @@ Please attach screenshots for visual changes.
 
 ## Validation
 
+- [ ] `npm run check`
 - [ ] `node scripts/validate-swiss-deck.mjs path/to/index.html`
 - [ ] Manual browser review
 

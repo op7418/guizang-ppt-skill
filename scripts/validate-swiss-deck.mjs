@@ -6,9 +6,10 @@ import { pathToFileURL } from 'node:url';
 
 const file = process.argv[2];
 const allowExperimental = process.argv.includes('--allow-experimental');
+const staticOnly = process.argv.includes('--static-only');
 
 if (!file) {
-  console.error('Usage: node scripts/validate-swiss-deck.mjs <index.html> [--allow-experimental]');
+  console.error('Usage: node scripts/validate-swiss-deck.mjs <index.html> [--allow-experimental] [--static-only]');
   process.exit(2);
 }
 
@@ -42,10 +43,15 @@ async function loadPlaywright() {
   return null;
 }
 
-const allowedLayouts = new Set([
+const registeredLayouts = new Set([
   'SWISS-COVER-ASCII',
   'SWISS-CLOSING-ASCII',
   ...Array.from({ length: 22 }, (_, i) => `S${String(i + 1).padStart(2, '0')}`),
+]);
+const experimentalLayouts = new Set(['P23', 'P24']);
+const experimentalStructures = new Map([
+  ['P23', /\bclass="[^"]*\bswiss-img-split\b[^"]*"/],
+  ['P24', /\bclass="[^"]*\bswiss-img-grid\b[^"]*"/],
 ]);
 
 const slideRe = /<section\b[^>]*class="[^"]*\bslide\b[^"]*"[^>]*>[\s\S]*?<\/section>/g;
@@ -60,12 +66,17 @@ slides.forEach((slide) => {
 
   if (!layout) {
     errors.push(`Slide ${slide.idx}: missing data-layout. Swiss locked mode requires S01-S22 or SWISS-COVER-ASCII/SWISS-CLOSING-ASCII.`);
-  } else if (!allowedLayouts.has(layout)) {
+  } else if (experimentalLayouts.has(layout)) {
+    if (!allowExperimental) errors.push(`Slide ${slide.idx}: data-layout="${layout}" is experimental. Pass --allow-experimental only when the user explicitly requests it.`);
+    if (!experimentalStructures.get(layout).test(slide.html)) errors.push(`Slide ${slide.idx}: data-layout="${layout}" must use its matching experimental structure.`);
+  } else if (!registeredLayouts.has(layout)) {
     errors.push(`Slide ${slide.idx}: data-layout="${layout}" is not registered in swiss-layout-lock.md.`);
   }
 
-  if (!allowExperimental && /\bdata-layout="P2[34]\b|Swiss Image Split|Swiss Evidence Grid|swiss-img-split|swiss-img-grid/.test(slide.html)) {
-    errors.push(`Slide ${slide.idx}: uses experimental P23/P24 image structure. Use S22 or S15/S16 image-grid adaptations instead.`);
+  for (const [expectedLayout, structure] of experimentalStructures) {
+    if (structure.test(slide.html) && layout !== expectedLayout) {
+      errors.push(`Slide ${slide.idx}: uses the ${expectedLayout} experimental structure but declares data-layout="${layout || 'missing'}".`);
+    }
   }
 
   const isStatement = layout === 'S03' || layout === 'S09' || layout === 'S10' || layout === 'SWISS-COVER-ASCII' || layout === 'SWISS-CLOSING-ASCII';
@@ -295,7 +306,7 @@ async function runRenderedMeasurements() {
   }
 }
 
-await runRenderedMeasurements();
+if (!staticOnly) await runRenderedMeasurements();
 
 if (warnings.length) {
   console.warn('Warnings:');

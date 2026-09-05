@@ -2,23 +2,19 @@ name: Presenter runtime sync
 
 on:
   pull_request:
-    paths:
-      - "assets/template*.html"
-      - "scripts/check-presenter-runtime-sync.mjs"
-      - ".github/workflows/presenter-runtime-sync.yml"
   push:
     branches: [main]
-    paths:
-      - "assets/template*.html"
-      - "scripts/check-presenter-runtime-sync.mjs"
-      - ".github/workflows/presenter-runtime-sync.yml"
+
+permissions:
+  contents: read
 
 jobs:
   presenter-runtime-sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node scripts/check-presenter-runtime-sync.mjs
+      - run: npm run check
