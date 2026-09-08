@@ -541,6 +541,20 @@ open "项目/XXX/ppt/index.html"
 
 根据用户反馈修改——模板的 CSS 已经高度参数化，90% 的调整都是改 inline style（字号 `font-size:Xvw` / 高度 `height:Yvh` / 间距 `gap:Zvh`）。
 
+### Step 7 · 导出 PPTX（可选）
+
+用户需要交付 `.pptx` 时（如发给甲方、在公司 PowerPoint 里二次编辑），先读 `references/html-to-pptx.md` 再动手：
+
+```bash
+# 图片版：视觉 100% 保真（WebGL 背景/渐变/图标全保留）
+python <SKILL_ROOT>/scripts/html2pptx.py path/to/index.html
+
+# 可编辑版：原生文本框/图片/色块，位置字号颜色无损，文字可改
+python <SKILL_ROOT>/scripts/html2pptx_editable.py path/to/index.html
+```
+
+两种模式都自动探测系统 Edge/Chrome、断点续跑、并行截图（~30 秒/50 页）。依赖仅 `pip install python-pptx`。选择建议给用户：要"改字"用可编辑版，要"保真存档"用图片版。
+
 ---
 
 ## 资源文件导览
@@ -555,7 +569,9 @@ guizang-ppt-skill/
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
 │   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
-│   └── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
+│   ├── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
+│   ├── html2pptx.py          ← HTML→PPTX 图片版（截图组装,视觉 100% 保真,断点续跑）
+│   └── html2pptx_editable.py ← HTML→PPTX 可编辑版（原生文本框/图片/色块,位置字号颜色无损）
 └── references/
     ├── components.md         ← 组件手册（字体、色、网格、图标、callout、stat、pipeline、动效... 风格 A 适用）
     ├── layouts.md            ← 风格 A · 10 种页面布局骨架（可直接粘贴,含动效标记）
@@ -567,6 +583,7 @@ guizang-ppt-skill/
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
     ├── presenter-mode.md     ← 演讲者 UI、AI 备注结构、观众屏同步与恢复契约
+    ├── html-to-pptx.md       ← PPTX 导出指南（两种模式选型 + 8 条坑位防御）
     └── checklist.md          ← 质量检查清单（P0/P1/P2/P3 分级）
 ```
 
