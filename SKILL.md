@@ -270,7 +270,10 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 - 卡片(四类互斥):`card-ink` / `card-accent` / `card-fill` / `card-outlined`
 - 网格:`grid-12` / `grid-2-9` / `grid-2-9-5` / `span-N`
 - 时间线:`timeline-v` + `tl-node` + `tl-axis` + `dot` / `timeline-h` + `tl-h-node` + `tl-h-axis`
-- 图表:`kpi-tower-row` + `bar-tower` / `h-bar-chart` + `bar-row` + `bar-fill` / `spec-bars` + `bar-vert`
+- 图表(横向条形,两套 API 不可混用;可复制示例见 `references/layouts-swiss.md` P7):
+  - S07 网格:`h-bar-chart` 的直接子元素按 `row-lbl` / `row-track` / `row-val` 三列重复;`row-fill` 放在 `row-track` 内,用 `style="width:84%"` 指定宽度,配合 `bar-grow` recipe
+  - 紧凑条形组件:`bar-chart` > `bar-row`,每行包含 `bar-label` / `bar-track` / `bar-value`;`bar-fill` 放在 `bar-track` 内,用 `style="width:84%"` 指定宽度
+- 图表(其他):`kpi-tower-row` + `bar-tower` / `spec-bars` + `bar-vert`
 - 装饰:`dot-mat`(SVG mask 实心点)/ `ring-mat`(描边圆)/ `cross-mat`(× 网格)/ `hr-hairline`
 - 版式专属:`cover-split` / `closing-split` / `duo-compare` + `vrule` / `manifesto-top` + `ink-banner-full` / `three-forces` / `loop-diagram` / `matrix-fill` + `matrix-cell` / `brief-grid` + `brief-card` / `system-diagram` / `why-now-grid` / `four-cards` / `stacked-ledger` + `ledger-row` / `tech-spec` / `image-hero` + `hero-img-wrap` + `hero-overlay-block` + `hero-stats`
 - 图片混排:`frame-img` / `fit-contain` / `r-21x9` / `r-16x9` / `r-16x10` / `h-22` / `h-26` / `swiss-img-split` / `swiss-img-grid` / `swiss-img-caption` / `swiss-keyline` / `swiss-lined`

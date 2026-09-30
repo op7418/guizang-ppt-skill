@@ -436,20 +436,48 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 **用途**:多项排名比较 / 占比对比(5-10 项)。
 **适用内容类型**:**5-10 项可比量化数据**(必须有真实百分比 / 评分 / 数值,bar 宽度由数据决定)。典型如:benchmark 排名、市场份额、问卷占比。⚠️ **严禁用于无量化数据的概念列举**(那是 P4/P5/P15)— 编造数字会被识破。
-**骨架**:顶部大标题 / 中段空 / 下半部条形列表(每行:文字标签 + 1px 蓝条 0→target width + 末端数字)。
-**关键类**:`.h-bar-chart` `.bar-row` `.bar-fill`(scaleX 动画)
-**动效 recipe**:`hbar-grow` — 大标题先入 → 每行依序 width 0→target(transform-origin:left)+ 末端数字 count-up
-**示例代码**:
+**骨架**:顶部左对齐大标题 / 中段空 / 下半部三列网格(每行:文字标签 + 灰底 track 内的填充条 + 末端数值)。
+**关键类(S07 网格)**:`.h-bar-chart` / `.row-lbl` / `.row-track` > `.row-fill` / `.row-val`。
+**动效 recipe**:`bar-grow` — 大标题先入 → 每条 `.row-fill` 从 `0%` 增长到内联 `width` → 末端数值淡入。
+
+**两套横向条形 API 不可混用**:
+
+| API | 容器与每行结构 | 宽度与动效 |
+|---|---|---|
+| S07 网格(本版式默认) | `.h-bar-chart` 的直接子元素按 `.row-lbl`、`.row-track`、`.row-val` 三列重复;`.row-fill` 嵌在 `.row-track` 内 | `.row-fill` 用内联 `width`,由 `bar-grow` recipe 读取 |
+| 紧凑条形组件 | `.bar-chart` > `.bar-row`;每行包含 `.bar-label`、`.bar-track`、`.bar-value`;`.bar-fill` 嵌在 `.bar-track` 内 | `.bar-fill` 用内联 `width`;`bar-grow` 不为这套组件执行条形增长 |
+
+不要把 `.bar-row` 放进 `.h-bar-chart`:它会作为外层网格的一个单元格,导致内部 track 可用宽度不足甚至归零。两套子类名不能互换,也不要省略 track。模板不读取 `--w`,必须写 `style="width:84%"`。
+
+**S07 示例代码**(放入带 `data-layout="S07" data-animate="bar-grow"` 的 slide 的 `.canvas-card` 内):
 ```html
 <div class="h-bar-chart">
-  <div class="bar-row">
-    <span class="bar-lbl">Anthropic Advisor</span>
-    <span class="bar-fill" style="--w:84%"></span>
-    <span class="bar-num">84</span>
-  </div>
-  <!-- N more -->
+  <span class="row-lbl">示例 A</span>
+  <div class="row-track"><div class="row-fill accent" style="width:84%"></div></div>
+  <span class="row-val">84<span class="unit">%</span></span>
+  <span class="row-lbl">示例 B</span>
+  <div class="row-track"><div class="row-fill" style="width:64.8%"></div></div>
+  <span class="row-val">64.8<span class="unit">%</span></span>
 </div>
 ```
+
+**紧凑条形组件示例**(独立使用,不要嵌入 `.h-bar-chart`):
+```html
+<div class="bar-chart">
+  <div class="bar-row">
+    <span class="bar-label">示例 A</span>
+    <div class="bar-track"><div class="bar-fill" style="width:84%"></div></div>
+    <span class="bar-value">84%</span>
+  </div>
+  <div class="bar-row">
+    <span class="bar-label">示例 B</span>
+    <div class="bar-track"><div class="bar-fill" style="width:64.8%"></div></div>
+    <span class="bar-value">64.8%</span>
+  </div>
+</div>
+```
+
+示例数值仅演示结构;正式页面替换为真实数据,按同一比例换算宽度,并重复到所需行数。生成后确认 track 与非零数据的 fill 都有非零宽高,不能只检查文字是否出现。
 
 ---
 

@@ -1,0 +1,35 @@
+name: Swiss bar chart examples
+
+on:
+  pull_request:
+    paths:
+      - "assets/template-swiss.html"
+      - "references/layouts-swiss.md"
+      - "scripts/test-swiss-bar-charts.py"
+      - ".github/workflows/swiss-bar-charts.yml"
+  push:
+    paths:
+      - "assets/template-swiss.html"
+      - "references/layouts-swiss.md"
+      - "scripts/test-swiss-bar-charts.py"
+      - ".github/workflows/swiss-bar-charts.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  swiss-bar-charts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install playwright==1.63.0
+      - run: python -m playwright install --with-deps chromium
+      - run: python scripts/test-swiss-bar-charts.py --output-dir "${{ runner.temp }}/swiss-bar-charts"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: swiss-bar-chart-renders
+          path: ${{ runner.temp }}/swiss-bar-charts
