@@ -355,7 +355,7 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 - 7-8 页 deck 至少使用 **6 个不同 S 编号版式**;10 页以上至少使用 8 个不同版式。
 - 如果用户说"测试模板 / 看看效果 / 多一点版式",必须覆盖:一个封面、一个收尾、至少 1 个对比或时间线(S08/S11/S02)、至少 1 个结构图(S14/S17/S15)、至少 1 个图片版式(S22 或 S15/S16 图片格改造)。
 - 不允许连续 3 页使用同一种主体结构,例如连续三页 `head + grid + card`。
-- 图片页不能偷懒发明新结构。2-3 张图时,用 S15/S16 的原始网格骨架改造成图片格;单张大图用 S22。
+- 规划阶段先统计图片页,在 S22 主图、S15 矩阵和 S16 小报之间安排承载方式,再检查整份 deck 的版式多样性。单张大图用 S22;多图可集中在 S15/S16 原始网格里,不新增正文结构。版式数量约束针对页面,不等于整份 deck 最多只能放 6 张图。
 - 开写 HTML 前先列一张 `页码 → data-layout → 选用理由 → 图片槽位` 草稿;交付前运行 `node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs index.html`。校验器会先做静态结构检查;如果环境中能解析到 Playwright,还会做真实渲染后的可见边界、底部空白、nav 安全线和标题间距测量。
 
 #### 3.2 · 图片比例规范
@@ -365,7 +365,7 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 | 场景 | 推荐比例 |
 |------|---------|
 | S22 顶部主图 | **21:9**;照片关键主体放中央安全区 |
-| S15/S16 多图格 | 统一 21:9 或统一 16:10,不能混用 |
+| S15/S16 多图格 | 生成图统一 21:9 或 16:10;原始截图用 `*-shot` + `.fit-contain`,容器比例同组统一 |
 | 左文右图 主图(风格 A) | 16:10 或 4:3 + `max-height:56vh` |
 | 图片网格(风格 A) | **固定 `height:26vh`**,不用 aspect-ratio |
 | 左小图 + 右文字 | 1:1 或 3:2 |
@@ -376,11 +376,12 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 **风格 B 瑞士风额外规则**:
 - 单张大图用 S22;多图测试用 S15/S16 的原始卡片网格改造,不要用未登记的 P23/P24
-- 生成图片前先写 `data-image-slot`:例如 `s22-hero-21x9` / `s15-grid-21x9` / `s16-brief-21x9`
+- 生成图片前先写 `data-image-slot`:S22 用 `s22-hero-21x9`;S15/S16 生成图用 `s15-grid-21x9` / `s16-brief-21x9` 或对应的 `*-16x10`,原始截图用 `s15-grid-shot` / `s16-brief-shot`。S15/S16 每张图片都必须使用本页登记的槽位,直接父元素必须是 `.frame-img`,不能靠换名跳过校验
 - S22 配图默认生成 21:9,提示词必须包含 `subject centered in the safe middle area`;照片容器用 `object-position:center 35%`,不要用 `top center`
 - 图片容器必须直角、无阴影、无圆角;默认背景用白色 `var(--paper)`,不要用灰底包白底信息图
 - 白底 GPT 信息图/流程图/UI 图默认不要加外框描边,不要随手套 `.swiss-keyline`;需要强调时只用 `.swiss-lined` 的顶部 accent 线
-- UI/信息图如果是用户原始截图或文字密集图,才用 `.fit-contain`;如果已按 S15/S16 槽位重生成,必须用 `.frame-img.r-21x9` / `.frame-img.r-16x10` 铺满容器,不要固定 `height:18vh` 后把图缩小
+- S15/S16 原始截图用 `*-shot`,推荐 `.frame-img.r-16x10.fit-contain`,禁止 `.r-21x9`;原图像素比例可以与容器不同,但文字和数据必须完整显示。容器尺寸必须由模板比例类、已定义高度类或正值内联高度/比例确定,单独 `height:100%` 或 `min-height` 不够;完整规则见 `swiss-layout-lock.md`
+- 按 S15/S16 槽位重生成的图片必须用匹配的 `.frame-img.r-21x9` / `.frame-img.r-16x10` 铺满容器,不加 `.fit-contain`,不设 `height` 或 `h-*` 高度类
 - 多图同组必须统一图片槽位、比例和高度,不能混用
 - GPT-M 2.0 生成图使用 `image-prompts.md` 的"风格 B:瑞士国际主义配图规则"
 - 任何图片、caption、timeline label、footnote 的最低处都不能进入底部分页区域;需要贴底时用 `.nav-safe-bottom` / `.nav-safe-bottom-tight`,不要手写 `bottom:2vh`
@@ -521,7 +522,7 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 19. **装饰元素严格在 grid 内**——bars 矩阵、点阵、ring-mat 不能贴边或溢出页面
 20. **底部内容预留 nav 空间**——nav 在 ~97vh,内容收尾不要过 93vh(吸取 P22 KPI 大字溢底教训)
 21. **图片容器直角无阴影**——`.frame-img` 不加 `border-radius` / `box-shadow`;边界只用 hairline
-22. **S15/S16/S22 图片同组一致**——同一组图片统一比例、高度、边距、线条粗细;信息图/UI 图加 `.fit-contain`
+22. **S15/S16/S22 图片同组一致**——同一组图片统一角色、容器比例、高度、边距、线条粗细;S15/S16 原始截图用 `*-shot` + `.fit-contain`,生成图按槽位比例铺满
 23. **组件角色要正确**——S15/S16 图片格需要 caption 信息锚点;S22 的 KPI/说明是必选;数据专用版式必须有真实数据,不能靠文案硬填
 24. **通用/非通用版式要分清**——S03/S08/S11/S19 较通用;S06/S07/S20/S21/S22 是数据/案例专用;S14/S15/S17 是结构专用
 

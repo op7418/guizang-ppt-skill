@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
+import { validateSwissImageSlots } from './swiss-image-slots.mjs';
 
 const file = process.argv[2];
 const allowExperimental = process.argv.includes('--allow-experimental');
@@ -87,7 +88,7 @@ slides.forEach((slide) => {
     errors.push(`Slide ${slide.idx}: SVG contains visible <text>. Put labels in HTML grid/captions, keep SVG for geometry only.`);
   }
 
-  const localImages = [...slide.html.matchAll(/<img\b[^>]*src="images\//g)];
+  const localImages = layout === 'S15' || layout === 'S16' ? [] : [...slide.html.matchAll(/<img\b[^>]*src="images\//g)];
   localImages.forEach((_, imageIndex) => {
     const imgTag = slide.html.slice(_.index, slide.html.indexOf('>', _.index) + 1);
     if (!/\bdata-image-slot="/.test(imgTag)) {
@@ -95,24 +96,9 @@ slides.forEach((slide) => {
     }
   });
 
-  const frameImageRe = /<div\b(?=[^>]*\bclass="([^"]*\bframe-img\b[^"]*)")[^>]*>\s*<img\b(?=[^>]*\bdata-image-slot="([^"]+)")[^>]*>/g;
-  const frameImages = [...slide.html.matchAll(frameImageRe)];
-  frameImages.forEach((match) => {
-    const className = match[1];
-    const slot = match[2];
-    const frameTag = match[0].match(/^<div\b[^>]*>/)?.[0] ?? '';
-    if (/^s1[56]-(?:grid|brief)-21x9$/.test(slot)) {
-      if (/\bfit-contain\b/.test(className)) {
-        errors.push(`Slide ${slide.idx}: ${slot} uses fit-contain. Regenerated S15/S16 21:9 images should fill the slot with .frame-img.r-21x9.`);
-      }
-      if (!/\br-21x9\b/.test(className)) {
-        errors.push(`Slide ${slide.idx}: ${slot} must use .frame-img.r-21x9 so the image slot controls the visible size.`);
-      }
-      if (/height\s*:\s*\d+(?:\.\d+)?vh/i.test(frameTag)) {
-        errors.push(`Slide ${slide.idx}: ${slot} frame has a fixed vh height. Use aspect-ratio .r-21x9 instead of shrinking long images into a short slot.`);
-      }
-    }
-  });
+  for (const error of validateSwissImageSlots(slide.html, layout)) {
+    errors.push(`Slide ${slide.idx}: ${error}`);
+  }
 
   if (layout === 'S22') {
     if (!/data-image-slot="s22-hero-21x9"/.test(slide.html)) {
@@ -265,6 +251,20 @@ async function runRenderedMeasurements() {
             safeBottom,
           },
           titleGaps: titleGapChecks(el, nodes),
+          imageSlots: Array.from(el.querySelectorAll('img[data-image-slot]')).map((img) => {
+            const frame = img.parentElement;
+            const rect = frame.getBoundingClientRect();
+            const imageRect = img.getBoundingClientRect();
+            const style = getComputedStyle(img);
+            const positionInFrame = style.objectPosition.split(/\s+/).every((part) => /^(?:\d+(?:\.\d+)?%|0px)$/.test(part) && parseFloat(part) <= 100);
+            return {
+              slot: img.dataset.imageSlot, width: rect.width, height: rect.height, fit: style.objectFit,
+              positionInFrame,
+              outsideFrame: imageRect.left < rect.left - 1 || imageRect.top < rect.top - 1 || imageRect.right > rect.right + 1 || imageRect.bottom > rect.bottom + 1,
+              fillsFrame: Math.abs(imageRect.width - frame.clientWidth) <= 1 && Math.abs(imageRect.height - frame.clientHeight) <= 1,
+              imageHasSize: imageRect.width > 0 && imageRect.height > 0,
+            };
+          }),
         };
       });
     });
@@ -288,6 +288,23 @@ async function runRenderedMeasurements() {
       }
       for (const gap of m.titleGaps) {
         warnings.push(`${prefix}: M2 ${gap.title} has ${gap.gap}px gap before ${gap.next} (min ${gap.minGap}px).`);
+      }
+      for (const image of m.imageSlots) {
+        const slot = image.slot.match(/^s(?:15-grid|16-brief)-(shot|21x9|16x10)$/);
+        if (!slot) continue;
+        if (image.width <= 0 || image.height <= 0) {
+          errors.push(`${prefix}: ${image.slot} has a collapsed image frame (${image.width}x${image.height}px).`);
+          continue;
+        }
+        const expectedFit = slot[1] === 'shot' ? 'contain' : 'cover';
+        if (image.fit !== expectedFit) errors.push(`${prefix}: ${image.slot} renders with object-fit:${image.fit}; expected ${expectedFit}.`);
+        if (!image.imageHasSize || image.outsideFrame) errors.push(`${prefix}: ${image.slot} image must have positive dimensions and stay inside its frame.`);
+        if (slot[1] === 'shot' && !image.positionInFrame) errors.push(`${prefix}: ${image.slot} object-position may crop the source screenshot; use center center or percentages between 0% and 100%.`);
+        if (slot[1] !== 'shot') {
+          if (!image.fillsFrame) errors.push(`${prefix}: ${image.slot} image must fill the generated frame.`);
+          const [width, height] = slot[1].split('x').map(Number);
+          if (Math.abs(image.width / image.height - width / height) > 0.03) errors.push(`${prefix}: ${image.slot} rendered frame does not match its ${slot[1]} ratio (${Math.round(image.width)}x${Math.round(image.height)}px).`);
+        }
       }
     }
   } finally {

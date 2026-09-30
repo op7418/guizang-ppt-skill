@@ -219,7 +219,8 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 - S22 生成图比例固定 `21:9`,并在 `<img>` 上写 `data-image-slot="s22-hero-21x9"`
 - 照片默认 `object-position:center 35%` 或 `center center`,不要用 `top center` 截人脸
 - 图片容器只用 `.frame-img`;**不要** `border-radius` / `box-shadow`
-- UI / 信息图 / 流程图若是用户原始截图或文字密集图,使用 `.fit-contain`;若已按槽位重生成,必须用对应比例类铺满容器,例如 `.frame-img.r-21x9`,不能再用固定短高度把图片缩小
+- S15/S16 原始截图使用 `s15-grid-shot` / `s16-brief-shot`,直接父容器推荐 `.frame-img.r-16x10.fit-contain`,禁止 `.r-21x9`;原图比例可以不同,必须完整显示且容器尺寸明确。模板比例类、已定义高度类或正值内联高度/比例均可,单独 `height:100%` 或 `min-height` 不够
+- S15/S16 生成图使用本页登记的 `*-21x9` / `*-16x10`,直接父容器用匹配的比例类铺满,不加 `.fit-contain`,不设 `height` 或 `h-*` 高度类;完整槽位及尺寸规则见 `swiss-layout-lock.md`
 - 多图同组必须统一槽位、比例、高度,不要混用
 - 用户原始截图要先读 `references/screenshot-framing.md`:优先用 `assets/screenshot-backgrounds/` 内置主题背景 + 程序化缩放/留边/对齐,不要为了比例统一就重画截图内容
 - 截图背景必须跟随当前主题色,且可裁成 `21:9` / `16:10` / `4:3` / `1:1`;背景里不能有标题、页脚、边框、logo、人物或明显主体
@@ -229,7 +230,8 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 
 **自检命令**:
 - `grep -E "frame-img.*border-radius|box-shadow" index.html`——命中就删
-- `grep -n "data-image-slot" index.html`——每张本地图片都应有槽位声明
+- `grep -n "data-image-slot" index.html`——每张本地图片都应有槽位声明;S15/S16 所有图片(含远程和内嵌)都必须使用本页登记的槽位,另起名字不能跳过校验
+- `node scripts/validate-swiss-deck.mjs index.html`——检查原始截图的完整显示契约、生成图的铺满契约及容器尺寸
 - 目视:图片内部如果自带大标题、页码、页脚、角标,优先重生成,不要在页面里再裁切硬救
 - 目视:截图外侧背景应该是安静托底,不能比截图本身更抢眼;Swiss 风截图不得出现圆角和投影
 
@@ -543,7 +545,7 @@ Dark hero 可以用 Holographic Dispersion（钛金色散）等带中心结构�
 ### 13e. Swiss 图文混排不能只用一种
 
 - 7-8 页 Swiss 测试 deck 至少使用 6 个不同 S 编号版式
-- 有 2-3 张配图时,至少使用两种图片承载方式:S22 主视觉 / S15 矩阵 / S16 小报 / S08 对照图文 / S19 四卡证据
+- 规划阶段先统计图片页,有 2-3 个图片页时,至少使用两种登记的图片承载方式:S22 主视觉 / S15 矩阵 / S16 小报。网格一页可承载多张图,版式多样性约束不等于全 deck 最多 6 张图
 - 左文右图或右文左图需要底对齐时,先控制图片高度和主体安全区,不要把整块内容推到分页组件附近
 - 白底信息图容器必须白底、无描边;不要用灰框包白图
 

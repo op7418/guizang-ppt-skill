@@ -1,0 +1,38 @@
+name: Swiss image slots
+
+on:
+  pull_request:
+    paths:
+      - "assets/template-swiss.html"
+      - "scripts/swiss-image-slots.mjs"
+      - "scripts/validate-swiss-deck.mjs"
+      - "tests/validate-swiss-image-slots*.test.mjs"
+      - ".github/workflows/swiss-image-slots.yml"
+  push:
+    paths:
+      - "assets/template-swiss.html"
+      - "scripts/swiss-image-slots.mjs"
+      - "scripts/validate-swiss-deck.mjs"
+      - "tests/validate-swiss-image-slots*.test.mjs"
+      - ".github/workflows/swiss-image-slots.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  swiss-image-slots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --test tests/validate-swiss-image-slots.test.mjs
+      - name: Install rendered-check dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/swiss-playwright" --no-save playwright@1.62.1
+          node "$RUNNER_TEMP/swiss-playwright/node_modules/playwright/cli.js" install --with-deps --only-shell chromium
+      - name: Check rendered image slots
+        working-directory: ${{ runner.temp }}/swiss-playwright
+        run: node --test "$GITHUB_WORKSPACE/tests/validate-swiss-image-slots-rendered.test.mjs"
