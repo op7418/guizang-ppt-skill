@@ -117,9 +117,88 @@ for(const [label,needle]of runtimeChecks)if(!html.includes(needle))errors.push(`
 if(!/\.ppt-preview-stack\s*\{[^}]*grid-template-rows\s*:/s.test(html))errors.push('Presenter preview stack must define vertical grid rows.');
 if(!/\.ppt-frame\s*\{[^}]*aspect-ratio\s*:\s*16\s*\/\s*9/s.test(html))errors.push('Presenter preview frames must declare a 16:9 aspect ratio.');
 if(!/fitPresenterFrames[\s\S]*?16\s*\/\s*9/.test(html))errors.push('Presenter preview fitter must preserve the 16:9 ratio.');
-if(!/id="ppt-timer-toggle"[^>]*>开始计时<\/button>/.test(html))errors.push('Presenter timer must use the explicit label "开始计时".');
-if(!/id="ppt-timer-reset"[^>]*>重置计时<\/button>/.test(html))errors.push('Presenter timer reset must use the explicit label "重置计时".');
-if(!html.includes('继续计时'))errors.push('Presenter timer resume state must use the explicit label "继续计时".');
+// Generated presenter markup lives in a template literal, so inspect the source
+// without HTML comments. Labels may be translated or wrapped in inline markup.
+function attribute(tag,name){
+  const attributes=[...tag.matchAll(/\s+([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g)];
+  const match=attributes.find(match=>match[1].toLowerCase()===name);
+  return match?(match[2]??match[3]??match[4]):'';
+}
+function normalizedLabel(text){
+  return text
+    .replace(/&#(x[\da-f]+|\d+);/gi,(_,code)=>{
+      const point=code[0].toLowerCase()==='x'?parseInt(code.slice(1),16):Number(code);
+      return point<=0x10ffff?String.fromCodePoint(point):'';
+    })
+    .replace(/&(?:nbsp|ensp|emsp|thinsp|Tab|NewLine);/g,' ')
+    .replace(/[\u200b-\u200f\u2060\ufeff]/g,'')
+    .trim();
+}
+function hidden(tag){return attribute(tag,'aria-hidden')==='true'||/\shidden(?=\s|=|>)/i.test(tag);}
+function labelText(markup,includeHidden=false){
+  const stack=[];
+  let text='';
+  for(const token of markup.match(/<[^>]*>|[^<]+/g)||[]){
+    const closing=token.match(/^<\/([\w-]+)/),opening=token.match(/^<([\w-]+)/);
+    if(closing){
+      const index=stack.findLastIndex(item=>item.tag===closing[1].toLowerCase());
+      if(index>=0)stack.length=index;
+    }else if(opening){
+      const tag=opening[1].toLowerCase();
+      if(!/^(?:area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/.test(tag)&&!token.endsWith('/>')){
+        stack.push({tag,hidden:tag==='script'||tag==='style'||(!includeHidden&&hidden(token))});
+      }
+    }else if(!stack.some(item=>item.hidden))text+=token;
+  }
+  return normalizedLabel(text);
+}
+function buttonLabel(button){
+  const [,tag,contents]=button;
+  if(hidden(tag))return '';
+  const labelledBy=attribute(tag,'aria-labelledby').trim();
+  if(labelledBy){
+    let resolved=false;
+    const labels=labelledBy.split(/\s+/).map(id=>{
+      const element=[...source.matchAll(/<([\w-]+)\b([^>]*)>/g)]
+        .find(match=>attribute(match[2],'id')===id);
+      if(!element)return '';
+      resolved=true;
+      const start=element.index+element[0].length;
+      const tags=new RegExp(`<(/?)${element[1]}\\b[^>]*>`,'gi');
+      tags.lastIndex=start;
+      let depth=1,match;
+      while((match=tags.exec(source))){
+        depth+=match[1]?-1:1;
+        if(!depth)return labelText(source.slice(start,match.index),true);
+      }
+      return '';
+    }).join(' ').trim();
+    if(resolved)return labels;
+  }
+  return normalizedLabel(attribute(tag,'aria-label'))||labelText(contents)||normalizedLabel(attribute(tag,'title'));
+}
+for(const [id,label,handler] of [['ppt-timer-toggle','toggle','toggleTimer'],['ppt-timer-reset','reset','resetTimer']]){
+  const button=[...source.matchAll(/(<button\b[^>]*>)([\s\S]*?)<\/button\s*>/gi)]
+    .find(match=>attribute(match[1],'id')===id);
+  if(!button||!buttonLabel(button))errors.push(`Presenter timer ${label} missing or unlabelled.`);
+  const binding=new RegExp(`getElementById\\(\\s*['"]${id}['"]\\s*\\)\\s*\\.\\s*(?:onclick\\s*=\\s*${handler}\\b|addEventListener\\(\\s*['"]click['"]\\s*,\\s*${handler}\\b)`);
+  if(!binding.test(source)||!new RegExp(`function\\s+${handler}\\s*\\(`).test(source))errors.push(`Presenter timer ${label} must be wired to ${handler}.`);
+}
+// Keep the template's state-dependent label contract without fixing its wording.
+// Runtime regression tests exercise start, pause, resume and reset separately.
+const timerLabel=source.match(/timerButton\.textContent\s*=\s*((?:'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`|[^;'"`])+);/)?.[1];
+if(!timerLabel||!(/\btimerRunning\b/.test(timerLabel)&&/\btotalUsed\b/.test(timerLabel)))errors.push('Presenter timer label must reflect running, paused and initial states.');
+else{
+  // Only evaluate standalone string literals, never translation calls or template
+  // interpolations. Dynamic translations still need browser QA in the deck locale.
+  for(const match of timerLabel.matchAll(/[?:]\s*('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`)\s*(?=[:)]|$)/g)){
+    if(match[1].includes('${'))continue;
+    try{
+      const label=vm.runInNewContext(match[1],Object.create(null),{timeout:1000});
+      if(!normalizedLabel(label)){errors.push('Presenter timer state labels must be non-empty.');break;}
+    }catch{errors.push('Presenter timer state label cannot be parsed.');break;}
+  }
+}
 if(/\.ppt-preview-stack\{[^}]*grid-template-columns/.test(html))errors.push('Presenter previews must stack vertically; remove grid-template-columns from .ppt-preview-stack.');
 
 const timedNotes=speakerNotes.filter(n=>Number.isFinite(Number(n?.minutes))&&Number(n.minutes)>0);

@@ -1,0 +1,23 @@
+name: Presenter timer validation
+
+on:
+  pull_request:
+    paths:
+      - "assets/template*.html"
+      - "scripts/validate-presenter-mode*.mjs"
+      - ".github/workflows/presenter-timer-validation.yml"
+  push:
+    paths:
+      - "assets/template*.html"
+      - "scripts/validate-presenter-mode*.mjs"
+      - ".github/workflows/presenter-timer-validation.yml"
+
+jobs:
+  presenter-timer-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node --test scripts/validate-presenter-mode.test.mjs
