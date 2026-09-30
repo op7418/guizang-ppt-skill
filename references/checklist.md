@@ -260,6 +260,7 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
   - `M1 bottom whitespace`:量出底部空白和 active content height,防止从"超出"修成"巨空"
   - `M1 nav-safe`:量出最低内容是否进入底部分页安全线
   - `M2 title gap`:量出标题到下一块内容的距离,防止标题和正文贴住
+  - `M3 zero-size`:逐页等待入场动画与图片加载,检查 `.bar-fill`、`.row-fill`、`.bar-vert`、`.tl-axis`、`.frame-img > img` 和 `img[data-image-slot]` 的零宽/零高,并报告具体元素。显式隐藏的元素不检查;柱图数据轴明确为零且容器和另一维正常时允许零值。尺寸检查最多等待 10 秒动画稳定,超时会报告错误而不是通过。
 
 **Overflow 修正阶梯**:
 - `1-40px` over:只做微调,上移内容组或收紧一个 gap/padding;不要删内容。

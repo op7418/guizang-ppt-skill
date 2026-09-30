@@ -290,6 +290,107 @@ async function runRenderedMeasurements() {
         warnings.push(`${prefix}: M2 ${gap.title} has ${gap.gap}px gap before ${gap.next} (min ${gap.minGap}px).`);
       }
     }
+
+    // Check declared visual components separately: isMeaningful intentionally
+    // filters out small boxes, including the collapsed boxes we need to catch.
+    const sizeErrors = await page.evaluate(async () => {
+      const selector = '.bar-fill, .row-fill, .bar-vert, .tl-axis, .frame-img > img, img[data-image-slot]';
+      const slides = [...document.querySelectorAll('section.slide')];
+      const failures = [];
+      const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+      const isHidden = (node, includeOpacity = true) => {
+        // Do not use checkVisibility: a zero-sized box is the error under test.
+        for (let el = node; el; el = el.parentElement) {
+          const cs = getComputedStyle(el);
+          if (cs.display === 'none' || cs.contentVisibility === 'hidden' || (includeOpacity && Number(cs.opacity) === 0)) return true;
+        }
+        const visibility = getComputedStyle(node).visibility;
+        return visibility === 'hidden' || visibility === 'collapse';
+      };
+      const settle = async (slide, nodes) => {
+        const started = performance.now();
+        const deadline = started + 10000;
+        // Motion's width animations run in JS, outside getAnimations(). Allow
+        // the bundled recipes' entry delays, including bar-grow's .14s stagger,
+        // then require stable component geometry as well as completed WAAPI.
+        const hasRecipe = !window.__lowPowerMode && (slide.dataset.animate || document.body.classList.contains('motion-ready'));
+        const recipeDelay = hasRecipe ? Math.max(3000, 1600 + slide.querySelectorAll('.row-fill').length * 140) : 0;
+        let quietSince = started;
+        let previous = '';
+        while (performance.now() < deadline) {
+          const pending = document.getAnimations().some((animation) => {
+            const target = animation.effect?.target;
+            return target instanceof Element && nodes.some((node) => target.contains(node)) &&
+              (animation.pending || animation.playState === 'running') &&
+              Number.isFinite(animation.effect.getComputedTiming().endTime);
+          });
+          const geometry = nodes.map((node) => {
+            const rect = node.getBoundingClientRect();
+            const cs = getComputedStyle(node);
+            return [rect.width, rect.height, cs.width, cs.height, cs.opacity, cs.transform].join(',');
+          }).join(';');
+          if (pending || geometry !== previous) quietSince = performance.now();
+          previous = geometry;
+          if (!pending && performance.now() - started >= recipeDelay && performance.now() - quietSince >= 150) return true;
+          await sleep(50);
+        }
+        return false;
+      };
+      const isZeroDatum = (node, rect) => {
+        const axis = node.matches('.bar-fill, .row-fill') ? 'width' : node.matches('.bar-vert') ? 'height' : null;
+        if (!axis || rect[axis] !== 0) return false;
+        const other = axis === 'width' ? 'height' : 'width';
+        const parent = node.parentElement.getBoundingClientRect();
+        if (rect[other] <= 0 || parent.width <= 0 || parent.height <= 0) return false;
+        // Typed OM retains percentages (including var() values) instead of the
+        // used pixel size: 65% of a collapsed track is not an authored zero.
+        const declared = node.computedStyleMap?.().get(axis);
+        return declared?.value === 0;
+      };
+
+      for (const [index, slide] of slides.entries()) {
+        const nodes = [...slide.querySelectorAll(selector)];
+        if (!nodes.length) continue;
+        const prefix = `Slide ${index + 1}${slide.dataset.layout ? ` (${slide.dataset.layout})` : ''}`;
+        // Visit future slides through the template runtime so their entry
+        // transforms and width animations do not look like collapsed layout.
+        if (typeof window.go === 'function' && window.__currentSlideIndex !== index) {
+          window.go(index, { force: true });
+          await sleep(500); // go() schedules __playSlide after 450ms.
+        }
+        // Hidden alternatives can still have running WAAPI animations. Ignore
+        // those, but retain opacity:0 candidates until their entry fade settles.
+        const renderedNodes = nodes.filter((node) => !isHidden(node, false));
+        if (!renderedNodes.length) continue;
+        // Intrinsic image dimensions can arrive after DOMContentLoaded, and
+        // lazy images on later slides only start loading when they are shown.
+        const images = nodes.filter((node) => node instanceof HTMLImageElement && !isHidden(node));
+        await Promise.race([
+          Promise.all(images.map((img) => img.decode().catch(() => {}))),
+          sleep(5000),
+        ]);
+        if (!(await settle(slide, renderedNodes))) {
+          failures.push(`${prefix}: M3 size checks could not settle within 10s. Check the slide's finite animations.`);
+          continue;
+        }
+        for (const node of nodes) {
+          if (isHidden(node)) continue;
+          if (node instanceof HTMLImageElement && !node.complete) {
+            failures.push(`${prefix}: M3 image dimensions unavailable after waiting 5s for ${node.dataset.imageSlot || node.getAttribute('src') || 'img'}. Check that the image can load.`);
+            continue;
+          }
+          const rect = node.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) continue;
+          if (isZeroDatum(node, rect)) continue;
+          const name = node.tagName.toLowerCase() + (node.id ? `#${node.id}` : '') +
+            [...node.classList].map((cls) => `.${cls}`).join('');
+          const slot = node.dataset.imageSlot ? ` [data-image-slot="${node.dataset.imageSlot}"]` : '';
+          failures.push(`${prefix}: M3 zero-size ${name}${slot} renders ${rect.width.toFixed(2)}×${rect.height.toFixed(2)}px. Check the component's dimensions and its parent track/frame after animations settle.`);
+        }
+      }
+      return failures;
+    });
+    errors.push(...sizeErrors);
   } finally {
     await browser.close();
   }

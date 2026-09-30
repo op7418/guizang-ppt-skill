@@ -1,0 +1,33 @@
+name: Swiss rendered validation
+
+on:
+  pull_request:
+    paths:
+      - "assets/template-swiss.html"
+      - "assets/motion.min.js"
+      - "scripts/validate-swiss-deck.mjs"
+      - "tests/validate-swiss-zero-size.test.mjs"
+      - ".github/workflows/swiss-rendered-validation.yml"
+  push:
+    paths:
+      - "assets/template-swiss.html"
+      - "assets/motion.min.js"
+      - "scripts/validate-swiss-deck.mjs"
+      - "tests/validate-swiss-zero-size.test.mjs"
+      - ".github/workflows/swiss-rendered-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  rendered-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save --package-lock=false playwright@1.63.0
+      - run: npx playwright install --with-deps chromium
+      - run: node --test tests/validate-swiss-zero-size.test.mjs

@@ -35,6 +35,17 @@ For Swiss theme changes:
 node scripts/validate-swiss-deck.mjs path/to/index.html
 ```
 
+For changes to rendered Swiss validation, run the real-browser regression suite:
+
+```bash
+npm install --no-save --package-lock=false playwright@1.63.0
+npx playwright install chromium
+node --test tests/validate-swiss-zero-size.test.mjs
+```
+
+These tests use the template CSS and invoke the validator in Chromium. They fail
+if rendered measurement is skipped because Playwright is unavailable.
+
 For template changes:
 
 - Verify at least one dense text slide.
