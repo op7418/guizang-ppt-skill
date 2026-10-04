@@ -133,6 +133,8 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 
 ## 9. 观众屏同步与恢复
 
+`data-animate="pipeline"` 页与普通放映一致：演讲者按 `→ / 空格 / PageDown / ↓` 或点击“下一页”时，先向观众屏发送 `{type:'step', index, step}` 逐个点亮 step，全部点亮后才翻页；`goto` 与心跳也携带当前 `step`，观众屏重开或消息乱序时由幂等的 `window.__pipeTo(step, index)` 追平。演讲者自身与预览 iframe 为低功耗静态渲染，step 始终全亮。
+
 模板同时使用窗口 `postMessage`、`BroadcastChannel` 和 `storage` 事件同步。观众页在加载和每次翻页后回传确认，演讲者端显示：
 
 - **连接中**：观众窗口已打开，尚未收到确认。
