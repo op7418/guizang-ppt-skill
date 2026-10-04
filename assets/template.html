@@ -953,7 +953,7 @@ window.__pptPresenter=(()=>{
     document.getElementById('ppt-prev').onclick=()=>go(idx-1,{force:true});
     document.getElementById('ppt-grid').onclick=()=>togglePresenterOverview();
     document.getElementById('ppt-overview-close').onclick=()=>togglePresenterOverview(false);
-    document.getElementById('ppt-next').onclick=()=>go(idx+1,{force:true});
+    document.getElementById('ppt-next').onclick=presenterNext;
     document.getElementById('ppt-last').onclick=()=>go(idx===total-1?0:total-1,{force:true});
     document.getElementById('ppt-timer-toggle').onclick=toggleTimer;
     document.getElementById('ppt-timer-reset').onclick=resetTimer;
@@ -1156,8 +1156,10 @@ window.__pptPresenter=(()=>{
     if(message.type==='laser'&&Number(message.index)===idx){audienceLaser=message.point||null;audienceLaserHideAt=Date.now()+650;renderInks();return;}
     if(message.type==='circle'&&Number(message.index)===idx&&message.circle){audienceCircles.push(message.circle);renderInks();return;}
     if(message.type==='clear'&&Number(message.index)===idx){audienceCircles=[];renderInks();return;}
+    if(message.type==='step'&&Number(message.index)===idx){window.__pipeTo?.(Number(message.step),idx);return;}
     if(message.type==='goto'||message.type==='ping'){
       if(message.type==='goto'){audienceCircles=Array.isArray(message.circles)?message.circles:[];applyAudienceScreen(message.screenMode);go(Number(message.index),{force:true});}
+      if(Number.isInteger(message.step)&&Number(message.index)===idx)window.__pipeTo?.(message.step,idx);
       emit({type:'ack',index:idx,seq:Number(message.seq)});
     }
   }
@@ -1165,9 +1167,19 @@ window.__pptPresenter=(()=>{
     if(!message||message.__guizangPptSync!==1||message.session!==session||message.role!=='presenter'||message.type!=='preview-goto')return;
     go(Number(message.index),{force:true});
   }
+  /* pipeline 逐步揭示同步：演讲者视图自身是低功耗静态渲染，不能靠本窗口的 __pipeAdvance 判断，
+     所以在这里按当前页 step 数计数，把目标步骤推给观众屏；全部点亮后才真正翻页（与普通放映模式一致）。 */
+  let presenterPipeStep=-1;
+  function presenterStepAdvance(){
+    const slide=slides[idx];
+    if(audienceFrozen||lowPowerBeforePresenter||typeof window.__pipeTo!=='function'||!slide||slide.dataset.animate!=='pipeline')return false;
+    if(presenterPipeStep>=slide.querySelectorAll('[data-anim="step"]').length-1)return false;
+    presenterPipeStep++;emit({type:'step',index:idx,step:presenterPipeStep});return true;
+  }
+  function presenterNext(){if(!presenterStepAdvance())go(idx+1,{force:true});}
   function sendGoto(force=false){
     if(mode!=='presenter'||audienceFrozen)return;if(force||lastAckIndex!==idx)seq++;
-    emit({type:'goto',index:idx,seq,screenMode,circles});updateSyncStatus();
+    emit({type:'goto',index:idx,seq,screenMode,circles,step:presenterPipeStep});updateSyncStatus();
   }
   function syncState(){
     if(popupBlocked)return'blocked';if(audienceWindow&&audienceWindow.closed)return'disconnected';if(audienceFrozen)return'frozen';
@@ -1201,7 +1213,7 @@ window.__pptPresenter=(()=>{
   }
   function initPreview(){mode='preview';document.body.classList.add('ppt-preview');window.__setLowPowerMode?.(true,{persist:false});addEventListener('message',e=>{if(e.source===parent)receivePreview(e.data);});}
   function onSlideChange(nextIndex){
-    if(mode!=='presenter')return;rollSlideTimer(nextIndex);circles=[];draftCircle=null;laserPoint=null;annotationPointerDown=false;armAutoAdvance();updateShell();sendGoto();
+    if(mode!=='presenter')return;presenterPipeStep=-1;rollSlideTimer(nextIndex);circles=[];draftCircle=null;laserPoint=null;annotationPointerDown=false;armAutoAdvance();updateShell();sendGoto();
   }
   function handleKey(e){
     const editable=e.target?.matches?.('input,textarea,[contenteditable="true"]');
@@ -1223,7 +1235,7 @@ window.__pptPresenter=(()=>{
     if(key==='f'){e.preventDefault();setScreenMode(audienceFrozen?'normal':'frozen');return true;}
     if(key==='a'){e.preventDefault();toggleAutoAdvance();return true;}
     if(key==='r'){e.preventDefault();toggleRehearsal();return true;}
-    if(['ArrowRight','PageDown',' ','ArrowDown'].includes(e.key)){e.preventDefault();go(idx+1,{force:true});return true;}
+    if(['ArrowRight','PageDown',' ','ArrowDown'].includes(e.key)){e.preventDefault();presenterNext();return true;}
     if(['ArrowLeft','PageUp','ArrowUp'].includes(e.key)){e.preventDefault();go(idx-1,{force:true});return true;}
     if(e.key==='Home'){e.preventDefault();go(0,{force:true});return true;}
     if(e.key==='End'){e.preventDefault();go(total-1,{force:true});return true;}
@@ -1237,7 +1249,7 @@ window.__pptPresenter=(()=>{
   }
   setInterval(()=>{
     renderTimer();renderInks();updateAutoAdvance();
-    if(mode==='presenter'&&Date.now()-lastPingAt>900){lastPingAt=Date.now();if(audienceWindow?.closed)updateSyncStatus();emit({type:'ping',index:idx,seq});updateSyncStatus();}
+    if(mode==='presenter'&&Date.now()-lastPingAt>900){lastPingAt=Date.now();if(audienceWindow?.closed)updateSyncStatus();emit({type:'ping',index:idx,seq,...(audienceFrozen?{}:{step:presenterPipeStep})});updateSyncStatus();}
   },250);
   return{initMode,onSlideChange,handleKey,slideLabel,enterPresenter,reopenAudience,toggleOverview:togglePresenterOverview,debugState:()=>({mode,idx,session,syncState:syncState(),timerRunning,rehearsalActive,presenterOverviewOn,autoEnabled,autoGlobalSeconds,autoRemainingMs,screenMode,annotationTool,circles:[...circles],audienceCircles:[...audienceCircles],layoutMode})};
 })();
@@ -1322,6 +1334,7 @@ if(motion){
   const slides = [...document.querySelectorAll('.slide')];
   let pipeStep = -1;
   let lastIdx = -1;
+  let pipeTarget = null; // 演讲者模式同步过来的目标步骤 {i, n}
 
   function resetAnims(slide){
     slide.querySelectorAll('[data-anim]').forEach(el=>{
@@ -1356,6 +1369,8 @@ if(motion){
         el.style.opacity='0.15';
         el.style.transform='none';
       });
+      // 观众屏:演讲者的 step 消息可能早于这次(翻页 450ms 后)的重置到达,重置后补回目标步骤
+      if(pipeTarget && pipeTarget.i === i) pipeTo(pipeTarget.n, i);
       return;
     }
 
@@ -1407,8 +1422,19 @@ if(motion){
     return true;
   }
 
+  // 推进到第 n 步(0-based)。幂等:同一条 step 消息会经 BroadcastChannel / postMessage / storage 多路到达,
+  // 已到达或超过 n 时什么都不做;i 不是当前动效页时只记下目标,等 playSlide(i) 重置后再补。
+  function pipeTo(n, i = lastIdx){
+    if(!Number.isInteger(n)) return;
+    pipeTarget = {i, n};
+    if(i !== lastIdx) return;
+    let guard = 0;
+    while(pipeStep < n && guard++ < 64){ if(!pipeAdvance()) break; }
+  }
+
   window.__playSlide = playSlide;
   window.__pipeAdvance = pipeAdvance;
+  window.__pipeTo = pipeTo;
 
   // 首屏:go() 已跑过(同步),没来得及触发动效 → 这里补一下(尊重 ?slide=N)
   playSlide(window.__currentSlideIndex || 0);
