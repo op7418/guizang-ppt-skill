@@ -31,6 +31,22 @@ It ships with two visual systems:
 
 ## 30-second start
 
+### Added in this fork: Research Talk
+
+This fork adds **[research-talk](skills/research-talk/SKILL.md)** as a separate companion for research and technical talks. It develops the spoken argument, method/data/training visuals, purposeful information-flow animation, natural Chinese notes, and content/export checks. It can use the original guizang engine with a user-selected theme; it does not replace the engine or reuse a previous paper's facts and identity.
+
+Install the repository root as `guizang-ppt-skill` when an HTML engine is needed, and `skills/research-talk` as the separate `research-talk` skill. Ask your agent:
+
+```text
+Install skills/research-talk from https://github.com/shulin16/guizang-ppt-skill as a personal skill.
+If guizang-ppt-skill is missing, install the repository's root skill too.
+Preserve other templates and configuration; inspect differences before replacing an existing skill.
+```
+
+Then invoke `$research-talk` for a new talk or a focused revision. [Copy-ready prompts](skills/research-talk/references/prompts.md) cover new talks, scoped refinement, transcript rewriting, and review. A standard-library [checker](skills/research-talk/scripts/check_talk.py) validates the optional content contract, notes consistency, timing, and edit scope. The companion documents runtime invariants but does not automatically patch the base engine.
+
+The original skill's installation and feature documentation follows.
+
 ```bash
 npx skills add https://github.com/op7418/guizang-ppt-skill --skill guizang-ppt-skill
 ```

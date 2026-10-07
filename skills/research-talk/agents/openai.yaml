@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Talk"
+  short_description: "Build and refine technical talks with clear visuals"
+  default_prompt: "Use $research-talk to create or refine a talk with clear technical visuals, purposeful animations, and natural Chinese speaker notes."

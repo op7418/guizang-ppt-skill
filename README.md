@@ -33,6 +33,33 @@
 
 ## 30 秒开始
 
+### 本 fork 新增：Research Talk
+
+本 fork 在原 guizang 演示引擎之外，新增独立的 **[research-talk](skills/research-talk/SKILL.md)**，专门用于研究与技术 talk 的新建和 refine。它不替换原来的视觉主题，也不把某一篇论文的数据、作者或品牌带进新项目。
+
+- 从论文、代码和数据建立讲述主线，复用用户指定的模板。
+- 用数据/训练流程、worked example 和分步动画解释方法；中文口播保持自然，讲技术和动机。
+- 检查真实演讲者当前预览与观众屏、静态导出完整性、备注同步和局部修改范围。
+- 提供新建、局部修改、讲稿润色、review 四类 [可复制 prompt](skills/research-talk/references/prompts.md)，以及标准库 [内容检查脚本](skills/research-talk/scripts/check_talk.py)。
+
+安装时将本仓库根目录作为 `guizang-ppt-skill`，将 `skills/research-talk` 作为独立的 `research-talk` skill。可以把下面这段发给你的 Agent：
+
+```text
+从 https://github.com/shulin16/guizang-ppt-skill 安装 skills/research-talk 为个人 skill。
+如果 guizang-ppt-skill 尚未安装，也安装本仓库根 skill 作为 HTML 演示引擎。
+保留已有的其他模板和配置；已有同名 skill 时先检查差异。
+```
+
+之后直接用 `$research-talk` 描述 talk 或修改任务。例如：
+
+```text
+使用 $research-talk，根据当前项目的 paper、code、dataset 和 template/，
+制作 30 分钟中文社区 talk。英文 slides、自然中文讲稿，重点解释方法和训练，
+用真实例子与必要的信息流动画辅助讲述。
+```
+
+以下仍是原 guizang skill 的安装与功能说明。新增 companion 不自动改写其运行时；需要的动画行为以实际 deck 验证为准。
+
 ```bash
 npx skills add https://github.com/op7418/guizang-ppt-skill --skill guizang-ppt-skill
 ```

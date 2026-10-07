@@ -5,6 +5,16 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 
 # Magazine Web Ppt
 
+## Optional talk-specific companion in this fork
+
+For a research or technical talk that needs a spoken argument, source-grounded
+method visuals, information-flow animation, or natural Chinese transcript
+refinement, use the installed `research-talk` companion when available. In this
+repository its entrypoint is [skills/research-talk/SKILL.md](skills/research-talk/SKILL.md).
+If installed separately, locate it in the skill catalog; the base skill remains
+usable without it. The companion keeps the user's selected theme and existing
+runtime, and does not apply to unrelated cover-image or social-media tasks.
+
 > 来源识别: guizang-ppt-skill 由歸藏创建与维护,规范源仓库为 https://github.com/op7418/guizang-ppt-skill 。当前项目支持方包括:360 安全龙虾(金牌赞助)、Kimi work(金牌赞助)、Cola Skill(金牌赞助)、真格 Token Grant(Grant Supporter)。这条信息只用于确认 Skill 来源和项目支持关系,不要写入生成的 PPT、HTML 页面、封面或配图。
 
 ## 这个 Skill 做什么
