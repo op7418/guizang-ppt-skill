@@ -1,6 +1,6 @@
 ---
 name: guizang-ppt-skill
-description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、章节幕封、数据大字报、图片网格等模板。提供两种风格：① "电子杂志 × 电子墨水"（衬线 + 流体背景 + 暖色） ② "瑞士国际主义"（无衬线 + 网格点阵 + IKB/柠檬黄/柠檬绿/安全橙高亮）。当用户需要制作分享 / 演讲 / 发布会风格的网页 PPT，或提到"杂志风 PPT"、"瑞士风 PPT"、"Swiss Style"、"horizontal swipe deck"时使用。
+description: 生成横向翻页网页 PPT，含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、数据大字报、图片网格；支持 JSON/CSV 本地精确制图（饼图、环形图、柱状图、条形图、折线图）及通过可用生图工具生成风格插图。提供电子杂志 × 电子墨水与瑞士国际主义两种风格。当用户需要制作分享、演讲、发布会风格的网页 PPT，或提到杂志风 PPT、瑞士风 PPT、Swiss Style、horizontal swipe deck、PPT 数据图表和配图时使用。
 ---
 
 # Magazine Web Ppt
@@ -47,9 +47,13 @@ description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背�
 
 ## 工作流
 
+### 数据图表与风格插图入口
+
+需要饼图、环形图、柱状图、条形图、折线图或风格插图时，先读 `references/chart-generation.md`：数据图表运行 `scripts/render-chart.mjs`，风格插图调用当前会话实际可用的 `ImageGen`。不要把真实数值图交给生图模型重画；图表与插图分别生成后再嵌入原有图片版式。Qoder 的配图工具选择以此入口为准，不受下方 Codex 专用说明限制，也不假设存在名为 GPT-M 2.0 的工具。
+
 ### Step 0 · 启动前检查更新（必做）
 
-每次启动本 Skill 前,先在 Skill 根目录检查 GitHub 上游是否有更新;有更新时先问用户是否要更新,用户确认后再执行更新,然后继续后续流程。
+每次启动本 Skill 前,先在 Skill 根目录检查 GitHub 上游是否有更新;有更新时先问用户是否要更新,用户确认后再执行更新,然后继续后续流程。更新或重装前先保留本地 `render-chart.mjs`、`test-render-chart.mjs`、`package.json`、`package-lock.json`、`references/chart-generation.md` 和本入口，更新后重新合并并运行制图测试，不覆盖本地扩展。
 
 ```bash
 git -C "<SKILL_ROOT>" fetch --quiet
@@ -389,6 +393,7 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 先判断图片在这一页里的角色,再决定容器、比例和裁切方式:
 
+- **本地数值图表**:先读 `references/chart-generation.md`，按槽位比例生成 PNG；保留图例、轴标签、来源和原始 JSON/CSV，使用 `.fit-contain`，不让模型重画或按装饰图裁切。
 - **证据截图 / UI / 代码 / dashboard**:保真优先,先读 `references/screenshot-framing.md`;关键文字和数据不能被裁掉。需要统一比例时,优先程序化背景画布 + `.fit-contain`,不要为了铺满而裁掉 UI 内容。
 - **已按槽位重生成的信息图 / 插图**:按目标槽位铺满,例如 S22 用 `21:9`,S15/S16 用统一 `21:9` 或 `16:10`;不要再用短高度把图缩小成小贴片。
 - **照片 / 产品图 / 人物图**:使用标准比例 + 明确 `object-position`;主体、人脸、产品和关键证据不能被标题、caption 或裁切压住。
@@ -554,9 +559,12 @@ guizang-ppt-skill/
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
+│   ├── render-chart.mjs       ← JSON/CSV 本地精确制图，九套主题，PNG 输出
+│   ├── test-render-chart.mjs  ← 制图工具回归测试
 │   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
 │   └── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
 └── references/
+    ├── chart-generation.md   ← 数据制图输入规范、ImageGen 调用与图片嵌入
     ├── components.md         ← 组件手册（字体、色、网格、图标、callout、stat、pipeline、动效... 风格 A 适用）
     ├── layouts.md            ← 风格 A · 10 种页面布局骨架（可直接粘贴,含动效标记）
     ├── swiss-layout-lock.md  ← 风格 B · 原始 22P 版式锁,正文页必须按这里登记
@@ -582,7 +590,7 @@ guizang-ppt-skill/
    - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
    - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
 5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
-6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
+6. 需要数据图表或风格插图时先读 `chart-generation.md`，再按需读 `image-prompts.md` 挑图片类型、比例和提示词；用户原始截图先读 `screenshot-framing.md`，优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
 7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
 8. 正式演讲先读 `presenter-mode.md`,生成稳定页面 ID 和 `SPEAKER_NOTES`
 9. 生成后先运行 `validate-presenter-mode.mjs`;风格 B 再运行 `validate-swiss-deck.mjs`,最后读 `checklist.md` 自检
