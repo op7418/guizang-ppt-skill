@@ -1,6 +1,6 @@
 ---
 name: guizang-ppt-skill
-description: 生成横向翻页网页 PPT，含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、数据大字报、图片网格；支持 JSON/CSV 本地精确制图（饼图、环形图、柱状图、条形图、折线图）及通过可用生图工具生成风格插图。提供电子杂志 × 电子墨水与瑞士国际主义两种风格。当用户需要制作分享、演讲、发布会风格的网页 PPT，或提到杂志风 PPT、瑞士风 PPT、Swiss Style、horizontal swipe deck、PPT 数据图表和配图时使用。
+description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、章节幕封、数据大字报、图片网格等模板。提供两种风格：① "电子杂志 × 电子墨水"（衬线 + 流体背景 + 暖色） ② "瑞士国际主义"（无衬线 + 网格点阵 + IKB/柠檬黄/柠檬绿/安全橙高亮）。当用户需要制作分享 / 演讲 / 发布会风格的网页 PPT，或提到"杂志风 PPT"、"瑞士风 PPT"、"Swiss Style"、"horizontal swipe deck"时使用。
 ---
 
 # Magazine Web Ppt
@@ -49,11 +49,15 @@ description: 生成横向翻页网页 PPT，含 WebGL 背景、演讲者视图�
 
 ### 数据图表与风格插图入口
 
+需要将 JSON/CSV 数据制作成 PPT 图表时，使用本地制图工具生成 PNG；需要概念配图时，使用可用的生图工具生成风格插图。
+
 需要饼图、环形图、柱状图、条形图、折线图或风格插图时，先读 `references/chart-generation.md`：数据图表运行 `scripts/render-chart.mjs`，风格插图调用当前会话实际可用的 `ImageGen`。不要把真实数值图交给生图模型重画；图表与插图分别生成后再嵌入原有图片版式。Qoder 的配图工具选择以此入口为准，不受下方 Codex 专用说明限制，也不假设存在名为 GPT-M 2.0 的工具。
 
 ### Step 0 · 启动前检查更新（必做）
 
-每次启动本 Skill 前,先在 Skill 根目录检查 GitHub 上游是否有更新;有更新时先问用户是否要更新,用户确认后再执行更新,然后继续后续流程。更新或重装前先保留本地 `render-chart.mjs`、`test-render-chart.mjs`、`package.json`、`package-lock.json`、`references/chart-generation.md` 和本入口，更新后重新合并并运行制图测试，不覆盖本地扩展。
+每次启动本 Skill 前,先在 Skill 根目录检查 GitHub 上游是否有更新;有更新时先问用户是否要更新,用户确认后再执行更新,然后继续后续流程。
+
+**本地制图扩展保护**：更新或重装前先保留本地 `render-chart.mjs`、`test-render-chart.mjs`、`package.json`、`package-lock.json`、`references/chart-generation.md` 和本入口，更新后重新合并并运行制图测试，不覆盖本地扩展。
 
 ```bash
 git -C "<SKILL_ROOT>" fetch --quiet
@@ -590,7 +594,8 @@ guizang-ppt-skill/
    - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
    - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
 5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
-6. 需要数据图表或风格插图时先读 `chart-generation.md`，再按需读 `image-prompts.md` 挑图片类型、比例和提示词；用户原始截图先读 `screenshot-framing.md`，优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
+6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
+   - 补充：需要数据图表或风格插图时，先读 `chart-generation.md` 确定本地制图或生图工具，再按需加载上述图片参考。
 7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
 8. 正式演讲先读 `presenter-mode.md`,生成稳定页面 ID 和 `SPEAKER_NOTES`
 9. 生成后先运行 `validate-presenter-mode.mjs`;风格 B 再运行 `validate-swiss-deck.mjs`,最后读 `checklist.md` 自检
