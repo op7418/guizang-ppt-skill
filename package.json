@@ -1,0 +1,14 @@
+{
+  "name": "guizang-ppt-local-charts",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test scripts/test-render-chart.mjs"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "1.0.10",
+    "echarts": "6.1.0",
+    "fontkit": "2.0.4"
+  }
+}
