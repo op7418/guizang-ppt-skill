@@ -23,13 +23,13 @@
 
 ## 基础 Slide 外壳
 
-每一页都是一个 `<section class="slide ...">`。必须包含 `data-theme` 属性（`light` 或 `dark`），JS 翻页时会根据这个属性切换背景。
+每一页都是一个 `<section class="slide ...">`，用 class `light` 或 `dark` 标明深浅，JS 翻页时据此切换背景。**不要在 section 上写配色主题**：`data-theme="ink-classic"` 这类配色主题只写在 `<html>` 上（见 themes.md）。深色页里文字、线条、强调色的语义变量（`--text-*`、`--line-*`、`--accent-ink`）会自动切到深底版本。
 
 ```html
-<section class="slide light" data-theme="light">   <!-- 浅色页 -->
-<section class="slide dark" data-theme="dark">     <!-- 深色页 -->
-<section class="slide light hero" data-theme="light">  <!-- Hero 页：浅色 + 薄遮罩透出 WebGL -->
-<section class="slide dark hero" data-theme="dark">    <!-- Hero 页：深色 + 薄遮罩 -->
+<section class="slide light">   <!-- 浅色页 -->
+<section class="slide dark">     <!-- 深色页 -->
+<section class="slide light hero">  <!-- Hero 页：浅色 + 薄遮罩 -->
+<section class="slide dark hero">    <!-- Hero 页：深色 + 薄遮罩 -->
 ```
 
 **light vs dark 的使用：交替使用**，每 2-3 页切换一次主题，避免连续超过 3 页同色。翻页时 WebGL 背景会自动在两个 shader 之间渐变过渡。

@@ -63,6 +63,7 @@
   --accent-on:#f1efea;
   --accent-ink:#111111;
   --accent-display:#111111;
+  --accent-ink-inverse:#b2b2b2;
   --text-primary:#0a0a0b;
   --text-body:#2c2b2c;
   --text-secondary:#404040;
@@ -86,6 +87,7 @@
   --accent-on:#f1efea;
   --accent-ink:#111111;
   --accent-display:#111111;
+  --accent-ink-inverse:#b2b2b2;
   --text-primary:#0a0a0b;
   --text-body:#2c2b2c;
   --text-secondary:#404040;
@@ -109,6 +111,7 @@
   --accent-on:#f1f3f5;
   --accent-ink:#315d93;
   --accent-display:#315d93;
+  --accent-ink-inverse:#89b9f5;
   --text-primary:#0a1f3d;
   --text-body:#2e415c;
   --text-secondary:#43546d;
@@ -132,6 +135,7 @@
   --accent-on:#f5f1e8;
   --accent-ink:#2e6b4f;
   --accent-display:#2e6b4f;
+  --accent-ink-inverse:#88c6a6;
   --text-primary:#1a2e1f;
   --text-body:#3d4d3e;
   --text-secondary:#515f51;
@@ -155,6 +159,7 @@
   --accent-on:#eedfc7;
   --accent-ink:#935326;
   --accent-display:#9b5a2e;
+  --accent-ink-inverse:#eda679;
   --text-primary:#2a1e13;
   --text-body:#493c2f;
   --text-secondary:#5b4e3f;
@@ -178,6 +183,7 @@
   --accent-on:#f0e6d2;
   --accent-ink:#7b633e;
   --accent-display:#8f7650;
+  --accent-ink-inverse:#cbb088;
   --text-primary:#1f1a14;
   --text-body:#3f3931;
   --text-secondary:#524c42;
@@ -190,29 +196,6 @@
   --accent-rgb:143,118,80;
   --accent-on-rgb:240,230,210;
   color-scheme:light;
-}
-[data-theme="midnight-ink"]{
-  --paper:#0e0d0c;
-  --paper-2:#1a1714;
-  --ink:#ece2cf;
-  --muted:#9a8c75;
-  --accent:#d4a04a;
-  --accent-soft:#3a2a14;
-  --accent-on:#0e0d0c;
-  --accent-ink:#dea954;
-  --accent-display:#d4a04a;
-  --text-primary:#ece2cf;
-  --text-body:#d5ccbb;
-  --text-secondary:#b9b2a3;
-  --text-helper:#b9b2a3;
-  --line-strong:#67635b;
-  --line:#373430;
-  --line-subtle:#23211f;
-  --ink-rgb:236,226,207;
-  --paper-rgb:14,13,12;
-  --accent-rgb:212,160,74;
-  --accent-on-rgb:14,13,12;
-  color-scheme:dark;
 }
 
 :root{
@@ -382,14 +365,14 @@
   background: var(--ink); color: var(--paper);
   --text-primary: var(--paper); --text-body: rgba(var(--paper-rgb), .86); --text-secondary: rgba(var(--paper-rgb), .72);
   --text-helper: rgba(var(--paper-rgb), .62); --line: rgba(var(--paper-rgb), .22); --line-strong: rgba(var(--paper-rgb), .45);
-  --accent-ink: var(--accent); --rule-strong: 2px solid var(--paper);
+  --accent-ink: var(--accent-ink-inverse); --accent-display: var(--accent-ink-inverse); --rule-strong: 2px solid var(--paper);
 }
 [data-family="magazine"] [data-surface="ink"], [data-family="magazine"][data-surface="ink"] { --rule-strong: 1px solid rgba(var(--paper-rgb), .45) }
 [data-surface="accent"] {
   background: var(--accent); color: var(--accent-on);
   --text-primary: var(--accent-on); --text-body: rgba(var(--accent-on-rgb), .88); --text-secondary: rgba(var(--accent-on-rgb), .78);
   --text-helper: rgba(var(--accent-on-rgb), .7); --line: rgba(var(--accent-on-rgb), .3); --line-strong: rgba(var(--accent-on-rgb), .55);
-  --accent-ink: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
+  --accent-ink: var(--accent-on); --accent-display: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
 }
 [data-surface="paper-2"] { background: var(--paper-2) }
 
@@ -544,10 +527,16 @@
 @media (prefers-reduced-motion: reduce) { .gz-effect { animation: none } }
 
 /* 旧变量名别名（迁移期保留） */
-:root{--mono:var(--font-mono);--serif-en:var(--font-display);--serif-body-en:var(--font-serif);--serif-zh:var(--font-serif-zh);--sans-zh:var(--font-sans);--paper-tint:var(--paper-2);--ink-tint:var(--text-body)}
+:root{--mono:var(--font-mono);--serif-en:var(--font-display);--serif-body-en:var(--font-serif);--serif-zh:var(--font-serif-zh);--sans-zh:var(--font-sans);--paper-tint:var(--paper-2);--ink-tint:var(--text-body);--nav-safe-bottom:var(--canvas-safe-bottom)}
+/* 模板自己的反色块 → 设计系统反色表面 */
+.slide.dark{--text-primary: var(--paper);--text-body: rgba(var(--paper-rgb), .86);--text-secondary: rgba(var(--paper-rgb), .72);--text-helper: rgba(var(--paper-rgb), .62);--line: rgba(var(--paper-rgb), .22);--line-strong: rgba(var(--paper-rgb), .45);--accent-ink: var(--accent-ink-inverse);--accent-display: var(--accent-ink-inverse);--rule-strong: 2px solid var(--paper)}
 /* GZ:TOKENS:END */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  /* ============ 底部分页安全区（与瑞士风同名同值）============ */
+  .nav-safe-bottom{padding-bottom:var(--nav-safe-bottom)}
+  .nav-safe-bottom-tight{padding-bottom:calc(var(--nav-safe-bottom) * .65)}
 
   /* ============ WebGL 双背景 ============ */
   canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
@@ -1049,7 +1038,7 @@
 
 <!-- ============================================================
      SLIDES 插入区 · 在此处填充所有 <section class="slide ..."> 页面
-     每页模板参考 references/page-patterns.md
+     每页模板参考 references/layouts.md
      页面组件参考 references/components.md
      ============================================================ -->
 
@@ -1400,9 +1389,10 @@ function go(n,opts={}){
   window.__currentSlideIndex = idx;
   deck.style.transform=`translateX(${-idx*100}vw)`;
   nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
-  /* 主题切换：优先读 data-theme，其次从 class（light/dark）推断 */
+  /* 深浅页：读 section 上的 class（light/dark）；section 的 data-theme 只认 light/dark——
+     <html data-theme> 是配色主题（ink-classic 等），两者不能混 */
   const el=slides[idx];
-  const th=el.dataset.theme || (el.classList.contains('light')?'light':(el.classList.contains('dark')?'dark':'dark'));
+  const th=(el.dataset.theme==='light'||el.dataset.theme==='dark') ? el.dataset.theme : (el.classList.contains('light')?'light':'dark');
   document.body.classList.toggle('light-bg',th==='light');
   /* 动效：翻页过渡中段触发当前页的入场动画（由 motion-boot 注册） */
   if(window.__playSlide) setTimeout(()=>window.__playSlide(idx), 450);

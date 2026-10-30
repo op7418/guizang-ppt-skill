@@ -190,7 +190,7 @@ function textSafeAccent(accent, paper, floor = ROLE_FLOORS.accentInk) {
   if (passes(accent, paper, floor)) return { hex: accent, adjusted: false }
   const { l, c, h } = hexToOklch(accent)
   const dark = hexToOklch(paper).l < 0.5
-  for (let step = 1; step <= 100; step++) {
+  for (let step = 1; step <= 200; step++) {
     const L = dark ? l + step * 0.005 : l - step * 0.005
     if (L <= 0 || L >= 1) break
     const hex = oklchToHex({ l: L, c, h })
@@ -224,6 +224,8 @@ function deriveMagazine(t) {
       '--accent-on': onColor(t.accent, [t.ink, t.paper]),
       '--accent-ink': roles.accentInk.hex,
       '--accent-display': accentDisplay(t.accent, roles.accentInk.hex, t.paper),
+      // 反色块（以墨色为底）上的强调色文字：同色相提亮到可读，墨水经典的 #111 会变成浅灰
+      '--accent-ink-inverse': textSafeAccent(t.accent, t.ink).hex,
       '--text-primary': t.ink,
       '--text-body': roles.textBody.hex,
       '--text-secondary': roles.textSecondary.hex,
@@ -247,6 +249,8 @@ function deriveSwiss(n, t) {
       '--accent': t.accent, '--accent-on': t.accentOn, '--accent-ink': t.accentInk,
       '--accent-bright': t.accentBright, '--accent-deep': t.accentDeep,
       '--accent-display': accentDisplay(t.accent, t.accentInk, n.paper),
+      // 墨色块上的强调色文字：优先用手调的 accent-bright（IKB 的亮蓝），不够再按规则提亮
+      '--accent-ink-inverse': textSafeAccent(t.accentBright, n.ink).hex,
       '--accent-soft': mix(n.paper, t.accent, 0.14),
       '--text-primary': n.ink,
       '--text-body': textBody.hex,

@@ -65,6 +65,7 @@
   --accent-bright:#5B7BFF;
   --accent-deep:#001d6b;
   --accent-display:#002FA7;
+  --accent-ink-inverse:#96b0ff;
   --accent-soft:#d5deef;
   --text-primary:#0a0a0a;
   --text-body:#252524;
@@ -95,6 +96,7 @@
   --accent-bright:#5B7BFF;
   --accent-deep:#001d6b;
   --accent-display:#002FA7;
+  --accent-ink-inverse:#96b0ff;
   --accent-soft:#d5deef;
   --text-primary:#0a0a0a;
   --text-body:#252524;
@@ -125,6 +127,7 @@
   --accent-bright:#FFE34D;
   --accent-deep:#5e4900;
   --accent-display:#7a5f00;
+  --accent-ink-inverse:#FFE34D;
   --accent-soft:#fbf6e1;
   --text-primary:#0a0a0a;
   --text-body:#252524;
@@ -155,6 +158,7 @@
   --accent-bright:#D4F040;
   --accent-deep:#3a5000;
   --accent-display:#4a6400;
+  --accent-ink-inverse:#D4F040;
   --accent-soft:#f2f8e1;
   --text-primary:#0a0a0a;
   --text-body:#252524;
@@ -185,6 +189,7 @@
   --accent-bright:#FF9A6C;
   --accent-deep:#9a3409;
   --accent-display:#FF6B35;
+  --accent-ink-inverse:#FF9A6C;
   --accent-soft:#fee8de;
   --text-primary:#0a0a0a;
   --text-body:#252524;
@@ -369,14 +374,14 @@
   background: var(--ink); color: var(--paper);
   --text-primary: var(--paper); --text-body: rgba(var(--paper-rgb), .86); --text-secondary: rgba(var(--paper-rgb), .72);
   --text-helper: rgba(var(--paper-rgb), .62); --line: rgba(var(--paper-rgb), .22); --line-strong: rgba(var(--paper-rgb), .45);
-  --accent-ink: var(--accent); --rule-strong: 2px solid var(--paper);
+  --accent-ink: var(--accent-ink-inverse); --accent-display: var(--accent-ink-inverse); --rule-strong: 2px solid var(--paper);
 }
 [data-family="magazine"] [data-surface="ink"], [data-family="magazine"][data-surface="ink"] { --rule-strong: 1px solid rgba(var(--paper-rgb), .45) }
 [data-surface="accent"] {
   background: var(--accent); color: var(--accent-on);
   --text-primary: var(--accent-on); --text-body: rgba(var(--accent-on-rgb), .88); --text-secondary: rgba(var(--accent-on-rgb), .78);
   --text-helper: rgba(var(--accent-on-rgb), .7); --line: rgba(var(--accent-on-rgb), .3); --line-strong: rgba(var(--accent-on-rgb), .55);
-  --accent-ink: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
+  --accent-ink: var(--accent-on); --accent-display: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
 }
 [data-surface="paper-2"] { background: var(--paper-2) }
 
@@ -532,6 +537,9 @@
 
 /* 旧变量名别名（迁移期保留） */
 :root{--sans:var(--font-sans);--sans-zh:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;--mono:var(--font-mono);--border-subtle:var(--line-subtle);--border-strong:var(--line-strong);--ease-prod:var(--ease-standard);--ease-exp:var(--ease-expressive);--ease-entry-prod:var(--ease-entrance-standard);--ease-entry-exp:var(--ease-entrance);--dur-mod-1:var(--dur-moderate-1);--dur-mod-2:var(--dur-moderate-2);--nav-safe-bottom:var(--canvas-safe-bottom)}
+/* 模板自己的反色块 → 设计系统反色表面 */
+.slide.dark,.split-half > .half.b-ink,.card-ink,.ink-block{--text-primary: var(--paper);--text-body: rgba(var(--paper-rgb), .86);--text-secondary: rgba(var(--paper-rgb), .72);--text-helper: rgba(var(--paper-rgb), .62);--line: rgba(var(--paper-rgb), .22);--line-strong: rgba(var(--paper-rgb), .45);--accent-ink: var(--accent-ink-inverse);--accent-display: var(--accent-ink-inverse);--rule-strong: 2px solid var(--paper)}
+.slide.accent,.split-half > .half.b-accent,.card-accent,.accent-block{--text-primary: var(--accent-on);--text-body: rgba(var(--accent-on-rgb), .88);--text-secondary: rgba(var(--accent-on-rgb), .78);--text-helper: rgba(var(--accent-on-rgb), .7);--line: rgba(var(--accent-on-rgb), .3);--line-strong: rgba(var(--accent-on-rgb), .55);--accent-ink: var(--accent-on);--accent-display: var(--accent-on);--rule-strong: 2px solid var(--accent-on)}
 /* GZ:TOKENS:END */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{
@@ -1009,7 +1017,9 @@
   #nav .dot:hover{background:rgba(0,0,0,.55)}
   #nav .dot.active{background:var(--accent);width:18px}
   body.dark-bg #nav .dot{background:rgba(var(--paper-rgb),.32)}
-  body.dark-bg #nav .dot.active{background:var(--accent)}
+  body.dark-bg #nav .dot.active{background:var(--accent-ink-inverse)}
+  body.accent-bg #nav .dot{background:rgba(var(--accent-on-rgb),.35)}
+  body.accent-bg #nav .dot.active{background:var(--accent-on)}
 
   #hint{position:fixed;bottom:2.4vh;right:2.5vw;z-index:30;display:flex;align-items:center;gap:.65em;font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
   #hint button{all:unset;display:inline-flex;align-items:center;gap:.42em;cursor:pointer;color:inherit;white-space:nowrap}
@@ -1019,6 +1029,7 @@
   body.dark-bg #hint{color:var(--paper);opacity:.4}
   body.low-power #hint{color:var(--accent-ink);opacity:.72}
   body.dark-bg.low-power #hint{color:var(--paper);opacity:.72}
+  body.accent-bg #hint,body.accent-bg.low-power #hint{color:var(--accent-on);opacity:.6}
 
   /* ============ 演讲者模式 ============ */
   body.ppt-audience #hint,body.ppt-audience #nav,
@@ -1289,7 +1300,7 @@
   }
   .timeline-h .th-node.accent .name{color:var(--accent-ink)}
   .timeline-h .th-node .desc{
-    font-family:var(--sans),var(--sans-zh);font-size:max(14px,.84vw);
+    font-family:var(--sans),var(--sans-zh);font-size:max(16px,.84vw);
     color:var(--text-secondary);font-weight:400;line-height:1.4
   }
 
@@ -2160,6 +2171,8 @@ function go(n,opts={}){
   const el=slides[idx];
   const isDark = el.classList.contains('dark') || el.classList.contains('accent');
   document.body.classList.toggle('dark-bg', isDark);
+  // 强调色页单独标记：导航和提示改用 --accent-on（黄、绿主题上是墨色），不能按深色页处理
+  document.body.classList.toggle('accent-bg', el.classList.contains('accent'));
   darkMode = isDark;
   if(window.__playSlide) setTimeout(()=>window.__playSlide(idx), 450);
   window.__pptPresenter?.onSlideChange(idx);
