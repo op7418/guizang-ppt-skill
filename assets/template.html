@@ -199,112 +199,112 @@
 }
 
 :root{
-  --fs-display:11vw;
+  --fs-display:min(11vw,19.556vh);
   --fw-display:700;
   --lh-display:0.92;
   --ls-display:-.025em;
   --ff-display:var(--font-display);
   --fst-display:normal;
   --tt-display:none;
-  --fs-display-zh:10vw;
+  --fs-display-zh:min(10vw,17.778vh);
   --fw-display-zh:900;
   --lh-display-zh:0.96;
   --ls-display-zh:-.02em;
   --ff-display-zh:var(--font-serif-zh);
   --fst-display-zh:normal;
   --tt-display-zh:none;
-  --fs-title:6.2vw;
+  --fs-title:min(6.2vw,11.022vh);
   --fw-title:700;
   --lh-title:1.08;
   --ls-title:-.025em;
   --ff-title:var(--font-display);
   --fst-title:normal;
   --tt-title:none;
-  --fs-title-zh:6.2vw;
+  --fs-title-zh:min(6.2vw,11.022vh);
   --fw-title-zh:700;
   --lh-title-zh:1.08;
   --ls-title-zh:-.01em;
   --ff-title-zh:var(--font-serif-zh);
   --fst-title-zh:normal;
   --tt-title-zh:none;
-  --fs-heading:2.3vw;
+  --fs-heading:min(2.3vw,4.089vh);
   --fw-heading:600;
   --lh-heading:1.3;
   --ls-heading:0;
   --ff-heading:var(--font-serif-zh);
   --fst-heading:normal;
   --tt-heading:none;
-  --fs-subhead:3.1vw;
+  --fs-subhead:min(3.1vw,5.511vh);
   --fw-subhead:500;
   --lh-subhead:1.25;
   --ls-subhead:0;
   --ff-subhead:var(--font-serif-zh);
   --fst-subhead:normal;
   --tt-subhead:none;
-  --fs-lead:max(20px,1.75vw);
+  --fs-lead:max(min(20px,2.778vh),min(1.75vw,3.111vh));
   --fw-lead:400;
   --lh-lead:1.5;
   --ls-lead:0;
   --ff-lead:var(--font-serif-zh);
   --fst-lead:normal;
   --tt-lead:none;
-  --fs-body:max(18px,1.22vw);
+  --fs-body:max(min(18px,2.5vh),min(1.22vw,2.169vh));
   --fw-body:400;
   --lh-body:1.75;
   --ls-body:.01em;
   --ff-body:var(--font-sans);
   --fst-body:normal;
   --tt-body:none;
-  --fs-small:max(16px,1.05vw);
+  --fs-small:max(min(16px,2.222vh),min(1.05vw,1.867vh));
   --fw-small:400;
   --lh-small:1.5;
   --ls-small:0;
   --ff-small:var(--font-sans);
   --fst-small:normal;
   --tt-small:none;
-  --fs-caption:max(14px,.8vw);
+  --fs-caption:max(min(14px,1.944vh),min(.8vw,1.422vh));
   --fw-caption:400;
   --lh-caption:1.4;
   --ls-caption:.2em;
   --ff-caption:var(--font-mono);
   --fst-caption:normal;
   --tt-caption:uppercase;
-  --fs-label:max(14px,.88vw);
+  --fs-label:max(min(14px,1.944vh),min(.88vw,1.564vh));
   --fw-label:500;
   --lh-label:1.3;
   --ls-label:.16em;
   --ff-label:var(--font-mono);
   --fst-label:normal;
   --tt-label:uppercase;
-  --fs-meta:max(14px,.78vw);
+  --fs-meta:max(min(14px,1.944vh),min(.78vw,1.387vh));
   --fw-meta:400;
   --lh-meta:1.3;
   --ls-meta:.2em;
   --ff-meta:var(--font-mono);
   --fst-meta:normal;
   --tt-meta:uppercase;
-  --fs-quote:5.8vw;
+  --fs-quote:min(5.8vw,10.311vh);
   --fw-quote:700;
   --lh-quote:1.2;
   --ls-quote:-.01em;
   --ff-quote:var(--font-serif-zh);
   --fst-quote:normal;
   --tt-quote:none;
-  --fs-num-xl:10vw;
+  --fs-num-xl:min(10vw,17.778vh);
   --fw-num-xl:800;
   --lh-num-xl:0.85;
   --ls-num-xl:-.03em;
   --ff-num-xl:var(--font-display);
   --fst-num-xl:normal;
   --tt-num-xl:none;
-  --fs-num-l:8vw;
+  --fs-num-l:min(8vw,14.222vh);
   --fw-num-l:800;
   --lh-num-l:0.88;
   --ls-num-l:-.03em;
   --ff-num-l:var(--font-display);
   --fst-num-l:normal;
   --tt-num-l:none;
-  --fs-num-m:5.5vw;
+  --fs-num-m:min(5.5vw,9.778vh);
   --fw-num-m:700;
   --lh-num-m:0.88;
   --ls-num-m:-.02em;
@@ -544,7 +544,7 @@
   canvas#bg-dark{opacity:1}
   body.light-bg canvas#bg-light{opacity:1}
   body.light-bg canvas#bg-dark{opacity:0}
-  body.low-power canvas.bg{display:none!important}
+  /* 低功耗：背景停在一帧静态画面（gz-effects 只画一次），不隐藏，否则透明页会露出底色 */
 
   /* ============ Deck 容器 + 翻页 ============ */
   /* width: NSLIDES * 100vw，会在 JS 里动态矫正 */
@@ -552,6 +552,9 @@
   .slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:6vh 6vw 10vh 6vw;display:flex;flex-direction:column;overflow:hidden}
   .slide.light{color:var(--ink);background:var(--paper)}
   .slide.dark{color:var(--paper);background:var(--ink)}
+  /* 播放中的页面透明，让 WebGL 背景透过 ::before 遮罩显示（普通页 .78 + 模糊，hero 页 .12/.16）；
+     总览、演讲者缩略图里的克隆页不在 #deck 下，保持不透明底色 */
+  #deck > .slide.light,#deck > .slide.dark{background:transparent}
 
   /* 默认页：遮罩较厚，保证文字可读 */
   .slide::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
@@ -567,13 +570,13 @@
 
   /* ============ Magazine chrome：顶部 meta + 底部 foot ============
      （v1 布局 + v2 字号在此合并为唯一定义，不要在别处二次定义） */
-  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
   .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
   .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
-  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
-  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:14px}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:min(14px,1.944vh)}
 
-  .tag{display:inline-block;font-family:var(--mono);font-size:14px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .tag{display:inline-block;font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
   .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
   .rule.v{width:1px;height:100%;margin:0}
 
@@ -582,31 +585,31 @@
      · 非衬线（Noto Sans SC）：正文描述、body、补充说明
      · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
   */
-  .kicker{font-family:var(--mono);font-size:14px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
-  .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
-  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
-  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
-  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:3.2vw;line-height:1.2;letter-spacing:0}
-  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.9vw;line-height:1.35}
-  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
-  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
-  .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
-  .meta{font-family:var(--mono);font-size:max(14px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
-  .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
-  .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
+  .kicker{font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .display{font-family:var(--serif-en);font-weight:700;font-size:min(11vw,19.56vh);line-height:.92;letter-spacing:-.025em}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:min(7.8vw,13.87vh);line-height:1.04;letter-spacing:-.005em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:min(4.6vw,8.178vh);line-height:1.12;letter-spacing:-.005em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:min(3.2vw,5.689vh);line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:min(1.9vw,3.378vh);line-height:1.35}
+  .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(min(15px,2.083vh),min(1.22vw,2.169vh));line-height:1.75;opacity:.82;letter-spacing:.01em}
+  .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(min(15px,2.083vh),min(1.3vw,2.311vh));line-height:1.65;opacity:.88}
+  .lead{font-family:var(--serif-zh);font-weight:400;font-size:min(1.75vw,3.111vh);line-height:1.5;opacity:.86}
+  .meta{font-family:var(--mono);font-size:max(min(14px,1.944vh),.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .big-num{font-family:var(--serif-en);font-weight:800;font-size:min(10vw,17.78vh);line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .mid-num{font-family:var(--serif-en);font-weight:700;font-size:min(5.5vw,9.778vh);line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
+  .ghost{font-family:var(--serif-en);font-weight:900;font-size:min(34vw,60.44vh);line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
   em{font-style:italic;font-family:var(--serif-en)}
   .en{font-family:var(--serif-en);font-style:italic;font-weight:500}
 
   /* ============ 布局工具 ============ */
   .col{display:flex;flex-direction:column;gap:2.4vh}
-  .row{display:flex;align-items:center;gap:3vw}
-  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:4vw 6vw;flex:1;align-content:center;padding:2vh 0}
+  .row{display:flex;align-items:center;gap:min(3vw,5.333vh) 3vw}
+  .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:min(4vw,7.111vh) 6vw;flex:1;align-content:center;padding:2vh 0}
   .grid-9{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:3vh 4vw;flex:1;align-content:center}
   .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:4vh 6vw;flex:1;align-content:center}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1;align-content:center}
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1;align-items:center}
-  .split-55{display:grid;grid-template-columns:55fr 45fr;gap:5vw;flex:1;align-items:stretch}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:min(4vw,7.111vh) 4vw;flex:1;align-content:center}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:min(4vw,7.111vh) 4vw;flex:1;align-items:center}
+  .split-55{display:grid;grid-template-columns:55fr 45fr;gap:min(5vw,8.889vh) 5vw;flex:1;align-items:stretch}
   .fill{flex:1}
   .center{align-items:center;justify-content:center;text-align:center}
   .bottom-left{position:absolute;left:6vw;bottom:9vh;max-width:50vw}
@@ -615,40 +618,40 @@
 
   /* ============ Stat（数字矩阵） ============ */
   .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
-  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .stat .l{font-family:var(--sans-zh);font-size:max(16px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
-  .stat .m{font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+  .stat .n{font-family:var(--serif-en);font-weight:800;font-size:min(8vw,14.22vh);line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .stat .l{font-family:var(--sans-zh);font-size:max(min(16px,2.222vh),min(1.05vw,1.867vh));opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
 
   /* ============ Callout（引用框） ============ */
-  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
+  .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(min(15px,2.083vh),min(1.2vw,2.133vh));line-height:1.55;opacity:.92}
   .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
   .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
-  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(min(17px,2.361vh),min(1.6vw,2.844vh));line-height:1.42}
 
   /* ============ Platform（平台卡） ============ */
   .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
-  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
-  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
-  .plat .sub{font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
-  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
+  .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:min(1.8vw,3.2vh);margin-bottom:.6vh}
+  .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:min(3.2vw,5.689vh);letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
+  .plat .sub{font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:min(2.4vw,4.267vh);opacity:.28;letter-spacing:-.01em;line-height:1}
 
   /* ============ Rowline（表格行） ============ */
-  .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
+  .rowline{display:grid;grid-template-columns:1fr 2fr 1fr;gap:min(2vw,3.556vh) 2vw;padding:2.2vh 0;border-top:1px solid currentColor;align-items:center;border-color:rgba(127,127,127,.25)}
   .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
-  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:1.7vw}
-  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
-  .rowline .m{font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+  .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:min(1.7vw,3.022vh)}
+  .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(min(14px,1.944vh),min(1.2vw,2.133vh));opacity:.85;line-height:1.55}
+  .rowline .m{font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
 
   /* ============ Pillar（支柱卡片） ============ */
   .pillar{display:flex;flex-direction:column;gap:1.8vh}
-  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:2.6vw;opacity:.45;font-weight:400}
+  .pillar .ic{font-family:var(--serif-en);font-style:italic;font-size:min(2.6vw,4.622vh);opacity:.45;font-weight:400}
   .pillar .ic svg{width:2.8vw;height:2.8vw;stroke-width:1.2;opacity:.7}
-  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:2.4vw;line-height:1.1}
-  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.1vw);opacity:.76;line-height:1.6}
+  .pillar .t{font-family:var(--serif-zh);font-weight:700;font-size:min(2.4vw,4.267vh);line-height:1.1}
+  .pillar .d{font-family:var(--sans-zh);font-weight:400;font-size:max(min(14px,1.944vh),min(1.1vw,1.956vh));opacity:.76;line-height:1.6}
 
   /* ============ Signature / Highlight ============ */
-  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:2vw;opacity:.7}
+  .sign{font-family:var(--serif-en);font-style:italic;font-weight:500;font-size:min(2vw,3.556vh);opacity:.7}
   .hi{position:relative;display:inline}
   .slide.dark .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--paper-rgb),.15);z-index:-1}
   .slide.light .hi::after{content:"";position:absolute;left:-.1em;right:-.1em;bottom:-.05em;height:.28em;background:rgba(var(--ink-rgb),.08);z-index:-1}
@@ -661,9 +664,9 @@
   .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
 
   /* ============ 图片占位（虚线框，提示设计师位置） ============ */
-  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:14px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
   .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
-  .img-slot .plus{font-size:2vw;font-weight:300;opacity:.5;letter-spacing:0}
+  .img-slot .plus{font-size:min(2vw,3.556vh);font-weight:300;opacity:.5;letter-spacing:0}
   .img-slot .label{position:relative;z-index:2;text-align:center}
   .img-slot.r-4x3{aspect-ratio:4/3}
   .img-slot.r-3x2{aspect-ratio:3/2}
@@ -688,9 +691,9 @@
   .frame-img.h-22{height:22vh}
   .frame-img.h-26{height:26vh}
   .frame-img.h-28{height:28vh}
-  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
-  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(14px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
-  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:min(1vw,1.778vh) 1vw;margin-top:.8vh;font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(min(14px,1.944vh),min(1vw,1.778vh));letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(min(15px,2.083vh),min(1.2vw,2.133vh));letter-spacing:.02em;text-transform:none;opacity:.88}
   .frame-cap .idx{font-family:var(--mono);opacity:.5}
   figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
   figure.tile > .frame-img{flex:0 0 auto}
@@ -750,7 +753,7 @@
   #overview{z-index:110!important}
   @media(max-width:1200px){.ppt-presenter-main{grid-template-columns:minmax(0,1.55fr) minmax(280px,.72fr)}}
   @media(max-width:1100px){.ppt-presenter-bottom{grid-template-columns:minmax(292px,1fr) auto minmax(86px,.6fr);gap:12px}.ppt-time-stat{min-width:82px;padding:0 11px}.ppt-time-value{font-size:20px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:60px;padding:8px 9px}}
-  @media(max-width:900px){.ppt-presenter-top{padding:12px 16px;flex-wrap:wrap}.ppt-presenter-top .ppt-presenter-meta{gap:6px}.ppt-presenter-top .ppt-ui-btn{padding:8px 9px}.ppt-presenter-main,#ppt-presenter[data-layout="slides"] .ppt-presenter-main,#ppt-presenter[data-layout="notes"] .ppt-presenter-main{grid-template-columns:minmax(0,1.45fr) minmax(250px,.72fr);gap:12px;padding:12px 16px}.ppt-preview-stack{gap:12px;grid-template-rows:minmax(0,1fr) clamp(104px,20vh,150px)}.ppt-saved{display:none}.ppt-presenter-bottom{grid-template-columns:minmax(270px,1fr) auto 74px;gap:8px;padding:9px 16px}.ppt-time-stat{min-width:0;padding:0 9px}.ppt-time-value{font-size:18px}.ppt-time-hint{max-width:78px;overflow:hidden;text-overflow:ellipsis}.ppt-controls,.ppt-session-actions{gap:5px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:52px;padding:7px 8px;font-size:12px}.ppt-page-state strong{font-size:14px}.ppt-dialog-grid{grid-template-columns:1fr}.ppt-segmented.screen{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.ppt-presenter-top{padding:12px 16px;flex-wrap:wrap}.ppt-presenter-top .ppt-presenter-meta{gap:6px}.ppt-presenter-top .ppt-ui-btn{padding:8px 9px}.ppt-presenter-main,#ppt-presenter[data-layout="slides"] .ppt-presenter-main,#ppt-presenter[data-layout="notes"] .ppt-presenter-main{grid-template-columns:minmax(0,1.45fr) minmax(250px,.72fr);gap:12px;padding:12px 16px}.ppt-preview-stack{gap:12px;grid-template-rows:minmax(0,1fr) clamp(104px,20vh,150px)}.ppt-saved{display:none}.ppt-presenter-bottom{grid-template-columns:minmax(270px,1fr) auto 74px;gap:8px;padding:9px 16px}.ppt-time-stat{min-width:0;padding:0 9px}.ppt-time-value{font-size:min(18px,2.5vh)}.ppt-time-hint{max-width:78px;overflow:hidden;text-overflow:ellipsis}.ppt-controls,.ppt-session-actions{gap:5px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:52px;padding:7px 8px;font-size:min(12px,1.667vh)}.ppt-page-state strong{font-size:min(14px,1.944vh)}.ppt-dialog-grid{grid-template-columns:1fr}.ppt-segmented.screen{grid-template-columns:repeat(2,1fr)}}
   @media(max-height:700px){.ppt-presenter-top{padding-top:10px;padding-bottom:10px}.ppt-presenter-main{padding-top:10px;padding-bottom:10px}.ppt-preview-stack{grid-template-rows:minmax(0,1fr) clamp(88px,16vh,118px);gap:10px}.ppt-stage-label{padding:7px 10px}.ppt-notes-head{padding:12px 14px}.ppt-purpose-block{margin-top:10px;padding:8px 10px}.ppt-notes-draft-head{margin-top:10px;padding-top:9px}.ppt-presenter-bottom{padding-top:8px;padding-bottom:8px}.ppt-control-stack{gap:5px}.ppt-session-actions{padding-top:5px}}
   /* ============ /演讲者模式 ============ */
 
@@ -773,21 +776,21 @@
   .h-hero{
     font-family:var(--serif-zh);
     font-weight:900;
-    font-size:10vw;
+    font-size:min(10vw,17.78vh);
     line-height:.96;
     letter-spacing:-.02em;
   }
   .h-xl{
     font-family:var(--serif-zh);
     font-weight:700;
-    font-size:6.2vw;
+    font-size:min(6.2vw,11.02vh);
     line-height:1.08;
     letter-spacing:-.01em;
   }
   .h-sub{
     font-family:var(--serif-zh);
     font-weight:500;
-    font-size:3.1vw;
+    font-size:min(3.1vw,5.511vh);
     line-height:1.25;
     letter-spacing:0;
     opacity:.7;
@@ -795,7 +798,7 @@
   .h-md{
     font-family:var(--serif-zh);
     font-weight:600;
-    font-size:2.3vw;
+    font-size:min(2.3vw,4.089vh);
     line-height:1.3;
   }
   /* 英文标题专用（Playfair 衬线） */
@@ -810,7 +813,7 @@
     align-items:baseline;
     flex-wrap:wrap;
     font-family:var(--mono);
-    font-size:max(14px,.92vw);
+    font-size:max(min(14px,1.944vh),.92vw);
     letter-spacing:.16em;
     text-transform:uppercase;
     opacity:.6;
@@ -828,7 +831,7 @@
   }
   .stat-card .stat-label{
     font-family:var(--mono);
-    font-size:max(14px,.78vw);
+    font-size:max(min(14px,1.944vh),.78vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.55;
@@ -836,7 +839,7 @@
   .stat-card .stat-nb{
     font-family:var(--serif-en);
     font-weight:800;
-    font-size:5.8vw;
+    font-size:min(5.8vw,10.31vh);
     line-height:.9;
     letter-spacing:-.03em;
     font-feature-settings:"tnum";
@@ -853,15 +856,15 @@
   .stat-card .stat-note{
     font-family:var(--sans-zh);
     font-weight:400;
-    font-size:max(16px,1.05vw);
+    font-size:max(min(16px,2.222vh),min(1.05vw,1.867vh));
     line-height:1.5;
     opacity:.72;
     margin-top:.6vh;
   }
   /* 当 stat-card 用于 grid-4（2x2），数字适度放大；若页面有标题+引文在上方，可内联 style 覆盖为更小值 */
-  .grid-4 .stat-card .stat-nb{font-size:5vw}
+  .grid-4 .stat-card .stat-nb{font-size:min(5vw,8.889vh)}
   /* 当只有 3 个，字也可以稍大 */
-  .grid-3 .stat-card .stat-nb{font-size:6.8vw}
+  .grid-3 .stat-card .stat-nb{font-size:min(6.8vw,12.09vh)}
 
   /* ---------- pipeline（流水线） ---------- */
   .pipeline-section{
@@ -876,7 +879,7 @@
   }
   .pipeline-label{
     font-family:var(--mono);
-    font-size:max(14px,.85vw);
+    font-size:max(min(14px,1.944vh),.85vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.62;
@@ -885,7 +888,7 @@
   .pipeline{
     display:grid;
     grid-template-columns:repeat(5,1fr);
-    gap:1.2vw;
+    gap:min(1.2vw,2.133vh) 1.2vw;
   }
   .pipeline[data-cols="3"]{grid-template-columns:repeat(3,1fr)}
   .pipeline[data-cols="4"]{grid-template-columns:repeat(4,1fr)}
@@ -902,29 +905,29 @@
     font-family:var(--serif-en);
     font-style:italic;
     font-weight:500;
-    font-size:1.15vw;
+    font-size:min(1.15vw,2.044vh);
     opacity:.45;
   }
   .step-title{
     font-family:var(--sans-zh);
     font-weight:700;
-    font-size:1.55vw;
+    font-size:min(1.55vw,2.756vh);
     letter-spacing:.01em;
     line-height:1.2;
   }
   .step-desc{
     font-family:var(--sans-zh);
     font-weight:400;
-    font-size:max(16px,.95vw);
+    font-size:max(min(16px,2.222vh),.95vw);
     line-height:1.45;
     opacity:.72;
   }
 
   /* ---------- 网格（layouts.md 所用） ---------- */
   /* 这些类独立挂到任何容器上都能生效，不依赖 .frame 复合选择器 */
-  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
-  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
-  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
   .grid-3-3{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -944,7 +947,7 @@
     flex:0 0 auto;
     padding:.7vh .9em .9vh;
     font-family:var(--mono);
-    font-size:max(14px,.8vw);
+    font-size:max(min(14px,1.944vh),.8vw);
     letter-spacing:.22em;
     text-transform:uppercase;
     opacity:.6;
@@ -954,7 +957,7 @@
     display:block;
     margin-top:1.6vh;
     font-family:var(--mono);
-    font-size:14px;
+    font-size:min(14px,1.944vh);
     letter-spacing:.2em;
     text-transform:uppercase;
     opacity:.6;
@@ -988,11 +991,11 @@
 
   /* ---------- 响应式降级 ---------- */
   @media (max-width:900px){
-    .display{font-size:16vw}
-    .display-zh{font-size:12vw}
-    .h1-zh{font-size:7vw}
-    .h-hero{font-size:14vw}
-    .h-xl{font-size:9vw}
+    .display{font-size:min(16vw,28.44vh)}
+    .display-zh{font-size:min(12vw,21.33vh)}
+    .h1-zh{font-size:min(7vw,12.44vh)}
+    .h-hero{font-size:min(14vw,24.89vh)}
+    .h-xl{font-size:min(9vw,16vh)}
     .pipeline{grid-template-columns:repeat(2,1fr)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4{grid-template-columns:1fr}
   }
@@ -1084,6 +1087,12 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
  *   - data-frozen 把时间定格：卡片出 PNG 时每次渲染结果一致。GZEffects.ready 在首帧画完后 resolve
  *   - 颜色从 canvas 所在位置的 token 读（--ink-rgb / --paper-rgb / --accent-rgb / --accent-on-rgb），
  *     放进反色块或切换 data-theme 时自动跟随
+ *
+ * 性能（弱机器也要流畅）：
+ *   - 渲染分辨率按特效分档（data-scale 可覆盖）：背景压在遮罩和模糊下，色散 / 涡流用 0.5 倍 CSS 像素，
+ *     Retina 屏上像素量只有全分辨率的 1/16；网格有细线用 1 倍；定格出图时用全分辨率
+ *   - WebGL 特效限 30fps（data-fps 可覆盖），ASCII 24fps；不在视口、透明度为 0 的画布不画
+ *   - 申请低功耗 GPU；持续掉到 25fps 以下时自动降分辨率，降到底仍卡就切成静态画面
  */
 (function () {
   'use strict'
@@ -1095,6 +1104,10 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
     'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
     'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);' +
     'return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}'
+
+  // 各特效的默认渲染倍率（相对 CSS 像素）：柔和的背景低分辨率看不出差别，细线和文字需要更高
+  var SCALE = { dispersion: 0.5, vortex: 0.5, inkflow: 0.75, grid: 1, ascii: 1 }
+  var FPS = { dispersion: 30, vortex: 30, inkflow: 30, grid: 30 }
 
   var SHADERS = {
     // 原 PPT template.html FS_DARK，颜色是设计时定死的钛金暗色（themes.md 注明不跟主题）
@@ -1180,7 +1193,7 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 
   // ---------- WebGL 特效 ----------
   function glEffect(canvas, o) {
-    var gl = canvas.getContext('webgl', { alpha: o.effect === 'inkflow', premultipliedAlpha: true, antialias: true, preserveDrawingBuffer: o.frozen != null })
+    var gl = canvas.getContext('webgl', { alpha: o.effect === 'inkflow', premultipliedAlpha: true, antialias: false, powerPreference: 'low-power', preserveDrawingBuffer: o.frozen != null })
     if (!gl) return null
     function sh(t, s) {
       var x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x)
@@ -1211,39 +1224,51 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
   var PALETTE = '   ...:::---+++***◦◦••▢▣'
   function asciiEffect(canvas) {
     var ctx = canvas.getContext('2d')
+    var cell = 16, atlas = null, atlasKey = ''
+    // 字形图集：每个字符只排一次版，之后每帧按格子 drawImage，比逐格 fillText 快一个数量级
+    function buildAtlas(font, rgb, dpr) {
+      var key = font + rgb + dpr
+      if (key === atlasKey) return
+      atlas = document.createElement('canvas')
+      atlas.width = Math.ceil(PALETTE.length * cell * dpr); atlas.height = Math.ceil(cell * dpr)
+      var a = atlas.getContext('2d')
+      a.setTransform(dpr, 0, 0, dpr, 0, 0)
+      a.font = font; a.textBaseline = 'top'; a.fillStyle = 'rgb(' + rgb + ')'
+      for (var i = 0; i < PALETTE.length; i++) if (PALETTE[i] !== ' ') a.fillText(PALETTE[i], i * cell, 0)
+      atlasKey = key
+    }
     var draw = function (t, c, w, h, dpr) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.clearRect(0, 0, w, h)
-      var font = '500 13px ' + c.mono
-      if (ctx.font !== font) ctx.font = font
-      ctx.textBaseline = 'top'
-      var cell = 16, cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), tt = t * 0.55
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       var rgb = c.accentOn.map(function (x) { return Math.round(x * 255) }).join(',')
+      buildAtlas('500 13px ' + c.mono, rgb, dpr)
       // 字色取 accent-on：IKB / 橙上是白字，黄 / 绿上是墨色字（修复原来只画白字的问题）
       var blend = c.accentOn[0] + c.accentOn[1] + c.accentOn[2] > 1.5 ? 'screen' : 'multiply'
       if (canvas.style.mixBlendMode !== blend) canvas.style.mixBlendMode = blend
+      var cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), tt = t * 0.55, sz = cell * dpr
       for (var r = 0; r < rows; r++) for (var k = 0; k < cols; k++) {
         var n = (Math.sin(k * 0.18 + tt) + Math.sin(r * 0.24 - tt * 0.7) + Math.sin((k + r) * 0.12 + tt * 0.45) +
           Math.sin(Math.hypot(k - cols * 0.5, r - rows * 0.5) * 0.16 - tt * 0.55)) / 4
         var v = (n + 1) / 2
         if (v < 0.22) continue
-        var ch = PALETTE[Math.min(PALETTE.length - 1, Math.floor(v * PALETTE.length))]
-        if (ch === ' ') continue
-        ctx.fillStyle = 'rgba(' + rgb + ',' + (0.08 + (v - 0.22) * 0.55).toFixed(3) + ')'
-        ctx.fillText(ch, k * cell, r * cell)
+        var idx = Math.min(PALETTE.length - 1, Math.floor(v * PALETTE.length))
+        if (PALETTE[idx] === ' ') continue
+        ctx.globalAlpha = 0.08 + (v - 0.22) * 0.55
+        ctx.drawImage(atlas, idx * sz, 0, sz, sz, k * sz, r * sz, sz, sz)
       }
+      ctx.globalAlpha = 1
     }
     // 呼吸场变化很慢，24 帧和 60 帧肉眼无差别；逐字绘制在 CPU 上开销大，限帧省电
     draw.interval = 1000 / 24
     return draw
   }
 
-  // WebGL 不可用时：几层径向渐变，模拟墨色晕染（不画椭圆，遵守卡片「不用椭圆」规则）
-  function fallback2d(canvas) {
+  // WebGL 不可用时：几层径向渐变，模拟墨色晕染（不画椭圆，遵守卡片「不用椭圆」规则）。深色背景特效用墨色打底
+  function fallback2d(canvas, o) {
     var ctx = canvas.getContext('2d')
     return function (t, c, w, h, dpr) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.fillStyle = 'rgb(' + c.paper.map(function (x) { return Math.round(x * 255) }).join(',') + ')'
+      ctx.fillStyle = 'rgb(' + (o.effect === 'dispersion' ? c.ink : c.paper).map(function (x) { return Math.round(x * 255) }).join(',') + ')'
       ctx.fillRect(0, 0, w, h)
       for (var i = 0; i < 5; i++) {
         var x = w * (0.14 + ((i * 0.19 + 0.17) % 0.72)), y = h * (0.1 + ((i * 0.29 + 0.23) % 0.78)), r = Math.max(w, h) * (0.22 + i * 0.045)
@@ -1256,6 +1281,9 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
   }
 
   // ---------- 挂载与循环 ----------
+  // 自动降级的状态（见 governor）：各级渲染倍率与当前级别
+  var ADAPT = [1, 0.7, 0.5]
+  var perf = { start: 0, frames: 0, level: 0, settleUntil: 0 }
   var items = []
   var STATIC_T = 12.5 // 动效关闭时的静态帧时刻
   var readyResolve
@@ -1264,7 +1292,9 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 
   function size(it) {
     var rect = it.canvas.getBoundingClientRect()
-    var dpr = Math.min(window.devicePixelRatio || 1, 2)
+    var device = Math.min(window.devicePixelRatio || 1, 2)
+    // 定格出图用全分辨率；实时播放按特效倍率 × 自适应降级系数
+    var dpr = it.o.frozen != null || it.o.scale == null ? device : Math.max(0.2, it.o.scale * it.adapt)
     var w = Math.max(1, Math.round(rect.width)), h = Math.max(1, Math.round(rect.height))
     if (it.w !== w || it.h !== h || it.dpr !== dpr) {
       it.w = w; it.h = h; it.dpr = dpr
@@ -1293,18 +1323,52 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
       colors: d.colors || 'fixed',
       dark: d.dark != null ? d.dark === 'true' || d.dark === '1' : null,
     }, opts || {})
-    var draw = o.effect === 'ascii' ? asciiEffect(canvas) : SHADERS[o.effect] ? glEffect(canvas, o) : null
-    if (!draw && o.effect !== 'ascii') draw = fallback2d(canvas)
-    var it = { canvas: canvas, o: o, draw: draw, t0: performance.now(), visible: true, last: 0, interval: (draw && draw.interval) || 0 }
+    var eff = o.effect
+    if (o.scale == null) o.scale = d.scale != null ? +d.scale : SCALE[eff]
+    var fps = d.fps != null ? +d.fps : FPS[eff]
+    var draw = eff === 'ascii' ? asciiEffect(canvas) : SHADERS[eff] ? glEffect(canvas, o) : null
+    if (!draw && eff !== 'ascii') draw = fallback2d(canvas, o)
+    var it = { canvas: canvas, o: o, draw: draw, t0: performance.now(), visible: true, last: 0, adapt: 1,
+      interval: (draw && draw.interval) || (fps ? 1000 / fps : 0) }
     canvas.__gz = it
     items.push(it)
     pendingFirst++
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { es.forEach(function (e) { it.visible = e.isIntersecting }) }).observe(canvas)
+      // 只贴着视口边缘（面积为 0）不算可见：幻灯片左右相邻页正好贴边，isIntersecting 会误报为 true
+      new IntersectionObserver(function (es) { es.forEach(function (e) { it.visible = e.isIntersecting && e.intersectionRatio > 0 }) }, { threshold: [0, 0.01] }).observe(canvas)
     }
+    // 刚挂载时字体加载、着色器编译都会卡一下，先观察 1.5 秒再开始判断是否降级
+    perf.settleUntil = Math.max(perf.settleUntil, performance.now() + 1500)
     drawOne(it, performance.now())
     schedule()
     return it
+  }
+
+  // 透明度为 0 的画布（杂志风深浅两张背景交叉淡入时，看不见的那张）不画
+  function shown(c) {
+    if (c.checkVisibility) return c.checkVisibility({ opacityProperty: true, visibilityProperty: true })
+    return getComputedStyle(c).opacity !== '0'
+  }
+
+  // 自动降级：每 2 秒看一次页面帧率，持续低于 25 就降渲染倍率；降到底仍卡，切成静态画面
+  function governor(now, animating) {
+    if (!animating || document.hidden) { perf.start = 0; return }
+    if (now < perf.settleUntil) return
+    if (!perf.start) { perf.start = now; perf.frames = 0; return }
+    perf.frames++
+    var span = now - perf.start
+    if (span < 2000) return
+    var fps = (perf.frames * 1000) / span
+    perf.start = 0
+    if (fps >= 25) return
+    perf.level++
+    if (perf.level < ADAPT.length) {
+      items.forEach(function (it) { it.adapt = ADAPT[perf.level]; it.dirty = true })
+      perf.settleUntil = now + 1000
+    } else {
+      if (window.console) console.info('[gz-effects] 帧率持续偏低（' + fps.toFixed(0) + 'fps），背景已切换为静态画面')
+      setMotion(false, false)
+    }
   }
 
   var raf = 0
@@ -1316,9 +1380,10 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
       var it = items[i]
       var live = motion && it.o.frozen == null
       var due = now - it.last >= it.interval
-      if ((live && it.visible && due) || it.dirty || it.colorsStale) { drawOne(it, now); it.last = now }
+      if ((live && it.visible && due && shown(it.canvas)) || it.dirty || it.colorsStale) { drawOne(it, now); it.last = now }
       if (live) again = true
     }
+    governor(now, again)
     if (again) schedule()
   }
 
@@ -1343,7 +1408,7 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
     if (computeMotion() !== motion && document.documentElement.getAttribute('data-motion') === 'off') setMotion(false, false)
     items.forEach(function (it) { it.colorsStale = true }); schedule()
   }).observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['data-theme', 'data-surface', 'data-motion', 'class'] })
-  addEventListener('resize', function () { items.forEach(function (it) { it.dirty = true }); schedule() }, { passive: true })
+  addEventListener('resize', function () { items.forEach(function (it) { it.dirty = true }); perf.settleUntil = performance.now() + 1000; schedule() }, { passive: true })
 
   function autoMount() {
     var list = document.querySelectorAll('canvas[data-gz-effect]')

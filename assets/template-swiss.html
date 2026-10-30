@@ -208,112 +208,112 @@
 }
 
 :root{
-  --fs-display:11vw;
+  --fs-display:min(11vw,19.556vh);
   --fw-display:200;
   --lh-display:0.92;
   --ls-display:-.04em;
   --ff-display:var(--font-display);
   --fst-display:normal;
   --tt-display:none;
-  --fs-display-zh:8.4vw;
+  --fs-display-zh:min(8.4vw,14.933vh);
   --fw-display-zh:200;
   --lh-display-zh:0.96;
   --ls-display-zh:-.025em;
   --ff-display-zh:var(--font-display);
   --fst-display-zh:normal;
   --tt-display-zh:none;
-  --fs-title:6vw;
+  --fs-title:min(6vw,10.667vh);
   --fw-title:200;
   --lh-title:1;
   --ls-title:-.03em;
   --ff-title:var(--font-display);
   --fst-title:normal;
   --tt-title:none;
-  --fs-title-zh:5vw;
+  --fs-title-zh:min(5vw,8.889vh);
   --fw-title-zh:200;
   --lh-title-zh:1.05;
   --ls-title-zh:-.025em;
   --ff-title-zh:var(--font-display);
   --fst-title-zh:normal;
   --tt-title-zh:none;
-  --fs-heading:2.6vw;
+  --fs-heading:min(2.6vw,4.622vh);
   --fw-heading:300;
   --lh-heading:1.18;
   --ls-heading:-.015em;
   --ff-heading:var(--font-sans);
   --fst-heading:normal;
   --tt-heading:none;
-  --fs-subhead:2.2vw;
+  --fs-subhead:min(2.2vw,3.911vh);
   --fw-subhead:400;
   --lh-subhead:1.3;
   --ls-subhead:-.01em;
   --ff-subhead:var(--font-sans);
   --fst-subhead:normal;
   --tt-subhead:none;
-  --fs-lead:max(20px,1.55vw);
+  --fs-lead:max(min(20px,2.778vh),min(1.55vw,2.756vh));
   --fw-lead:400;
   --lh-lead:1.4;
   --ls-lead:-.005em;
   --ff-lead:var(--font-sans);
   --fst-lead:normal;
   --tt-lead:none;
-  --fs-body:max(18px,1.08vw);
+  --fs-body:max(min(18px,2.5vh),min(1.08vw,1.92vh));
   --fw-body:400;
   --lh-body:1.6;
   --ls-body:0;
   --ff-body:var(--font-sans);
   --fst-body:normal;
   --tt-body:none;
-  --fs-small:max(16px,.92vw);
+  --fs-small:max(min(16px,2.222vh),min(.92vw,1.636vh));
   --fw-small:400;
   --lh-small:1.55;
   --ls-small:0;
   --ff-small:var(--font-sans);
   --fst-small:normal;
   --tt-small:none;
-  --fs-caption:max(14px,.82vw);
+  --fs-caption:max(min(14px,1.944vh),min(.82vw,1.458vh));
   --fw-caption:400;
   --lh-caption:1.4;
   --ls-caption:.18em;
   --ff-caption:var(--font-mono);
   --fst-caption:normal;
   --tt-caption:uppercase;
-  --fs-label:14px;
+  --fs-label:min(14px,1.944vh);
   --fw-label:500;
   --lh-label:1.3;
   --ls-label:.16em;
   --ff-label:var(--font-mono);
   --fst-label:normal;
   --tt-label:uppercase;
-  --fs-meta:max(14px,.88vw);
+  --fs-meta:max(min(14px,1.944vh),min(.88vw,1.564vh));
   --fw-meta:400;
   --lh-meta:1.3;
   --ls-meta:.16em;
   --ff-meta:var(--font-mono);
   --fst-meta:normal;
   --tt-meta:uppercase;
-  --fs-quote:5vw;
+  --fs-quote:min(5vw,8.889vh);
   --fw-quote:200;
   --lh-quote:1.1;
   --ls-quote:-.025em;
   --ff-quote:var(--font-display);
   --fst-quote:normal;
   --tt-quote:none;
-  --fs-num-xl:11vw;
+  --fs-num-xl:min(11vw,19.556vh);
   --fw-num-xl:800;
   --lh-num-xl:0.85;
   --ls-num-xl:-.04em;
   --ff-num-xl:var(--font-display);
   --fst-num-xl:normal;
   --tt-num-xl:none;
-  --fs-num-l:6vw;
+  --fs-num-l:min(6vw,10.667vh);
   --fw-num-l:700;
   --lh-num-l:0.88;
   --ls-num-l:-.03em;
   --ff-num-l:var(--font-display);
   --fst-num-l:normal;
   --tt-num-l:none;
-  --fs-num-m:5.6vw;
+  --fs-num-m:min(5.6vw,9.956vh);
   --fw-num-m:800;
   --lh-num-m:0.88;
   --ls-num-m:-.035em;
@@ -605,7 +605,7 @@
   .chrome{
     display:flex;justify-content:space-between;align-items:flex-start;
     font-family:var(--mono);
-    font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+    font-size:min(14px,1.944vh);letter-spacing:.16em;text-transform:uppercase;
     opacity:.7;margin-bottom:auto
   }
   .chrome .l,.chrome .r{display:flex;gap:1.6em;align-items:center}
@@ -615,7 +615,7 @@
     margin-top:auto;
     display:flex;justify-content:space-between;align-items:flex-end;
     font-family:var(--mono);
-    font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+    font-size:min(14px,1.944vh);letter-spacing:.14em;text-transform:uppercase;
     opacity:.55;
     padding-top:2vh;
     border-top:1px solid currentColor;
@@ -626,10 +626,9 @@
   /* ============ Tag / Kicker / Meta 标签 ============ */
   .kicker{
     font-family:var(--mono);
-    font-size:14px;letter-spacing:.24em;text-transform:uppercase;
+    font-size:min(14px,1.944vh);letter-spacing:.24em;text-transform:uppercase;
     opacity:.65;margin-bottom:2.4vh;
-    display:inline-flex;align-items:center;gap:.8em
-  }
+    display:inline-flex;align-items:center;gap:.8em}
   .kicker::before{
     content:"";width:24px;height:1px;background:currentColor;opacity:.6
   }
@@ -639,7 +638,7 @@
   .tag{
     display:inline-block;
     font-family:var(--mono);
-    font-size:14px;letter-spacing:.18em;text-transform:uppercase;
+    font-size:min(14px,1.944vh);letter-spacing:.18em;text-transform:uppercase;
     padding:5px 10px;border:1px solid currentColor;opacity:.85
   }
   .tag.solid{background:currentColor;color:var(--paper);border-color:transparent}
@@ -649,42 +648,42 @@
   .h-hero{
     font-family:var(--sans),var(--sans-zh);
     font-weight:200;
-    font-size:11vw;
+    font-size:min(11vw,19.56vh);
     line-height:.92;
     letter-spacing:-.04em;
   }
   .h-hero-zh{
     font-family:var(--sans),var(--sans-zh);
     font-weight:200;
-    font-size:8.4vw;
+    font-size:min(8.4vw,14.93vh);
     line-height:.96;
     letter-spacing:-.025em;
   }
   .h-xl{
     font-family:var(--sans),var(--sans-zh);
     font-weight:200;
-    font-size:6vw;
+    font-size:min(6vw,10.67vh);
     line-height:1;
     letter-spacing:-.03em;
   }
   .h-xl-zh{
     font-family:var(--sans),var(--sans-zh);
     font-weight:200;
-    font-size:5vw;
+    font-size:min(5vw,8.889vh);
     line-height:1.05;
     letter-spacing:-.025em;
   }
   .h-md{
     font-family:var(--sans),var(--sans-zh);
     font-weight:300;
-    font-size:2.6vw;
+    font-size:min(2.6vw,4.622vh);
     line-height:1.18;
     letter-spacing:-.015em;
   }
   .h-sub{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:2.2vw;
+    font-size:min(2.2vw,3.911vh);
     line-height:1.3;
     letter-spacing:-.01em;
     opacity:.7;
@@ -694,7 +693,7 @@
   .lead{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:1.55vw;
+    font-size:min(1.55vw,2.756vh);
     line-height:1.4;
     letter-spacing:-.005em;
     opacity:.86;
@@ -702,7 +701,7 @@
   .body{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:max(18px,1.08vw);
+    font-size:max(min(18px,2.5vh),min(1.08vw,1.92vh));
     line-height:1.6;
     letter-spacing:0;
     opacity:.78;
@@ -710,20 +709,20 @@
   .body-sm{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:max(16px,.92vw);
+    font-size:max(min(16px,2.222vh),.92vw);
     line-height:1.55;
     opacity:.7;
   }
   .meta{
     font-family:var(--mono);
-    font-size:max(14px,.82vw);
+    font-size:max(min(14px,1.944vh),.82vw);
     letter-spacing:.18em;text-transform:uppercase;
     opacity:.6;
   }
   .meta-row{
     display:flex;gap:1.4em;align-items:baseline;flex-wrap:wrap;
     font-family:var(--mono);
-    font-size:max(14px,.88vw);letter-spacing:.16em;text-transform:uppercase;
+    font-size:max(min(14px,1.944vh),.88vw);letter-spacing:.16em;text-transform:uppercase;
     opacity:.65;
   }
   .meta-row span:not(.dot){display:inline-block}
@@ -736,7 +735,7 @@
   .kpi-hero{
     font-family:var(--sans);
     font-weight:800;
-    font-size:22vw;
+    font-size:min(22vw,39.11vh);
     line-height:.82;
     letter-spacing:-.05em;
     font-feature-settings:"tnum","ss01";
@@ -754,7 +753,7 @@
   .kpi-big{
     font-family:var(--sans);
     font-weight:800;
-    font-size:11vw;
+    font-size:min(11vw,19.56vh);
     line-height:.85;
     letter-spacing:-.04em;
     font-feature-settings:"tnum"
@@ -762,7 +761,7 @@
   .kpi-mid{
     font-family:var(--sans);
     font-weight:700;
-    font-size:6vw;
+    font-size:min(6vw,10.67vh);
     line-height:.88;
     letter-spacing:-.03em;
     font-feature-settings:"tnum"
@@ -779,14 +778,14 @@
   .stat-card.accent-top{border-top-color:var(--accent);border-top-width:3px}
   .stat-card .stat-label{
     font-family:var(--mono);
-    font-size:max(14px,.82vw);
+    font-size:max(min(14px,1.944vh),.82vw);
     letter-spacing:.24em;text-transform:uppercase;
     opacity:.6;
   }
   .stat-card .stat-nb{
     font-family:var(--sans);
     font-weight:800;
-    font-size:5.6vw;
+    font-size:min(5.6vw,9.956vh);
     line-height:.88;
     letter-spacing:-.035em;
     font-feature-settings:"tnum";
@@ -804,14 +803,14 @@
   .stat-card .stat-note{
     font-family:var(--sans),var(--sans-zh);
     font-weight:400;
-    font-size:max(16px,.98vw);
+    font-size:max(min(16px,2.222vh),.98vw);
     line-height:1.5;
     opacity:.7;
     margin-top:.6vh;
   }
-  .grid-4 .stat-card .stat-nb{font-size:4.6vw}
-  .grid-3 .stat-card .stat-nb{font-size:6.4vw}
-  .grid-6 .stat-card .stat-nb{font-size:4vw}
+  .grid-4 .stat-card .stat-nb{font-size:min(4.6vw,8.178vh)}
+  .grid-3 .stat-card .stat-nb{font-size:min(6.4vw,11.38vh)}
+  .grid-6 .stat-card .stat-nb{font-size:min(4vw,7.111vh)}
 
   /* ============ Accent Block (高亮色块包裹内容) ============ */
   .accent-block{
@@ -873,18 +872,18 @@
   .span-12{grid-column:span 12}
 
   /* 经典分栏 */
-  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:3vw 4vh;align-items:start}
-  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:3vw 4vh;align-items:start}
-  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:3vw 4vh;align-items:start}
-  .grid-2-4-8{display:grid;grid-template-columns:4fr 8fr;gap:3vw 4vh;align-items:start}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw 4vh;align-items:start}
+  .grid-2-7-5{display:grid;grid-template-columns:7fr 5fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-2-6-6{display:grid;grid-template-columns:1fr 1fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-2-8-4{display:grid;grid-template-columns:8fr 4fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-2-4-8{display:grid;grid-template-columns:4fr 8fr;gap:min(3vw,5.333vh) 4vh;align-items:start}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:min(3vw,5.333vh) 4vh;align-items:start}
   .grid-3-3{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:minmax(0,1fr);gap:2.4vh 2vw}
   .grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:3vh 3vw;flex:1;align-content:center}
   .grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:3vh 2.4vw;flex:1;align-content:center}
 
   /* 工具类 */
   .col{display:flex;flex-direction:column;gap:2vh}
-  .row{display:flex;align-items:center;gap:2vw}
+  .row{display:flex;align-items:center;gap:min(2vw,3.556vh) 2vw}
   .fill{flex:1}
   .center{align-items:center;justify-content:center;text-align:center}
   .right{text-align:right;justify-self:end}
@@ -905,7 +904,7 @@
     padding:2vh 2vw;
     border-left:3px solid var(--accent);
     font-family:var(--sans),var(--sans-zh);
-    font-size:max(14px,1vw);
+    font-size:max(min(14px,1.944vh),min(1vw,1.778vh));
     line-height:1.55;
     opacity:.9;
   }
@@ -913,7 +912,7 @@
   .callout .cite,.callout .callout-src{
     display:block;margin-top:1.2vh;
     font-family:var(--mono);
-    font-size:14px;letter-spacing:.16em;text-transform:uppercase;
+    font-size:min(14px,1.944vh);letter-spacing:.16em;text-transform:uppercase;
     opacity:.6;
   }
 
@@ -955,16 +954,16 @@
 
   /* P22 Image Hero: 下半屏内容区必须和图片拉开距离,不要贴在图下沿 */
   .image-hero-body{
-    display:grid;grid-template-columns:6fr 6fr;gap:3vw;
+    display:grid;grid-template-columns:6fr 6fr;gap:min(3vw,5.333vh) 3vw;
     padding:6.6vh 5vw 4.4vh;flex:1;align-content:start
   }
   .image-hero-stats{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;align-items:start
+    display:grid;grid-template-columns:repeat(3,1fr);gap:min(2vw,3.556vh) 2vw;align-items:start
   }
   .img-cap{
     display:block;margin-top:.8vh;
     font-family:var(--mono);
-    font-size:max(14px,.82vw);
+    font-size:max(min(14px,1.944vh),.82vw);
     letter-spacing:.2em;text-transform:uppercase;
     opacity:.6;
   }
@@ -972,7 +971,7 @@
   figure.tile > .frame-img{flex:0 0 auto}
 
   /* 瑞士风图文混排: 只用直角、发丝线、单一 accent；图像容器不加圆角/阴影 */
-  .swiss-img-split{display:grid;grid-template-columns:5fr 7fr;gap:3vw;align-items:start;flex:1;min-height:0}
+  .swiss-img-split{display:grid;grid-template-columns:5fr 7fr;gap:min(3vw,5.333vh) 3vw;align-items:start;flex:1;min-height:0}
   .swiss-img-split.reverse{grid-template-columns:7fr 5fr}
   .swiss-img-split.align-bottom{align-items:end}
   .swiss-img-split.align-bottom .swiss-img-copy{align-self:end}
@@ -992,23 +991,23 @@
   .swiss-img-caption{
     display:flex;justify-content:space-between;gap:var(--sp-5);
     margin-top:var(--sp-4);
-    font-family:var(--mono);font-size:max(14px,.74vw);
+    font-family:var(--mono);font-size:max(min(14px,1.944vh),.74vw);
     letter-spacing:.16em;text-transform:uppercase;color:var(--text-helper);
     border-top:1px solid var(--border-subtle);padding-top:var(--sp-4)
   }
   .swiss-img-caption strong{
-    font-family:var(--sans),var(--sans-zh);font-size:max(16px,.9vw);
+    font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.9vw);
     font-weight:600;letter-spacing:0;text-transform:none;color:var(--text-primary)
   }
 
   /* ============ Bar Chart (扁平几何图表) ============ */
   .bar-chart{display:flex;flex-direction:column;gap:1.4vh}
-  .bar-row{display:grid;grid-template-columns:8em 1fr 4em;gap:1.4vw;align-items:center}
-  .bar-row .bar-label{font-family:var(--mono);font-size:max(14px,.84vw);letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+  .bar-row{display:grid;grid-template-columns:8em 1fr 4em;gap:min(1.4vw,2.489vh) 1.4vw;align-items:center}
+  .bar-row .bar-label{font-family:var(--mono);font-size:max(min(14px,1.944vh),.84vw);letter-spacing:.14em;text-transform:uppercase;opacity:.7}
   .bar-row .bar-track{height:14px;background:rgba(127,127,127,.18);position:relative}
   .bar-row .bar-fill{height:100%;background:var(--accent);position:absolute;left:0;top:0}
   .bar-row .bar-fill.ink{background:currentColor}
-  .bar-row .bar-value{font-family:var(--sans);font-weight:700;font-size:max(16px,1.05vw);text-align:right;font-feature-settings:"tnum"}
+  .bar-row .bar-value{font-family:var(--sans);font-weight:700;font-size:max(min(16px,2.222vh),min(1.05vw,1.867vh));text-align:right;font-feature-settings:"tnum"}
 
   /* ============ 导航 ============ */
   /* 底部分页导航: 仅保留方块本身,无背景无描边 */
@@ -1021,7 +1020,7 @@
   body.accent-bg #nav .dot{background:rgba(var(--accent-on-rgb),.35)}
   body.accent-bg #nav .dot.active{background:var(--accent-on)}
 
-  #hint{position:fixed;bottom:2.4vh;right:2.5vw;z-index:30;display:flex;align-items:center;gap:.65em;font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
+  #hint{position:fixed;bottom:2.4vh;right:2.5vw;z-index:30;display:flex;align-items:center;gap:.65em;font-family:var(--mono);font-size:min(14px,1.944vh);letter-spacing:.14em;text-transform:uppercase;opacity:.4}
   #hint button{all:unset;display:inline-flex;align-items:center;gap:.42em;cursor:pointer;color:inherit;white-space:nowrap}
   #hint button:hover,#hint button:focus-visible{opacity:1;text-decoration:underline;text-underline-offset:.3em}
   #hint .ppt-key{padding:.12em .34em;border:1px solid currentColor;letter-spacing:.06em}
@@ -1070,7 +1069,7 @@
   #overview{z-index:110!important}
   @media(max-width:1200px){.ppt-presenter-main{grid-template-columns:minmax(0,1.55fr) minmax(280px,.72fr)}}
   @media(max-width:1100px){.ppt-presenter-bottom{grid-template-columns:minmax(292px,1fr) auto minmax(86px,.6fr);gap:12px}.ppt-time-stat{min-width:82px;padding:0 11px}.ppt-time-value{font-size:20px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:60px;padding:8px 9px}}
-  @media(max-width:900px){.ppt-presenter-top{padding:12px 16px;flex-wrap:wrap}.ppt-presenter-top .ppt-presenter-meta{gap:6px}.ppt-presenter-top .ppt-ui-btn{padding:8px 9px}.ppt-presenter-main,#ppt-presenter[data-layout="slides"] .ppt-presenter-main,#ppt-presenter[data-layout="notes"] .ppt-presenter-main{grid-template-columns:minmax(0,1.45fr) minmax(250px,.72fr);gap:12px;padding:12px 16px}.ppt-preview-stack{gap:12px;grid-template-rows:minmax(0,1fr) clamp(104px,20vh,150px)}.ppt-saved{display:none}.ppt-presenter-bottom{grid-template-columns:minmax(270px,1fr) auto 74px;gap:8px;padding:9px 16px}.ppt-time-stat{min-width:0;padding:0 9px}.ppt-time-value{font-size:18px}.ppt-time-hint{max-width:78px;overflow:hidden;text-overflow:ellipsis}.ppt-controls,.ppt-session-actions{gap:5px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:52px;padding:7px 8px;font-size:12px}.ppt-page-state strong{font-size:14px}.ppt-dialog-grid{grid-template-columns:1fr}.ppt-segmented.screen{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.ppt-presenter-top{padding:12px 16px;flex-wrap:wrap}.ppt-presenter-top .ppt-presenter-meta{gap:6px}.ppt-presenter-top .ppt-ui-btn{padding:8px 9px}.ppt-presenter-main,#ppt-presenter[data-layout="slides"] .ppt-presenter-main,#ppt-presenter[data-layout="notes"] .ppt-presenter-main{grid-template-columns:minmax(0,1.45fr) minmax(250px,.72fr);gap:12px;padding:12px 16px}.ppt-preview-stack{gap:12px;grid-template-rows:minmax(0,1fr) clamp(104px,20vh,150px)}.ppt-saved{display:none}.ppt-presenter-bottom{grid-template-columns:minmax(270px,1fr) auto 74px;gap:8px;padding:9px 16px}.ppt-time-stat{min-width:0;padding:0 9px}.ppt-time-value{font-size:min(18px,2.5vh)}.ppt-time-hint{max-width:78px;overflow:hidden;text-overflow:ellipsis}.ppt-controls,.ppt-session-actions{gap:5px}.ppt-controls .ppt-ui-btn,.ppt-session-actions .ppt-ui-btn{min-width:52px;padding:7px 8px;font-size:min(12px,1.667vh)}.ppt-page-state strong{font-size:min(14px,1.944vh)}.ppt-dialog-grid{grid-template-columns:1fr}.ppt-segmented.screen{grid-template-columns:repeat(2,1fr)}}
   @media(max-height:700px){.ppt-presenter-top{padding-top:10px;padding-bottom:10px}.ppt-presenter-main{padding-top:10px;padding-bottom:10px}.ppt-preview-stack{grid-template-rows:minmax(0,1fr) clamp(88px,16vh,118px);gap:10px}.ppt-stage-label{padding:7px 10px}.ppt-notes-head{padding:12px 14px}.ppt-purpose-block{margin-top:10px;padding:8px 10px}.ppt-notes-draft-head{margin-top:10px;padding-top:9px}.ppt-presenter-bottom{padding-top:8px;padding-bottom:8px}.ppt-control-stack{gap:5px}.ppt-session-actions{padding-top:5px}}
   /* ============ /演讲者模式 ============ */
 
@@ -1150,27 +1149,27 @@
   /* 编号目录页 · 超大数字 + 国家名风格 — 越大越细 */
   .num-mega{
     font-family:var(--sans);font-weight:200;
-    font-size:9vw;line-height:1;letter-spacing:-.04em;
+    font-size:min(9vw,16vh);line-height:1;letter-spacing:-.04em;
     font-feature-settings:"tnum"
   }
   .num-mega.thin{font-weight:200}
   .name-mega{
     font-family:var(--sans);font-weight:200;
-    font-size:9vw;line-height:1;letter-spacing:-.035em;
+    font-size:min(9vw,16vh);line-height:1;letter-spacing:-.035em;
   }
   .name-mega.muted{color:var(--grey-3)}
 
   /* 细体超大 KPI — 字号越大权重越低 */
   .kpi-thin{
     font-family:var(--sans);font-weight:200;
-    font-size:14vw;line-height:.92;letter-spacing:-.045em;
+    font-size:min(14vw,24.89vh);line-height:.92;letter-spacing:-.045em;
     font-feature-settings:"tnum"
   }
   .kpi-thin .unit{font-size:.3em;font-weight:300;opacity:.55;margin-left:.15em;vertical-align:.6em}
   .kpi-thin.accent{color:var(--accent-display)}
   .kpi-thin-sm{
     font-family:var(--sans);font-weight:250;
-    font-size:5.6vw;line-height:1.04;letter-spacing:-.03em;
+    font-size:min(5.6vw,9.956vh);line-height:1.04;letter-spacing:-.03em;
     font-feature-settings:"tnum"
   }
   .kpi-thin-sm .unit{font-size:.3em;font-weight:300;opacity:.55;margin-left:.12em;vertical-align:.45em}
@@ -1187,10 +1186,10 @@
     border-left:1px solid var(--grey-2)
   }
   .kpi-row-4 > .kpi-cell:first-child{padding-left:0;border-left:none}
-  .kpi-cell .lbl{font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:1.2vh}
-  .kpi-cell .nb{font-family:var(--sans);font-weight:250;font-size:3.2vw;line-height:1;letter-spacing:-.025em;font-feature-settings:"tnum"}
+  .kpi-cell .lbl{font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-bottom:1.2vh}
+  .kpi-cell .nb{font-family:var(--sans);font-weight:250;font-size:min(3.2vw,5.689vh);line-height:1;letter-spacing:-.025em;font-feature-settings:"tnum"}
   .kpi-cell .nb .unit{font-size:.32em;font-weight:300;opacity:.6;margin-left:.1em;vertical-align:.4em}
-  .kpi-cell .note{font-family:var(--sans),var(--sans-zh);font-size:max(16px,.92vw);line-height:1.5;opacity:.7;margin-top:1.2vh}
+  .kpi-cell .note{font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.92vw);line-height:1.5;opacity:.7;margin-top:1.2vh}
 
   /* 时间线轴 — 通用 axis token, 横纵共享
      axis 列 = 24px 固定宽,dot 直径 8px,绝对居中在 axis 列中线 (12px)
@@ -1228,7 +1227,7 @@
   .tl-node.accent .dot{background:var(--accent)}
   .tl-node .yr{
     font-family:var(--mono);font-weight:500;
-    font-size:max(14px,1vw);letter-spacing:.04em
+    font-size:max(min(14px,1.944vh),min(1vw,1.778vh));letter-spacing:.04em
   }
   .tl-node .multi{
     font-family:var(--sans);font-weight:200;
@@ -1247,7 +1246,7 @@
   .tl-node.accent .multi{color:var(--accent-display)}
   .tl-node .desc{
     font-family:var(--sans),var(--sans-zh);
-    font-size:max(16px,.94vw);line-height:1.55;opacity:.78;
+    font-size:max(min(16px,2.222vh),.94vw);line-height:1.55;opacity:.78;
     min-width:0
   }
 
@@ -1285,22 +1284,21 @@
   .timeline-h .th-node .label{
     position:absolute;left:50%;transform:translateX(-50%);
     width:13vw;text-align:center;
-    display:flex;flex-direction:column;gap:.4vh
-  }
+    display:flex;flex-direction:column;gap:.4vh}
   .timeline-h .th-node.up .label{bottom:calc(50% + 22px)}
   .timeline-h .th-node.down .label{top:calc(50% + 22px)}
   .timeline-h .th-node .yr{
-    font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.05em;
+    font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);letter-spacing:.05em;
     color:var(--text-helper);font-weight:500
   }
   .timeline-h .th-node.accent .yr{color:var(--accent-ink)}
   .timeline-h .th-node .name{
-    font-family:var(--sans);font-size:max(16px,1.05vw);font-weight:400;
+    font-family:var(--sans);font-size:max(min(16px,2.222vh),min(1.05vw,1.867vh));font-weight:400;
     color:var(--text-primary);line-height:1.2;letter-spacing:-.005em
   }
   .timeline-h .th-node.accent .name{color:var(--accent-ink)}
   .timeline-h .th-node .desc{
-    font-family:var(--sans),var(--sans-zh);font-size:max(16px,.84vw);
+    font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.84vw);
     color:var(--text-secondary);font-weight:400;line-height:1.4
   }
 
@@ -1326,16 +1324,16 @@
   .sub-card.ink{background:var(--ink);color:var(--paper)}
   .sub-card .nb-corner{
     position:absolute;top:1.6vh;right:1.4vw;
-    font-family:var(--mono);font-size:max(14px,.8vw);
+    font-family:var(--mono);font-size:max(min(14px,1.944vh),.8vw);
     letter-spacing:.16em;opacity:.55
   }
-  .sub-card .ttl{font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(17px,1.5vw);line-height:1.2;letter-spacing:-.015em;margin-bottom:1vh}
-  .sub-card .desc{font-family:var(--sans),var(--sans-zh);font-size:max(16px,.94vw);line-height:1.55;opacity:.78;margin-top:auto}
+  .sub-card .ttl{font-family:var(--sans),var(--sans-zh);font-weight:500;font-size:max(min(17px,2.361vh),min(1.5vw,2.667vh));line-height:1.2;letter-spacing:-.015em;margin-bottom:1vh}
+  .sub-card .desc{font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.94vw);line-height:1.55;opacity:.78;margin-top:auto}
   .sub-card .lucide{width:2.4vw;height:2.4vw;stroke-width:1.4;color:currentColor;margin-bottom:1.6vh;flex-shrink:0}
   .sub-card.accent .lucide{color:var(--accent-on)}
 
   /* 三层架构纯色块拼图 (参考图 4 + 6) — 横排等高色块 */
-  .stack-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6vw;flex:1;margin-top:6vh;align-items:stretch}
+  .stack-row{display:grid;grid-template-columns:repeat(3,1fr);gap:min(1.6vw,2.844vh) 1.6vw;flex:1;margin-top:6vh;align-items:stretch}
   .stack-block{
     display:flex;flex-direction:column;
     padding:3.2vh 1.8vw 2.4vh;
@@ -1345,19 +1343,19 @@
   .stack-block.b-accent{background:var(--accent);color:var(--accent-on)}
   .stack-block.b-grey{background:var(--grey-1);color:var(--ink)}
   .stack-block.b-ink{background:var(--ink);color:var(--paper)}
-  .stack-block .layer-nb{font-family:var(--mono);font-size:max(14px,.84vw);letter-spacing:.18em;opacity:.65;margin-bottom:auto}
+  .stack-block .layer-nb{font-family:var(--mono);font-size:max(min(14px,1.944vh),.84vw);letter-spacing:.18em;opacity:.65;margin-bottom:auto}
   .stack-block .layer-icon{margin-bottom:1.6vh}
   .stack-block .layer-icon svg{width:3vw;height:3vw}
   .stack-block .layer-icon .stroke{fill:none;stroke:currentColor;stroke-width:1.6}
-  .stack-block .layer-ttl{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(17px,2vw);line-height:1.1;margin-top:1vh;letter-spacing:-.02em}
-  .stack-block .layer-desc{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(16px,.94vw);line-height:1.55;opacity:.88;margin-top:1.4vh}
+  .stack-block .layer-ttl{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(min(17px,2.361vh),min(2vw,3.556vh));line-height:1.1;margin-top:1vh;letter-spacing:-.02em}
+  .stack-block .layer-desc{font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(min(16px,2.222vh),.94vw);line-height:1.55;opacity:.88;margin-top:1.4vh}
   .stack-block .lucide{width:2.6vw;height:2.6vw;stroke-width:1.4;margin-bottom:1.6vh;flex-shrink:0}
-  .stack-block .layer-tag{font-family:var(--mono);font-size:max(14px,.74vw);letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-top:1.6vh;border-top:1px solid currentColor;padding-top:1vh}
+  .stack-block .layer-tag{font-family:var(--mono);font-size:max(min(14px,1.944vh),.74vw);letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-top:1.6vh;border-top:1px solid currentColor;padding-top:1vh}
 
   /* 不等高柱状 KPI 塔 (参考图 6) */
   .bar-towers{
     display:grid;grid-template-columns:repeat(4,1fr);
-    gap:1.2vw;flex:1;align-items:end;margin-top:auto
+    gap:min(1.2vw,2.133vh) 1.2vw;flex:1;align-items:end;margin-top:auto
   }
   .bar-tower{
     display:flex;flex-direction:column;justify-content:flex-end;
@@ -1383,11 +1381,11 @@
   /* 默认所有 KPI 塔统一为浅描边卡 — 不抢戏;只有 .b-accent 突出为 IKB */
   .bar-tower .body-block{background:var(--paper);color:var(--ink);border:1px solid var(--grey-2)}
   .bar-tower .body-block.b-accent{background:var(--accent);color:var(--accent-on);border-color:var(--accent)}
-  .bar-tower .lbl{font-family:var(--mono);font-size:max(14px,.82vw);letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-bottom:1vh}
-  .bar-tower .nb{font-family:var(--sans);font-weight:250;font-size:max(20px,2.8vw);line-height:1;letter-spacing:-.03em;font-feature-settings:"tnum"}
+  .bar-tower .lbl{font-family:var(--mono);font-size:max(min(14px,1.944vh),.82vw);letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-bottom:1vh}
+  .bar-tower .nb{font-family:var(--sans);font-weight:250;font-size:max(min(20px,2.778vh),min(2.8vw,4.978vh));line-height:1;letter-spacing:-.03em;font-feature-settings:"tnum"}
   .bar-tower .body-block.b-accent .nb{font-weight:300}
   .bar-tower .nb .unit{font-size:.36em;font-weight:300;opacity:.7;margin-left:.08em;vertical-align:.4em}
-  .bar-tower .sub{font-family:var(--sans),var(--sans-zh);font-size:max(16px,.92vw);opacity:.75;margin-top:1.2vh;line-height:1.5}
+  .bar-tower .sub{font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.92vw);opacity:.75;margin-top:1.2vh;line-height:1.5}
   .bar-tower .cap{background:var(--grey-1);color:var(--ink)}
   .bar-tower .lucide{width:1.6vw;height:1.6vw;stroke-width:1.4}
 
@@ -1398,7 +1396,7 @@
   /* category label / eyebrow / section tag — small, bold, uppercase */
   .t-cat{
     font-family:var(--mono);
-    font-size:14px;font-weight:600;
+    font-size:min(14px,1.944vh);font-weight:600;
     letter-spacing:.15em;text-transform:uppercase;
     color:var(--text-helper);line-height:1.3
   }
@@ -1408,7 +1406,7 @@
   /* page chrome / breadcrumb / running header — extra-small mono */
   .t-meta{
     font-family:var(--mono);
-    font-size:14px;font-weight:500;
+    font-size:min(14px,1.944vh);font-weight:500;
     letter-spacing:.14em;text-transform:uppercase;
     color:var(--text-helper);line-height:1.45
   }
@@ -1416,7 +1414,7 @@
   /* helper / caption — secondary text */
   .t-helper{
     font-family:var(--sans),var(--sans-zh);
-    font-size:14px;font-weight:400;
+    font-size:min(14px,1.944vh);font-weight:400;
     color:var(--text-helper);line-height:1.5;
     letter-spacing:.005em
   }
@@ -1424,7 +1422,7 @@
   /* body small — list items, table rows, captions */
   .t-body-sm{
     font-family:var(--sans),var(--sans-zh);
-    font-size:16px;font-weight:400;
+    font-size:min(16px,2.222vh);font-weight:400;
     color:var(--text-secondary);line-height:1.55;
     letter-spacing:0
   }
@@ -1432,7 +1430,7 @@
   /* body — paragraphs, descriptions */
   .t-body{
     font-family:var(--sans),var(--sans-zh);
-    font-size:18px;font-weight:400;
+    font-size:min(18px,2.5vh);font-weight:400;
     color:var(--text-primary);line-height:1.5;
     letter-spacing:-.005em
   }
@@ -1440,7 +1438,7 @@
   /* body emphasis — 强调正文 */
   .t-body-emp{
     font-family:var(--sans),var(--sans-zh);
-    font-size:18px;font-weight:600;       /* SemiBold per Carbon */
+    font-size:min(18px,2.5vh);font-weight:600;       /* SemiBold per Carbon */
     color:var(--text-primary);line-height:1.5;
     letter-spacing:-.005em
   }
@@ -1448,7 +1446,7 @@
   /* productive heading — section title within slide */
   .t-h-prod{
     font-family:var(--sans),var(--sans-zh);
-    font-size:22px;font-weight:600;
+    font-size:min(22px,3.056vh);font-weight:600;
     color:var(--text-primary);line-height:1.4;
     letter-spacing:-.01em
   }
@@ -1516,7 +1514,7 @@
   .h-bar-chart .row-lbl{
     font-family:var(--sans),var(--sans-zh);
     font-weight:500;
-    font-size:max(14px,1vw);
+    font-size:max(min(14px,1.944vh),min(1vw,1.778vh));
     letter-spacing:-.005em;
     text-align:left
   }
@@ -1535,7 +1533,7 @@
   .h-bar-chart .row-fill.grey{background:var(--grey-3)}
   .h-bar-chart .row-val{
     font-family:var(--sans);font-weight:250;
-    font-size:max(16px,1.5vw);
+    font-size:max(min(16px,2.222vh),min(1.5vw,2.667vh));
     letter-spacing:-.02em;
     line-height:1
   }
@@ -1549,7 +1547,7 @@
     display:grid;
     grid-template-columns:repeat(var(--cols,4),1fr);
     align-items:end;
-    gap:1.4vw;
+    gap:min(1.4vw,2.489vh) 1.4vw;
     height:50vh;
     margin-top:3vh
   }
@@ -1566,10 +1564,10 @@
   .v-bar-chart .col-bar.ink{background:var(--ink);color:var(--paper);border-top-color:var(--ink)}
   .v-bar-chart .col-bar .v{
     font-family:var(--sans);font-weight:250;
-    font-size:max(18px,1.6vw);letter-spacing:-.02em
+    font-size:max(min(18px,2.5vh),min(1.6vw,2.844vh));letter-spacing:-.02em
   }
   .v-bar-chart .col-lbl{
-    font-family:var(--mono);font-size:max(14px,.78vw);
+    font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);
     letter-spacing:.14em;text-transform:uppercase;opacity:.6;
     text-align:center;flex:0 0 auto
   }
@@ -1583,11 +1581,10 @@
   .duo-compare .vrule{background:var(--grey-2);width:1px;align-self:stretch}
   .duo-compare .col{display:flex;flex-direction:column;gap:1.6vh;padding:0 .4vw}
   .duo-compare .col-tag{
-    font-family:var(--mono);font-size:max(14px,.78vw);
+    font-family:var(--mono);font-size:max(min(14px,1.944vh),.78vw);
     letter-spacing:.16em;text-transform:uppercase;
     color:var(--grey-3);
-    display:flex;align-items:center;gap:.6vw
-  }
+    display:flex;align-items:center;gap:.6vw}
   .duo-compare .col-tag .num{
     font-weight:600;color:var(--ink);
     border:1px solid var(--ink);
@@ -1596,12 +1593,12 @@
   .duo-compare .col.accent .col-tag .num{color:var(--accent-ink);border-color:var(--accent)}
   .duo-compare .col-ttl{
     font-family:var(--sans),var(--sans-zh);font-weight:200;
-    font-size:3.6vw;line-height:1;letter-spacing:-.03em
+    font-size:min(3.6vw,6.4vh);line-height:1;letter-spacing:-.03em
   }
   .duo-compare .col.accent .col-ttl{color:var(--accent-ink)}
   .duo-compare .col-desc{
     font-family:var(--sans),var(--sans-zh);
-    font-size:max(16px,1.04vw);line-height:1.55;opacity:.78;
+    font-size:max(min(16px,2.222vh),min(1.04vw,1.849vh));line-height:1.55;opacity:.78;
     max-width:30vw
   }
   .duo-compare .col-list{
@@ -1610,7 +1607,7 @@
   }
   .duo-compare .col-list li{
     font-family:var(--sans),var(--sans-zh);
-    font-size:max(16px,.94vw);line-height:1.5;
+    font-size:max(min(16px,2.222vh),.94vw);line-height:1.5;
     padding-left:1.4em;position:relative
   }
   .duo-compare .col-list li::before{
@@ -1630,7 +1627,7 @@
   /* 极简页眉 — t-meta 风格 (Carbon productive label-01) */
   .canvas-card .chrome-min{
     display:flex;justify-content:space-between;align-items:flex-start;
-    font-family:var(--mono);font-size:14px;font-weight:500;
+    font-family:var(--mono);font-size:min(14px,1.944vh);font-weight:500;
     letter-spacing:.14em;text-transform:uppercase;
     color:var(--text-helper);
     flex:0 0 auto;
@@ -1644,12 +1641,12 @@
 
   /* 响应式降级 */
   @media (max-width:900px){
-    .h-hero{font-size:16vw}
-    .h-hero-zh{font-size:13vw}
-    .h-xl{font-size:9vw}
-    .h-xl-zh{font-size:8vw}
-    .kpi-hero{font-size:32vw}
-    .kpi-big{font-size:16vw}
+    .h-hero{font-size:min(16vw,28.44vh)}
+    .h-hero-zh{font-size:min(13vw,23.11vh)}
+    .h-xl{font-size:min(9vw,16vh)}
+    .h-xl-zh{font-size:min(8vw,14.22vh)}
+    .kpi-hero{font-size:min(32vw,56.89vh)}
+    .kpi-big{font-size:min(16vw,28.44vh)}
     .grid-2-7-5,.grid-2-6-6,.grid-2-8-4,.grid-2-4-8{grid-template-columns:1fr}
     .grid-12{grid-template-columns:repeat(6,1fr)}
   }
@@ -1762,7 +1759,7 @@
         <div data-anim="manifesto" style="display:flex;flex-direction:column;gap:2vh;position:relative;z-index:1">
           <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.78);letter-spacing:.22em;margin-bottom:1.6vh">MANIFESTO</div>
           <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(8vw,14vh);line-height:.94;letter-spacing:-.025em;font-weight:200;color:var(--accent-on)">[必填] Build a model.<br/>Run <span style="font-style:italic;font-weight:300">forever</span>.</h2>
-          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(14px,1vw);line-height:1.6;color:rgba(var(--accent-on-rgb),.82);font-weight:400;max-width:36ch;margin-top:1.4vh">[必填] 一句 1-2 行的中文/英文注脚,把宣言落地.</div>
+          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(min(14px,1.944vh),min(1vw,1.778vh));line-height:1.6;color:rgba(var(--accent-on-rgb),.82);font-weight:400;max-width:36ch;margin-top:1.4vh">[必填] 一句 1-2 行的中文/英文注脚,把宣言落地.</div>
         </div>
 
         <div data-anim="signature" style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(var(--accent-on-rgb),.22);padding-top:2vh;position:relative;z-index:1">
@@ -1779,25 +1776,25 @@
         </div>
 
         <div data-anim="rules" style="display:flex;flex-direction:column;gap:0">
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:min(2vw,3.556vh) 2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
             <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--text-primary)">01</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(18px,1.8vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">[必填] takeaway 标题 01</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(16px,.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 1-2 行展开说明.</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(min(18px,2.5vh),min(1.8vw,3.2vh));line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">[必填] takeaway 标题 01</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 1-2 行展开说明.</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:min(2vw,3.556vh) 2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle)">
             <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--text-primary)">02</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(18px,1.8vw);line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">[必填] takeaway 标题 02</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(16px,.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 1-2 行展开说明.</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(min(18px,2.5vh),min(1.8vw,3.2vh));line-height:1.2;letter-spacing:-.015em;color:var(--text-primary);margin-bottom:1vh">[必填] takeaway 标题 02</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 1-2 行展开说明.</p>
             </div>
           </div>
-          <div style="display:grid;grid-template-columns:auto 1fr;gap:2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle);border-bottom:2px solid var(--accent)">
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:min(2vw,3.556vh) 2vw;align-items:start;padding:2.6vh 0;border-top:1px solid var(--border-subtle);border-bottom:2px solid var(--accent)">
             <div style="font-family:var(--sans);font-weight:200;font-size:min(4.4vw,7.8vh);line-height:.9;color:var(--accent-ink)">03</div>
             <div>
-              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(18px,1.8vw);line-height:1.2;letter-spacing:-.015em;color:var(--accent-ink);margin-bottom:1vh">[必填] takeaway 标题 03 · accent 强调</h3>
-              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(16px,.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 最后一条用 IKB 强调,与封面色彩首尾闭环.</p>
+              <h3 style="font-family:var(--sans),var(--sans-zh);font-weight:400;font-size:max(min(18px,2.5vh),min(1.8vw,3.2vh));line-height:1.2;letter-spacing:-.015em;color:var(--accent-ink);margin-bottom:1vh">[必填] takeaway 标题 03 · accent 强调</h3>
+              <p style="font-family:var(--sans),var(--sans-zh);font-size:max(min(16px,2.222vh),.94vw);line-height:1.6;color:var(--text-secondary);font-weight:400">[必填] 最后一条用 IKB 强调,与封面色彩首尾闭环.</p>
             </div>
           </div>
         </div>
@@ -1852,6 +1849,12 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
  *   - data-frozen 把时间定格：卡片出 PNG 时每次渲染结果一致。GZEffects.ready 在首帧画完后 resolve
  *   - 颜色从 canvas 所在位置的 token 读（--ink-rgb / --paper-rgb / --accent-rgb / --accent-on-rgb），
  *     放进反色块或切换 data-theme 时自动跟随
+ *
+ * 性能（弱机器也要流畅）：
+ *   - 渲染分辨率按特效分档（data-scale 可覆盖）：背景压在遮罩和模糊下，色散 / 涡流用 0.5 倍 CSS 像素，
+ *     Retina 屏上像素量只有全分辨率的 1/16；网格有细线用 1 倍；定格出图时用全分辨率
+ *   - WebGL 特效限 30fps（data-fps 可覆盖），ASCII 24fps；不在视口、透明度为 0 的画布不画
+ *   - 申请低功耗 GPU；持续掉到 25fps 以下时自动降分辨率，降到底仍卡就切成静态画面
  */
 (function () {
   'use strict'
@@ -1863,6 +1866,10 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
     'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
     'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);' +
     'return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}'
+
+  // 各特效的默认渲染倍率（相对 CSS 像素）：柔和的背景低分辨率看不出差别，细线和文字需要更高
+  var SCALE = { dispersion: 0.5, vortex: 0.5, inkflow: 0.75, grid: 1, ascii: 1 }
+  var FPS = { dispersion: 30, vortex: 30, inkflow: 30, grid: 30 }
 
   var SHADERS = {
     // 原 PPT template.html FS_DARK，颜色是设计时定死的钛金暗色（themes.md 注明不跟主题）
@@ -1948,7 +1955,7 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 
   // ---------- WebGL 特效 ----------
   function glEffect(canvas, o) {
-    var gl = canvas.getContext('webgl', { alpha: o.effect === 'inkflow', premultipliedAlpha: true, antialias: true, preserveDrawingBuffer: o.frozen != null })
+    var gl = canvas.getContext('webgl', { alpha: o.effect === 'inkflow', premultipliedAlpha: true, antialias: false, powerPreference: 'low-power', preserveDrawingBuffer: o.frozen != null })
     if (!gl) return null
     function sh(t, s) {
       var x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x)
@@ -1979,39 +1986,51 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
   var PALETTE = '   ...:::---+++***◦◦••▢▣'
   function asciiEffect(canvas) {
     var ctx = canvas.getContext('2d')
+    var cell = 16, atlas = null, atlasKey = ''
+    // 字形图集：每个字符只排一次版，之后每帧按格子 drawImage，比逐格 fillText 快一个数量级
+    function buildAtlas(font, rgb, dpr) {
+      var key = font + rgb + dpr
+      if (key === atlasKey) return
+      atlas = document.createElement('canvas')
+      atlas.width = Math.ceil(PALETTE.length * cell * dpr); atlas.height = Math.ceil(cell * dpr)
+      var a = atlas.getContext('2d')
+      a.setTransform(dpr, 0, 0, dpr, 0, 0)
+      a.font = font; a.textBaseline = 'top'; a.fillStyle = 'rgb(' + rgb + ')'
+      for (var i = 0; i < PALETTE.length; i++) if (PALETTE[i] !== ' ') a.fillText(PALETTE[i], i * cell, 0)
+      atlasKey = key
+    }
     var draw = function (t, c, w, h, dpr) {
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.clearRect(0, 0, w, h)
-      var font = '500 13px ' + c.mono
-      if (ctx.font !== font) ctx.font = font
-      ctx.textBaseline = 'top'
-      var cell = 16, cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), tt = t * 0.55
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       var rgb = c.accentOn.map(function (x) { return Math.round(x * 255) }).join(',')
+      buildAtlas('500 13px ' + c.mono, rgb, dpr)
       // 字色取 accent-on：IKB / 橙上是白字，黄 / 绿上是墨色字（修复原来只画白字的问题）
       var blend = c.accentOn[0] + c.accentOn[1] + c.accentOn[2] > 1.5 ? 'screen' : 'multiply'
       if (canvas.style.mixBlendMode !== blend) canvas.style.mixBlendMode = blend
+      var cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), tt = t * 0.55, sz = cell * dpr
       for (var r = 0; r < rows; r++) for (var k = 0; k < cols; k++) {
         var n = (Math.sin(k * 0.18 + tt) + Math.sin(r * 0.24 - tt * 0.7) + Math.sin((k + r) * 0.12 + tt * 0.45) +
           Math.sin(Math.hypot(k - cols * 0.5, r - rows * 0.5) * 0.16 - tt * 0.55)) / 4
         var v = (n + 1) / 2
         if (v < 0.22) continue
-        var ch = PALETTE[Math.min(PALETTE.length - 1, Math.floor(v * PALETTE.length))]
-        if (ch === ' ') continue
-        ctx.fillStyle = 'rgba(' + rgb + ',' + (0.08 + (v - 0.22) * 0.55).toFixed(3) + ')'
-        ctx.fillText(ch, k * cell, r * cell)
+        var idx = Math.min(PALETTE.length - 1, Math.floor(v * PALETTE.length))
+        if (PALETTE[idx] === ' ') continue
+        ctx.globalAlpha = 0.08 + (v - 0.22) * 0.55
+        ctx.drawImage(atlas, idx * sz, 0, sz, sz, k * sz, r * sz, sz, sz)
       }
+      ctx.globalAlpha = 1
     }
     // 呼吸场变化很慢，24 帧和 60 帧肉眼无差别；逐字绘制在 CPU 上开销大，限帧省电
     draw.interval = 1000 / 24
     return draw
   }
 
-  // WebGL 不可用时：几层径向渐变，模拟墨色晕染（不画椭圆，遵守卡片「不用椭圆」规则）
-  function fallback2d(canvas) {
+  // WebGL 不可用时：几层径向渐变，模拟墨色晕染（不画椭圆，遵守卡片「不用椭圆」规则）。深色背景特效用墨色打底
+  function fallback2d(canvas, o) {
     var ctx = canvas.getContext('2d')
     return function (t, c, w, h, dpr) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      ctx.fillStyle = 'rgb(' + c.paper.map(function (x) { return Math.round(x * 255) }).join(',') + ')'
+      ctx.fillStyle = 'rgb(' + (o.effect === 'dispersion' ? c.ink : c.paper).map(function (x) { return Math.round(x * 255) }).join(',') + ')'
       ctx.fillRect(0, 0, w, h)
       for (var i = 0; i < 5; i++) {
         var x = w * (0.14 + ((i * 0.19 + 0.17) % 0.72)), y = h * (0.1 + ((i * 0.29 + 0.23) % 0.78)), r = Math.max(w, h) * (0.22 + i * 0.045)
@@ -2024,6 +2043,9 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
   }
 
   // ---------- 挂载与循环 ----------
+  // 自动降级的状态（见 governor）：各级渲染倍率与当前级别
+  var ADAPT = [1, 0.7, 0.5]
+  var perf = { start: 0, frames: 0, level: 0, settleUntil: 0 }
   var items = []
   var STATIC_T = 12.5 // 动效关闭时的静态帧时刻
   var readyResolve
@@ -2032,7 +2054,9 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 
   function size(it) {
     var rect = it.canvas.getBoundingClientRect()
-    var dpr = Math.min(window.devicePixelRatio || 1, 2)
+    var device = Math.min(window.devicePixelRatio || 1, 2)
+    // 定格出图用全分辨率；实时播放按特效倍率 × 自适应降级系数
+    var dpr = it.o.frozen != null || it.o.scale == null ? device : Math.max(0.2, it.o.scale * it.adapt)
     var w = Math.max(1, Math.round(rect.width)), h = Math.max(1, Math.round(rect.height))
     if (it.w !== w || it.h !== h || it.dpr !== dpr) {
       it.w = w; it.h = h; it.dpr = dpr
@@ -2061,18 +2085,52 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
       colors: d.colors || 'fixed',
       dark: d.dark != null ? d.dark === 'true' || d.dark === '1' : null,
     }, opts || {})
-    var draw = o.effect === 'ascii' ? asciiEffect(canvas) : SHADERS[o.effect] ? glEffect(canvas, o) : null
-    if (!draw && o.effect !== 'ascii') draw = fallback2d(canvas)
-    var it = { canvas: canvas, o: o, draw: draw, t0: performance.now(), visible: true, last: 0, interval: (draw && draw.interval) || 0 }
+    var eff = o.effect
+    if (o.scale == null) o.scale = d.scale != null ? +d.scale : SCALE[eff]
+    var fps = d.fps != null ? +d.fps : FPS[eff]
+    var draw = eff === 'ascii' ? asciiEffect(canvas) : SHADERS[eff] ? glEffect(canvas, o) : null
+    if (!draw && eff !== 'ascii') draw = fallback2d(canvas, o)
+    var it = { canvas: canvas, o: o, draw: draw, t0: performance.now(), visible: true, last: 0, adapt: 1,
+      interval: (draw && draw.interval) || (fps ? 1000 / fps : 0) }
     canvas.__gz = it
     items.push(it)
     pendingFirst++
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { es.forEach(function (e) { it.visible = e.isIntersecting }) }).observe(canvas)
+      // 只贴着视口边缘（面积为 0）不算可见：幻灯片左右相邻页正好贴边，isIntersecting 会误报为 true
+      new IntersectionObserver(function (es) { es.forEach(function (e) { it.visible = e.isIntersecting && e.intersectionRatio > 0 }) }, { threshold: [0, 0.01] }).observe(canvas)
     }
+    // 刚挂载时字体加载、着色器编译都会卡一下，先观察 1.5 秒再开始判断是否降级
+    perf.settleUntil = Math.max(perf.settleUntil, performance.now() + 1500)
     drawOne(it, performance.now())
     schedule()
     return it
+  }
+
+  // 透明度为 0 的画布（杂志风深浅两张背景交叉淡入时，看不见的那张）不画
+  function shown(c) {
+    if (c.checkVisibility) return c.checkVisibility({ opacityProperty: true, visibilityProperty: true })
+    return getComputedStyle(c).opacity !== '0'
+  }
+
+  // 自动降级：每 2 秒看一次页面帧率，持续低于 25 就降渲染倍率；降到底仍卡，切成静态画面
+  function governor(now, animating) {
+    if (!animating || document.hidden) { perf.start = 0; return }
+    if (now < perf.settleUntil) return
+    if (!perf.start) { perf.start = now; perf.frames = 0; return }
+    perf.frames++
+    var span = now - perf.start
+    if (span < 2000) return
+    var fps = (perf.frames * 1000) / span
+    perf.start = 0
+    if (fps >= 25) return
+    perf.level++
+    if (perf.level < ADAPT.length) {
+      items.forEach(function (it) { it.adapt = ADAPT[perf.level]; it.dirty = true })
+      perf.settleUntil = now + 1000
+    } else {
+      if (window.console) console.info('[gz-effects] 帧率持续偏低（' + fps.toFixed(0) + 'fps），背景已切换为静态画面')
+      setMotion(false, false)
+    }
   }
 
   var raf = 0
@@ -2084,9 +2142,10 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
       var it = items[i]
       var live = motion && it.o.frozen == null
       var due = now - it.last >= it.interval
-      if ((live && it.visible && due) || it.dirty || it.colorsStale) { drawOne(it, now); it.last = now }
+      if ((live && it.visible && due && shown(it.canvas)) || it.dirty || it.colorsStale) { drawOne(it, now); it.last = now }
       if (live) again = true
     }
+    governor(now, again)
     if (again) schedule()
   }
 
@@ -2111,7 +2170,7 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
     if (computeMotion() !== motion && document.documentElement.getAttribute('data-motion') === 'off') setMotion(false, false)
     items.forEach(function (it) { it.colorsStale = true }); schedule()
   }).observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['data-theme', 'data-surface', 'data-motion', 'class'] })
-  addEventListener('resize', function () { items.forEach(function (it) { it.dirty = true }); schedule() }, { passive: true })
+  addEventListener('resize', function () { items.forEach(function (it) { it.dirty = true }); perf.settleUntil = performance.now() + 1000; schedule() }, { passive: true })
 
   function autoMount() {
     var list = document.querySelectorAll('canvas[data-gz-effect]')
