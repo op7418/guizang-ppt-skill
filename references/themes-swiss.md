@@ -4,115 +4,86 @@
 
 ---
 
+<!-- GZ:THEMES:START · guizang-design 生成，不要手改；改主题请改 guizang-design/tokens/palettes.json 后运行 scripts/sync-skill.mjs -->
 ## 使用方法
 
-1. 问用户选哪套（或基于内容推荐一套）
-2. 打开 `assets/template-swiss.html` 的 `<style>` 块
-3. 找到开头的 `:root{` 块
-4. **整体替换**标有"主题色"注释的所有变量：`--paper` / `--paper-rgb` / `--ink` / `--ink-rgb` / `--grey-1` / `--grey-2` / `--grey-3` / `--accent` / `--accent-rgb` / `--accent-on`
-5. 其他 CSS 都走 `var(--...)`,无需任何其他改动
+全部主题已内置在模板的 `GZ:TOKENS` 区块里。选定主题后，只改拷贝好的模板第一行 `<html>` 上的 `data-theme`：
 
----
-
-## 🔵 克莱因蓝 (IKB · International Klein Blue)
-
-**适合**：通用场合、商业发布、AI/科技产品、设计领域分享。最经典的瑞士风配色,绝不出错。
-**调性**：纯白底 + IKB 克莱因蓝,极致冷静、理性、有学术感,像 Helvetica Forever 或 Massimo Vignelli 的作品集。
-
-```css
---paper:#fafaf8;
---paper-rgb:250,250,248;
---ink:#0a0a0a;
---ink-rgb:10,10,10;
---grey-1:#f0f0ee;
---grey-2:#d4d4d2;
---grey-3:#737373;
---accent:#002FA7;
---accent-rgb:0,47,167;
---accent-on:#ffffff;
+```html
+<html lang="zh-CN" data-family="swiss" data-medium="slide" data-theme="lemon">
 ```
 
-**使用要点**：
-- IKB 是高饱和深蓝,在大色块（如 `.accent-block`）上极有视觉冲击
-- KPI 数字加 `.accent` 类用蓝色,但不要满屏蓝——IKB 一旦泛滥就掉档
-- 推荐配合 `dark` 主题页交替使用,黑底高亮 IKB 同样高级
+不要改 `GZ:TOKENS` 区块，也不要在页面里写颜色值。文字、线条、强调色一律用语义变量：
+
+| 变量 | 用途 |
+|---|---|
+| `--paper` / `--ink` | 底色 / 主文字 |
+| `--text-body` / `--text-secondary` / `--text-helper` | 正文 / 次要 / 辅助文字，对比度已校验，代替 opacity |
+| `--line` / `--line-strong` / `--line-subtle` | 分割线 |
+| `--accent` | 强调色：色块、细线、圆点、高亮条 |
+| `--accent-ink` | 强调色用作**小字**颜色时用它（浅色强调色会自动加深到可读） |
+| `--accent-display` | 强调色用作**大字**（标题、KPI 数字）颜色时用它 |
+| `--accent-on` / `--accent-on-rgb` | 强调色色块上的文字颜色（黄、绿上是墨色，蓝、橙上是白色） |
+
+### 用户给了品牌色或 logo 主色
+
+不要直接使用这个颜色。运行：
+
+```bash
+node <SKILL_ROOT>/scripts/gz-theme.mjs brand "#4D6BFE" --family swiss
+```
+
+把输出的 `[data-theme="brand"]{…}` 贴到 deck `<style>` 的末尾，再把 `data-theme` 改成 `brand`。
+脚本会把颜色收进本风格精调色板的明度 / 彩度区间，并检查 WCAG 与 APCA 对比度；不达标时会说明原因，这时从下面的预设里选。杂志风会把彩度压到 0.12 以内，高饱和的品牌色会变得更克制（例如 #FF2442 → #b75a59，第一行注释会写明调整）；需要保留鲜艳度时用瑞士风。
 
 ---
 
-## 🟡 柠檬黄 (Lemon · Cadmium Yellow)
+## 🔵 克莱因蓝 · `ikb`（默认）
+
+**适合**：通用场合、商业发布、AI/科技产品、设计领域分享。最经典的瑞士风配色，绝不出错。
+**调性**：纯白底 + IKB 克莱因蓝，极致冷静、理性、有学术感，像 Helvetica Forever 或 Massimo Vignelli 的作品集。
+
+| paper | ink | accent | accent-ink | accent-on | 正文对比度 |
+|---|---|---|---|---|---|
+| `#fafaf8` | `#0a0a0a` | `#002FA7` | `#002FA7` | `#ffffff` | 14.7 / 99 |
+
+---
+
+## 🟡 柠檬黄 · `lemon`
 
 **适合**：年轻、运动、零售、消费品、活力主题、Y2K 复古设计。
-**调性**：浅米白底 + 柠檬黄,鲜亮、有活力、警示感强,像 IKEA 或 Beck Design 的视觉语言。
+**调性**：浅米白底 + 柠檬黄，鲜亮、有活力、警示感强，像 IKEA 或 Beck Design 的视觉语言。
 
-```css
---paper:#fafaf8;
---paper-rgb:250,250,248;
---ink:#0a0a0a;
---ink-rgb:10,10,10;
---grey-1:#f0f0ee;
---grey-2:#d4d4d2;
---grey-3:#737373;
---accent:#FFD500;
---accent-rgb:255,213,0;
---accent-on:#0a0a0a;
-```
-
-**使用要点**：
-- 柠檬黄属于浅色高饱和,**`.accent-on` 必须用纯黑**（不是白）才能保证可读性
-- 黄色色块上不要放白字——会糊掉
-- 柠檬黄做单字符高亮（`.mark` / `.underline-accent`）效果最强
+| paper | ink | accent | accent-ink | accent-on | 正文对比度 |
+|---|---|---|---|---|---|
+| `#fafaf8` | `#0a0a0a` | `#FFD500` | `#7a5f00` | `#0a0a0a` | 14.7 / 99 |
 
 ---
 
-## 🟢 柠檬绿 (Lemon Green · Highlighter Green)
+## 🟢 柠檬绿 · `lemon-green`
 
 **适合**：生态、可持续、健康、新兴科技、Z 世代品牌、AI 创业项目。
-**调性**：浅米白底 + 荧光柠檬绿,有未来感、年轻、当代,像 Acne Studios 或 Off-White 的视觉。
+**调性**：浅米白底 + 荧光柠檬绿，有未来感、年轻、当代，像 Acne Studios 或 Off-White 的视觉。
 
-```css
---paper:#fafaf8;
---paper-rgb:250,250,248;
---ink:#0a0a0a;
---ink-rgb:10,10,10;
---grey-1:#f0f0ee;
---grey-2:#d4d4d2;
---grey-3:#737373;
---accent:#C5E803;
---accent-rgb:197,232,3;
---accent-on:#0a0a0a;
-```
-
-**使用要点**：
-- 荧光绿和黄色一样属于浅色,**`.accent-on` 必须用纯黑**
-- 屏幕显色比印刷漂亮,适合演讲投影场景
-- 推荐用于"新兴技术"、"未来"主题
+| paper | ink | accent | accent-ink | accent-on | 正文对比度 |
+|---|---|---|---|---|---|
+| `#fafaf8` | `#0a0a0a` | `#C5E803` | `#4a6400` | `#0a0a0a` | 14.7 / 99 |
 
 ---
 
-## 🟠 安全橙 (Safety Orange)
+## 🟠 安全橙 · `safety-orange`
 
-**适合**：工业、警示、运动、施工、汽车工业、技术发布会的"警告/重点"页。
-**调性**：浅米白底 + 安全橙,工业感、紧迫感、视觉锚点感,像 Saul Bass 海报或 Highway Gothic 标识系统。
+**适合**：工业、警示、运动、施工、汽车工业、技术发布会的「警告/重点」页。
+**调性**：浅米白底 + 安全橙，工业感、紧迫感、视觉锚点感，像 Saul Bass 海报或 Highway Gothic 标识系统。
 
-```css
---paper:#fafaf8;
---paper-rgb:250,250,248;
---ink:#0a0a0a;
---ink-rgb:10,10,10;
---grey-1:#f0f0ee;
---grey-2:#d4d4d2;
---grey-3:#737373;
---accent:#FF6B35;
---accent-rgb:255,107,53;
---accent-on:#ffffff;
-```
+| paper | ink | accent | accent-ink | accent-on | 正文对比度 |
+|---|---|---|---|---|---|
+| `#fafaf8` | `#0a0a0a` | `#FF6B35` | `#c2410c` | `#ffffff` | 14.7 / 99 |
 
-**使用要点**：
-- 橙色介于浅色和深色之间,**白字勉强能读但建议加粗**（`font-weight:600` 以上）
-- 工业感强,适合涉及"警告"、"决策"、"转折点"的内容
-- 不建议整页 `.accent` 模式,橙色满屏会过于刺眼,做局部高亮即可
+> 强调色色块上的文字只用大号粗体（APCA 59）。
 
 ---
+<!-- GZ:THEMES:END -->
 
 ## 推荐选择参考
 
@@ -137,7 +108,7 @@
 ## ❌ 不要做的事
 
 - ❌ **不允许混搭**（例如 IKB 蓝 + 柠檬黄同时出现作高亮）——彻底违反瑞士风"单一锚点色"原则
-- ❌ **不允许用户自定义任意 hex 值**——委婉拒绝,展示 4 套预设让选
+- ❌ **不要把用户给的 hex 值直接写进页面**——用 `scripts/gz-theme.mjs --family swiss` 生成受约束的品牌主题；灰色或彩度太低的颜色会被拒绝，这时展示 4 套预设让选
 - ❌ **不要改灰阶变量**——`--paper` / `--grey-1/2/3` / `--ink` 跨主题统一,只换 accent
 - ❌ **不要用渐变**——瑞士风拒绝任何渐变,所有色块必须纯色
 - ❌ **不要给 accent 加阴影 / 圆角 / 透明度**——直角、纯色、不透明,这是瑞士风的硬规则

@@ -86,11 +86,11 @@ Beyond Claude Code / Codex, you can also use Guizang PPT Skill on these platform
 - 📐 **Horizontal swipe navigation**: ← → arrows / scroll wheel / touch swipe / bottom dots / ESC for index
 - 🧩 **Style A 10 layouts**: cover, divider, big numbers, image/text, image grid, pipeline, comparison, and more
 - 🧱 **Style B 22 locked layouts**: Cover, Statement, KPI Tower, Loop Diagram, Duo Compare, Image Hero, Closing Manifesto, and more
-- 🎨 **Curated theme presets**: 5 electronic-ink themes for Style A, 4 Swiss anchor-color themes for Style B
+- 🎨 **Curated theme presets**: 5 electronic-ink themes for Style A, 4 Swiss anchor-color themes for Style B; a brand color becomes a constrained brand theme generated with color science
 - 🖼 **Optional Codex image flow**: generate documentary photos, infographics, flow diagrams, system maps, and UI scenes with GPT-Image 2.0 / GPT-M 2.0, then insert them at template-safe ratios
 - 📰 **Social covers**: generate 21:9 WeChat cover images, 1:1 share cards, 3:4 Xiaohongshu covers, video thumbnails, and related variants
 - 🎤 **Presenter mode**: dual-window audience output, 16:9 current/next previews, speaker notes, timing and rehearsal, auto advance, laser pointer, circles, and live recovery controls
-- 📴 **Low-power static mode**: press `B` to turn WebGL / canvas animation into static visuals
+- 📴 **Low-power static mode**: press `B` to turn WebGL / canvas animation into static visuals; on slow machines the background lowers its resolution automatically and freezes to a still frame if needed
 - 📄 **Single HTML file** — no build, no server, open directly in the browser
 
 ## Fits / Doesn't fit
@@ -327,7 +327,7 @@ guizang-ppt-skill/
 
 ## Theme presets
 
-Pick from `references/themes.md`. **Custom hex values are not allowed** — protecting the aesthetic matters more than freedom of choice.
+Pick from `references/themes.md`. **Don't write hex values by hand** — protecting the aesthetic matters more than freedom of choice. Every theme's text, rule and small accent-text colors are derived with the same contrast rules (WCAG + APCA).
 
 ### Style A Editorial Themes
 
@@ -339,11 +339,13 @@ Pick from `references/themes.md`. **Custom hex values are not allowed** — prot
 | <img src="https://github.com/user-attachments/assets/dfea080e-e916-417e-93cd-0a3628de84ca" width="260" alt="Kraft Paper theme preview"> | 🍂 **Kraft Paper** | `#2a1e13` / `#eedfc7`. Nostalgic, humanist, literary, indie zines. |
 | <img src="https://github.com/user-attachments/assets/f3705592-9a72-4dbc-9818-df3aea61bc75" width="260" alt="Dune theme preview"> | 🌙 **Dune** | `#1f1a14` / `#f0e6d2`. Art, design, creative, fashion, gallery-like decks. |
 
-Switching themes only requires replacing the 6 variables at the top of `template.html`'s `:root{}` block — all other CSS flows through `var(--...)`.
+To switch themes, set the theme id on the template's first line, e.g. `<html data-theme="indigo-porcelain">`. All themes are built into the template.
+
+When the user gives a brand or logo color, run `node scripts/gz-theme.mjs brand "#4D6BFE" --family magazine` (`--family swiss` for Style B) and paste the printed theme into the deck. The script pulls the color into the lightness and chroma range the style allows and refuses it if it cannot meet the readability floors — fall back to a preset then.
 
 ### Style B Swiss Themes
 
-Pick from `references/themes-swiss.md`. **Custom hex values are not allowed** here either.
+Pick from `references/themes-swiss.md`. **Don't write hex values by hand** here either; brand colors go through the same script.
 
 | Preview | Theme | Anchor color and best for |
 |---------|-------|---------------------------|
@@ -379,7 +381,7 @@ If the user asks for a Swiss-style deck without specifying color, default to Int
 - Add more Swiss layout validation rules
 - Improve screenshot redesign and infographic generation workflows
 - Prepare marketplace-specific variants such as WorkBuddy
-- Add more curated theme packs while keeping custom colors restricted
+- Add more curated theme packs; brand colors stay constrained
 
 ## FAQ
 
@@ -387,7 +389,7 @@ If the user asks for a Swiss-style deck without specifying color, default to Int
 The main output is HTML. You can present it in a browser, screenshot it, or record it. PPTX conversion can be done as a separate workflow, but it is not the core path today.
 
 **Why are custom colors not allowed?**
-The skill is designed for stable visual output. Arbitrary colors often break the system, so decks must use curated presets.
+The skill is designed for stable visual output. Arbitrary colors often break the system, so decks must use curated presets. For a brand color, generate a theme with `scripts/gz-theme.mjs`: it constrains lightness and chroma per style and checks contrast for every text role.
 
 **Can I add my own layout?**
 Yes. Style A layouts can be extended in `references/layouts.md`. Style B is stricter: update `template-swiss.html`, `layouts-swiss.md`, `swiss-layout-lock.md`, and the validator together.
@@ -414,7 +416,7 @@ Bugs, layout issues, new layout requests — Issues and PRs welcome. Prioritize:
 - Presenter runtime changes must land in both templates and pass `scripts/check-presenter-runtime-sync.mjs`; CI rejects CSS / JavaScript drift
 - Presenter-note or live-behavior changes must also update `references/presenter-mode.md`, `references/checklist.md`, and `scripts/validate-presenter-mode.mjs`
 - Log pitfalls into `checklist.md` at the matching P0 / P1 / P2 / P3 tier
-- New theme colors go into `themes.md` with a recommended use case
+- Themes, type sizes, fonts and background effects come from a shared design system: the templates' `GZ:FONTS` / `GZ:TOKENS` / `GZ:EFFECTS` blocks and the `GZ:THEMES` blocks in `themes*.md` are generated — don't edit them by hand; open an issue for new theme colors or type changes
 
 ## License
 

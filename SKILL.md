@@ -202,27 +202,30 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 
 每次拷贝完 template.html 第一件事:grep 一下"[必填]" 确认全部替换完。
 
-#### 2.2 · 选定主题色(5 套预设 · 不允许自定义)
+#### 2.2 · 选定主题色(预设优先 · 品牌色受约束生成)
 
-本 skill **只允许从 5 套精心调配的预设里选一套**,不接受用户自定义 hex 值——颜色搭配错了画面瞬间变丑,保护美学比给自由更重要。
+颜色搭配错了画面瞬间变丑,所以**不直接使用用户给的任何颜色值**。默认从精调预设里选一套；用户明确有品牌色或 logo 主色时,用脚本生成一套受约束的品牌主题。
 
-| # | 主题 | 适合 |
+| # | 杂志风主题 (`themes.md`) | 适合 |
 |---|------|------|
-| 1 | 🖋 墨水经典 | 通用 / 商业发布 / 不知道选啥的默认 |
-| 2 | 🌊 靛蓝瓷 | 科技 / 研究 / 数据 / 技术发布会 |
-| 3 | 🌿 森林墨 | 自然 / 可持续 / 文化 / 非虚构 |
-| 4 | 🍂 牛皮纸 | 怀旧 / 人文 / 文学 / 独立杂志 |
-| 5 | 🌙 沙丘 | 艺术 / 设计 / 创意 / 画廊 |
+| 1 | 🖋 墨水经典 `ink-classic` | 通用 / 商业发布 / 不知道选啥的默认 |
+| 2 | 🌊 靛蓝瓷 `indigo-porcelain` | 科技 / 研究 / 数据 / 技术发布会 |
+| 3 | 🌿 森林墨 `forest-ink` | 自然 / 可持续 / 文化 / 非虚构 |
+| 4 | 🍂 牛皮纸 `kraft-paper` | 怀旧 / 人文 / 文学 / 独立杂志 |
+| 5 | 🌙 沙丘 `dune` | 艺术 / 设计 / 创意 / 画廊 |
+
+瑞士风 4 套(`ikb` / `lemon` / `lemon-green` / `safety-orange`)见 `themes-swiss.md`。
 
 **操作**:
 1. 基于内容主题推荐一套,或直接问用户选哪一套
-2. 打开 `references/themes.md`,找到对应主题的 `:root` 块
-3. **整体替换** `assets/template.html`(已拷贝版本)开头 `:root{` 块里标有"主题色"注释的那几行(`--ink` / `--ink-rgb` / `--paper` / `--paper-rgb` / `--paper-tint` / `--ink-tint`)
-4. 其他 CSS 都走 `var(--...)`,无需任何其他改动
+2. 把拷贝好的模板第一行 `<html>` 的 `data-theme` 改成主题 id,例如 `data-theme="indigo-porcelain"`。全部主题都已内置在模板的 `GZ:TOKENS` 区块里,**不要改那个区块**
+3. 用户给了品牌色:运行 `node <SKILL_ROOT>/scripts/gz-theme.mjs brand "#4D6BFE" --family magazine`(瑞士风用 `--family swiss`),把输出的 `[data-theme="brand"]{…}` 贴到 deck `<style>` 末尾,再把 `data-theme` 改成 `brand`。脚本判定不达标时会说明原因,这时回到预设
+
+**颜色变量**(页面里只用这些,不写 hex):文字 `--text-primary` / `--text-body` / `--text-secondary` / `--text-helper`;线条 `--line` / `--line-strong`;强调色色块 `--accent`;强调色当小字 `--accent-ink`、当大字 `--accent-display`;强调色块上的文字 `--accent-on`。
 
 **硬规则**:
 - 一份 deck 只用一套主题,不要中途换色
-- 不要接受用户给的任意 hex 值——委婉拒绝并展示 5 套让选
+- 不要把用户给的 hex 值直接写进页面——走品牌色脚本
 - 不要混搭(例如 ink 取墨水经典、paper 取沙丘)——会彻底违和
 
 ### Step 3 · 填充内容
@@ -435,7 +438,7 @@ cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
 **硬规则:**
 - 同一页内,字号越小的元素字重必须 ≥ 字号越大的元素(不允许 16px 正文用 300 而 1.8vw 标题用 500)
 - 16px 左右的小字拒绝使用 weight 300(太细不可读),最低 400,推荐 500
-- 封面/IkB 反白大标题内强调字用 `italic + weight 300`,不要用 accent 色(蓝压蓝看不见)
+- 封面/IKB 反白大标题内强调字:英文用 `italic + weight 300`,中文用 `font-weight:400`(中文不用斜体),不要用 accent 色(蓝压蓝看不见)
 
 组件细节(字体、颜色、网格、图标、callout、stat-card 等)在 `references/components.md`。
 
@@ -549,11 +552,12 @@ open "项目/XXX/ppt/index.html"
 guizang-ppt-skill/
 ├── SKILL.md                  ← 你正在读
 ├── assets/
-│   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件）
+│   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件；GZ:* 标记区由 guizang-design 生成，不要手改）
 │   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件）
 │   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
 │   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
 ├── scripts/
+│   ├── gz-theme.mjs          ← 品牌色 → 受约束主题(由 guizang-design 生成,零依赖)
 │   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
 │   └── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
 └── references/
@@ -562,8 +566,8 @@ guizang-ppt-skill/
     ├── swiss-layout-lock.md  ← 风格 B · 原始 22P 版式锁,正文页必须按这里登记
     ├── layouts-swiss.md      ← 风格 B · 原始 22P 骨架说明 + 少量明确标注的实验区
     ├── swiss-map-component.md ← 风格 B · S08 地图扩展组件(MapLibre 点位/连线/卡片/控制)
-    ├── themes.md             ← 风格 A · 5 套主题色预设（只能选不能自定义）
-    ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设（IKB / 柠檬黄 / 柠檬绿 / 安全橙）
+    ├── themes.md             ← 风格 A · 5 套主题色预设 + 品牌色流程（主题部分由 guizang-design 生成）
+    ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设 + 品牌色流程（主题部分由 guizang-design 生成）
     ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
     ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
     ├── presenter-mode.md     ← 演讲者 UI、AI 备注结构、观众屏同步与恢复契约

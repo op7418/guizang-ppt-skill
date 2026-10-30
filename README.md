@@ -88,11 +88,11 @@ Guizang PPT Skill 的持续迭代获得 **360 安全龙虾**、**Kimi work**、*
 - 📐 **横向左右翻页**:键盘 ← → / 滚轮 / 触屏滑动 / 底部圆点 / ESC 索引
 - 🧩 **Style A 10 种布局**:封面、章节、数据大字报、图文、图片网格、Pipeline、对比等
 - 🧱 **Style B 22 种锁定版式**:Cover、Statement、KPI Tower、Loop Diagram、Duo Compare、Image Hero、Closing Manifesto 等
-- 🎨 **主题色预设**:Style A 5 套电子墨水主题,Style B 4 套瑞士高饱和锚点色
+- 🎨 **主题色预设**:Style A 5 套电子墨水主题,Style B 4 套瑞士高饱和锚点色;给品牌色时按色彩科学生成受约束的品牌主题
 - 🖼 **Codex 可选配图流程**:可用 GPT-Image 2.0 / GPT-M 2.0 生成纪实照片、信息图、流程图、系统关系图、UI 情景图,并按模板比例插入
 - 📰 **多平台封面**:可用同一套视觉规则生成公众号 21:9、公众号分享卡 1:1、小红书 3:4、视频号横版等封面
 - 🎤 **演讲者模式**:双窗口观众屏、当前页/下一页 16:9 预览、演讲备注、计时排练、自动翻页、激光笔、圈选和现场故障恢复
-- 📴 **低性能静态模式**:按 `B` 可关闭 WebGL / canvas 动画,让动态内容退回静态背景
+- 📴 **低性能静态模式**:按 `B` 可关闭 WebGL / canvas 动画,让动态内容退回静态背景;电脑带不动时背景会自动降分辨率,再不行就定格成静态
 - 📄 **单文件 HTML**:不需要构建、不需要服务器,浏览器直接打开
 
 ## 适合 / 不适合
@@ -328,7 +328,7 @@ guizang-ppt-skill/
 
 ## 主题色预设
 
-从 `references/themes.md` 里选一套——**不允许自定义 hex 值**,保护美学比给自由更重要。
+从 `references/themes.md` 里选一套——**不允许随手写 hex 值**,保护美学比给自由更重要。所有主题的文字色、线条色和强调色小字都按同一套对比度规则(WCAG + APCA)算出来。
 
 ### Style A 电子杂志主题
 
@@ -340,11 +340,13 @@ guizang-ppt-skill/
 | <img src="https://github.com/user-attachments/assets/dfea080e-e916-417e-93cd-0a3628de84ca" width="260" alt="牛皮纸主题预览"> | 🍂 **牛皮纸** | `#2a1e13` / `#eedfc7`。怀旧、人文、阅读、历史、文学分享。 |
 | <img src="https://github.com/user-attachments/assets/f3705592-9a72-4dbc-9818-df3aea61bc75" width="260" alt="沙丘主题预览"> | 🌙 **沙丘** | `#1f1a14` / `#f0e6d2`。艺术、设计、创意、时尚和画廊感内容。 |
 
-切换主题只需替换 `template.html` 开头 `:root{}` 里的 6 行变量,其他 CSS 全走 `var(--...)`。
+切换主题只需把模板第一行 `<html data-theme="…">` 改成主题 id,例如 `data-theme="indigo-porcelain"`,全部主题都已内置在模板里。
+
+用户给了品牌色或 logo 主色时,运行 `node scripts/gz-theme.mjs brand "#4D6BFE" --family magazine`(瑞士风用 `--family swiss`),把输出的主题贴进 deck。脚本会把品牌色收进这套风格允许的明度和彩度范围,达不到可读性要求就拒绝,这时回到预设。
 
 ### Style B 瑞士主题
 
-瑞士风从 `references/themes-swiss.md` 里选一套,同样**不允许自定义 hex 值**。
+瑞士风从 `references/themes-swiss.md` 里选一套,同样**不允许随手写 hex 值**,品牌色走同一个脚本。
 
 | 预览 | 主题 | 锚点色与适合场景 |
 |------|------|------------------|
@@ -380,7 +382,7 @@ guizang-ppt-skill/
 - 增加更多瑞士风版式校验规则
 - 优化截图再设计和信息图生成工作流
 - 整理 WorkBuddy 等平台上架版本
-- 增加更多主题包,但继续限制自定义颜色
+- 增加更多主题包,品牌色继续走受约束生成
 
 ## FAQ
 
@@ -388,7 +390,7 @@ guizang-ppt-skill/
 当前核心交付是 HTML。你可以用浏览器演示、截图或录屏。如果需要 PPTX,建议把 HTML 页面作为视觉稿再转换,但这不是当前主流程。
 
 **为什么不允许自定义颜色?**
-这个 Skill 的重点是稳定产出。自由选色很容易破坏整体风格,所以只允许从预设主题里选。
+这个 Skill 的重点是稳定产出。自由选色很容易破坏整体风格,所以只允许从预设主题里选。需要品牌色时用 `scripts/gz-theme.mjs` 生成,它会按风格约束明度和彩度,并检查每个文字角色的对比度。
 
 **我能加自己的版式吗?**
 可以。Style A 可以在 `references/layouts.md` 里扩展；Style B 更严格,需要同步更新 `template-swiss.html`、`layouts-swiss.md`、`swiss-layout-lock.md` 和校验器。
@@ -415,7 +417,7 @@ Bug、排版问题、新布局需求——欢迎开 Issue 或 PR。改动请优�
 - 演讲者运行时必须同时更新两套模板,并运行 `scripts/check-presenter-runtime-sync.mjs`；CI 会拦截两份模板的 CSS / JavaScript 漂移
 - 演讲备注或现场行为变化时,同步更新 `references/presenter-mode.md`、`references/checklist.md` 和 `scripts/validate-presenter-mode.mjs`
 - 把踩过的坑写到 `checklist.md` 对应的 P0 / P1 / P2 / P3 级别
-- 新主题色进 `themes.md` 并给出适合的场景
+- 主题、字号、字体和背景特效来自共享设计系统,模板里 `GZ:FONTS` / `GZ:TOKENS` / `GZ:EFFECTS` 区块和 `themes*.md` 的 `GZ:THEMES` 区块是生成的,不要手改;新主题色或字号调整请提 Issue
 
 ## License
 
