@@ -1,32 +1,551 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-family="magazine" data-medium="slide" data-theme="ink-classic">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[必填] 替换为 PPT 标题 · Deck Title</title>
+<!-- GZ:FONTS:START · 字体由 guizang-design 字体清单生成；本机内置用 node scripts/fonts.mjs embed -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" data-gz-fonts="playfair-display noto-serif-sc source-serif-4 noto-sans-sc ibm-plex-mono" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+SC:wght@200..900&family=Source+Serif+4:ital,wght@0,200..900;1,200..900&family=Noto+Sans+SC:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<!-- GZ:FONTS:END -->
 <style>
-  :root{
-    /* ============ 主题色(默认:🖋 墨水经典) ============
-       切换主题:从 references/themes.md 复制对应的 :root 块
-       整体替换这几行(--ink / --ink-rgb / --paper / --paper-rgb)
-       其他地方散落的 rgba() 都走 var(--ink-rgb) / var(--paper-rgb),无需逐处改 */
-    --ink:#0a0a0b;
-    --ink-rgb:10,10,11;
-    --paper:#f1efea;
-    --paper-rgb:241,239,234;
-    --paper-tint:#e8e5de;
-    --ink-tint:#18181a;
+  /* GZ:TOKENS:START · guizang-design v0.1.0 生成，不要手改；改设计请改 guizang-design 后运行 scripts/sync-skill.mjs */
+:root{
+  --font-display:'Playfair Display','Noto Serif SC','Source Han Serif SC','Songti SC',serif;
+  --font-serif:'Source Serif 4','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif;
+  --font-serif-zh:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong',serif;
+  --font-sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono','Noto Sans SC',ui-monospace,'SF Mono',Menlo,monospace;
+  --sp-1:2px;
+  --sp-2:4px;
+  --sp-3:8px;
+  --sp-4:12px;
+  --sp-5:16px;
+  --sp-6:24px;
+  --sp-7:32px;
+  --sp-8:40px;
+  --sp-9:48px;
+  --sp-10:64px;
+  --sp-11:80px;
+  --sp-12:96px;
+  --sp-13:160px;
+  --radius-none:0px;
+  --radius-xs:3px;
+  --radius-sm:6px;
+  --radius-md:14px;
+  --radius-pill:999px;
+  --ease-standard:cubic-bezier(.2,0,.38,.9);
+  --ease-expressive:cubic-bezier(.4,.14,.3,1);
+  --ease-entrance:cubic-bezier(0,0,.3,1);
+  --ease-entrance-standard:cubic-bezier(0,0,.38,.9);
+  --ease-editorial:cubic-bezier(.22,1,.36,1);
+  --ease-page:cubic-bezier(.77,0,.175,1);
+  --dur-fast-1:70ms;
+  --dur-fast-2:110ms;
+  --dur-moderate-1:150ms;
+  --dur-moderate-2:240ms;
+  --dur-slow-1:400ms;
+  --dur-slow-2:700ms;
+  --dur-page:900ms;
+  --stagger-tight:70ms;
+  --stagger-base:100ms;
+  --stagger-loose:160ms;
+  --move-sm:8px;
+  --move-md:16px;
+  --move-lg:24px;
+  --paper:#f1efea;
+  --paper-2:#e8e5de;
+  --ink:#0a0a0b;
+  --muted:#68625a;
+  --accent:#111111;
+  --accent-soft:#d8d2c6;
+  --accent-on:#f1efea;
+  --accent-ink:#111111;
+  --accent-display:#111111;
+  --text-primary:#0a0a0b;
+  --text-body:#2c2b2c;
+  --text-secondary:#404040;
+  --text-helper:#68625a;
+  --line-strong:#7e7d7b;
+  --line:#b7b5b2;
+  --line-subtle:#d1cfcb;
+  --ink-rgb:10,10,11;
+  --paper-rgb:241,239,234;
+  --accent-rgb:17,17,17;
+  --accent-on-rgb:241,239,234;
+  color-scheme:light;
+}
+[data-theme="ink-classic"]{
+  --paper:#f1efea;
+  --paper-2:#e8e5de;
+  --ink:#0a0a0b;
+  --muted:#68625a;
+  --accent:#111111;
+  --accent-soft:#d8d2c6;
+  --accent-on:#f1efea;
+  --accent-ink:#111111;
+  --accent-display:#111111;
+  --text-primary:#0a0a0b;
+  --text-body:#2c2b2c;
+  --text-secondary:#404040;
+  --text-helper:#68625a;
+  --line-strong:#7e7d7b;
+  --line:#b7b5b2;
+  --line-subtle:#d1cfcb;
+  --ink-rgb:10,10,11;
+  --paper-rgb:241,239,234;
+  --accent-rgb:17,17,17;
+  --accent-on-rgb:241,239,234;
+  color-scheme:light;
+}
+[data-theme="indigo-porcelain"]{
+  --paper:#f1f3f5;
+  --paper-2:#e4e8ec;
+  --ink:#0a1f3d;
+  --muted:#5f6d78;
+  --accent:#315d93;
+  --accent-soft:#d7e1ec;
+  --accent-on:#f1f3f5;
+  --accent-ink:#315d93;
+  --accent-display:#315d93;
+  --text-primary:#0a1f3d;
+  --text-body:#2e415c;
+  --text-secondary:#43546d;
+  --text-helper:#5f6d78;
+  --line-strong:#808d9e;
+  --line:#b8c0ca;
+  --line-subtle:#d2d7dd;
+  --ink-rgb:10,31,61;
+  --paper-rgb:241,243,245;
+  --accent-rgb:49,93,147;
+  --accent-on-rgb:241,243,245;
+  color-scheme:light;
+}
+[data-theme="forest-ink"]{
+  --paper:#f5f1e8;
+  --paper-2:#ece7da;
+  --ink:#1a2e1f;
+  --muted:#5d665d;
+  --accent:#2e6b4f;
+  --accent-soft:#d4dfd2;
+  --accent-on:#f5f1e8;
+  --accent-ink:#2e6b4f;
+  --accent-display:#2e6b4f;
+  --text-primary:#1a2e1f;
+  --text-body:#3d4d3e;
+  --text-secondary:#515f51;
+  --text-helper:#5d665d;
+  --line-strong:#8b9386;
+  --line:#c0c2b7;
+  --line-subtle:#d8d7cd;
+  --ink-rgb:26,46,31;
+  --paper-rgb:245,241,232;
+  --accent-rgb:46,107,79;
+  --accent-on-rgb:245,241,232;
+  color-scheme:light;
+}
+[data-theme="kraft-paper"]{
+  --paper:#eedfc7;
+  --paper-2:#e0d0b6;
+  --ink:#2a1e13;
+  --muted:#755f49;
+  --accent:#9b5a2e;
+  --accent-soft:#d5b58f;
+  --accent-on:#eedfc7;
+  --accent-ink:#935326;
+  --accent-display:#9b5a2e;
+  --text-primary:#2a1e13;
+  --text-body:#493c2f;
+  --text-secondary:#5b4e3f;
+  --text-helper:#755f49;
+  --line-strong:#8f816f;
+  --line:#bfb09b;
+  --line-subtle:#d4c5af;
+  --ink-rgb:42,30,19;
+  --paper-rgb:238,223,199;
+  --accent-rgb:155,90,46;
+  --accent-on-rgb:238,223,199;
+  color-scheme:light;
+}
+[data-theme="dune"]{
+  --paper:#f0e6d2;
+  --paper-2:#e3d7bf;
+  --ink:#1f1a14;
+  --muted:#6f6557;
+  --accent:#8f7650;
+  --accent-soft:#d4c2a4;
+  --accent-on:#f0e6d2;
+  --accent-ink:#7b633e;
+  --accent-display:#8f7650;
+  --text-primary:#1f1a14;
+  --text-body:#3f3931;
+  --text-secondary:#524c42;
+  --text-helper:#6f6557;
+  --line-strong:#8a8275;
+  --line:#bdb4a3;
+  --line-subtle:#d4cab8;
+  --ink-rgb:31,26,20;
+  --paper-rgb:240,230,210;
+  --accent-rgb:143,118,80;
+  --accent-on-rgb:240,230,210;
+  color-scheme:light;
+}
+[data-theme="midnight-ink"]{
+  --paper:#0e0d0c;
+  --paper-2:#1a1714;
+  --ink:#ece2cf;
+  --muted:#9a8c75;
+  --accent:#d4a04a;
+  --accent-soft:#3a2a14;
+  --accent-on:#0e0d0c;
+  --accent-ink:#dea954;
+  --accent-display:#d4a04a;
+  --text-primary:#ece2cf;
+  --text-body:#d5ccbb;
+  --text-secondary:#b9b2a3;
+  --text-helper:#b9b2a3;
+  --line-strong:#67635b;
+  --line:#373430;
+  --line-subtle:#23211f;
+  --ink-rgb:236,226,207;
+  --paper-rgb:14,13,12;
+  --accent-rgb:212,160,74;
+  --accent-on-rgb:14,13,12;
+  color-scheme:dark;
+}
 
-    /* ============ 字体(跨主题固定) ============ */
-    --mono:"IBM Plex Mono",ui-monospace,monospace;
-    --serif-en:"Playfair Display","Source Serif 4",Georgia,serif;
-    --serif-body-en:"Source Serif 4",Georgia,serif;
-    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
-    --sans-zh:"Noto Sans SC",source-han-sans-sc,sans-serif;
-  }
+:root{
+  --fs-display:11vw;
+  --fw-display:700;
+  --lh-display:0.92;
+  --ls-display:-.025em;
+  --ff-display:var(--font-display);
+  --fst-display:normal;
+  --tt-display:none;
+  --fs-display-zh:10vw;
+  --fw-display-zh:900;
+  --lh-display-zh:0.96;
+  --ls-display-zh:-.02em;
+  --ff-display-zh:var(--font-serif-zh);
+  --fst-display-zh:normal;
+  --tt-display-zh:none;
+  --fs-title:6.2vw;
+  --fw-title:700;
+  --lh-title:1.08;
+  --ls-title:-.025em;
+  --ff-title:var(--font-display);
+  --fst-title:normal;
+  --tt-title:none;
+  --fs-title-zh:6.2vw;
+  --fw-title-zh:700;
+  --lh-title-zh:1.08;
+  --ls-title-zh:-.01em;
+  --ff-title-zh:var(--font-serif-zh);
+  --fst-title-zh:normal;
+  --tt-title-zh:none;
+  --fs-heading:2.3vw;
+  --fw-heading:600;
+  --lh-heading:1.3;
+  --ls-heading:0;
+  --ff-heading:var(--font-serif-zh);
+  --fst-heading:normal;
+  --tt-heading:none;
+  --fs-subhead:3.1vw;
+  --fw-subhead:500;
+  --lh-subhead:1.25;
+  --ls-subhead:0;
+  --ff-subhead:var(--font-serif-zh);
+  --fst-subhead:normal;
+  --tt-subhead:none;
+  --fs-lead:max(20px,1.75vw);
+  --fw-lead:400;
+  --lh-lead:1.5;
+  --ls-lead:0;
+  --ff-lead:var(--font-serif-zh);
+  --fst-lead:normal;
+  --tt-lead:none;
+  --fs-body:max(18px,1.22vw);
+  --fw-body:400;
+  --lh-body:1.75;
+  --ls-body:.01em;
+  --ff-body:var(--font-sans);
+  --fst-body:normal;
+  --tt-body:none;
+  --fs-small:max(16px,1.05vw);
+  --fw-small:400;
+  --lh-small:1.5;
+  --ls-small:0;
+  --ff-small:var(--font-sans);
+  --fst-small:normal;
+  --tt-small:none;
+  --fs-caption:max(14px,.8vw);
+  --fw-caption:400;
+  --lh-caption:1.4;
+  --ls-caption:.2em;
+  --ff-caption:var(--font-mono);
+  --fst-caption:normal;
+  --tt-caption:uppercase;
+  --fs-label:max(14px,.88vw);
+  --fw-label:500;
+  --lh-label:1.3;
+  --ls-label:.16em;
+  --ff-label:var(--font-mono);
+  --fst-label:normal;
+  --tt-label:uppercase;
+  --fs-meta:max(14px,.78vw);
+  --fw-meta:400;
+  --lh-meta:1.3;
+  --ls-meta:.2em;
+  --ff-meta:var(--font-mono);
+  --fst-meta:normal;
+  --tt-meta:uppercase;
+  --fs-quote:5.8vw;
+  --fw-quote:700;
+  --lh-quote:1.2;
+  --ls-quote:-.01em;
+  --ff-quote:var(--font-serif-zh);
+  --fst-quote:normal;
+  --tt-quote:none;
+  --fs-num-xl:10vw;
+  --fw-num-xl:800;
+  --lh-num-xl:0.85;
+  --ls-num-xl:-.03em;
+  --ff-num-xl:var(--font-display);
+  --fst-num-xl:normal;
+  --tt-num-xl:none;
+  --fs-num-l:8vw;
+  --fw-num-l:800;
+  --lh-num-l:0.88;
+  --ls-num-l:-.03em;
+  --ff-num-l:var(--font-display);
+  --fst-num-l:normal;
+  --tt-num-l:none;
+  --fs-num-m:5.5vw;
+  --fw-num-m:700;
+  --lh-num-m:0.88;
+  --ls-num-m:-.02em;
+  --ff-num-m:var(--font-display);
+  --fst-num-m:normal;
+  --tt-num-m:none;
+  --canvas-padding:6vh 6vw 10vh 6vw;
+  --canvas-safe-bottom:8vh;
+  --sp-1:0.1042vw;
+  --sp-2:0.2083vw;
+  --sp-3:0.4167vw;
+  --sp-4:0.625vw;
+  --sp-5:0.8333vw;
+  --sp-6:1.25vw;
+  --sp-7:1.6667vw;
+  --sp-8:2.0833vw;
+  --sp-9:2.5vw;
+  --sp-10:3.3333vw;
+  --sp-11:4.1667vw;
+  --sp-12:5vw;
+  --sp-13:8.3333vw;
+}
+.gz-t-display{font-family:var(--ff-display);font-size:var(--fs-display);font-weight:var(--fw-display);line-height:var(--lh-display);letter-spacing:var(--ls-display);font-style:var(--fst-display);text-transform:var(--tt-display)}
+.gz-t-display-zh{font-family:var(--ff-display-zh);font-size:var(--fs-display-zh);font-weight:var(--fw-display-zh);line-height:var(--lh-display-zh);letter-spacing:var(--ls-display-zh);font-style:var(--fst-display-zh);text-transform:var(--tt-display-zh)}
+.gz-t-title{font-family:var(--ff-title);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title);font-style:var(--fst-title);text-transform:var(--tt-title)}
+.gz-t-title-zh{font-family:var(--ff-title-zh);font-size:var(--fs-title-zh);font-weight:var(--fw-title-zh);line-height:var(--lh-title-zh);letter-spacing:var(--ls-title-zh);font-style:var(--fst-title-zh);text-transform:var(--tt-title-zh)}
+.gz-t-heading{font-family:var(--ff-heading);font-size:var(--fs-heading);font-weight:var(--fw-heading);line-height:var(--lh-heading);letter-spacing:var(--ls-heading);font-style:var(--fst-heading);text-transform:var(--tt-heading)}
+.gz-t-subhead{font-family:var(--ff-subhead);font-size:var(--fs-subhead);font-weight:var(--fw-subhead);line-height:var(--lh-subhead);letter-spacing:var(--ls-subhead);font-style:var(--fst-subhead);text-transform:var(--tt-subhead)}
+.gz-t-lead{font-family:var(--ff-lead);font-size:var(--fs-lead);font-weight:var(--fw-lead);line-height:var(--lh-lead);letter-spacing:var(--ls-lead);font-style:var(--fst-lead);text-transform:var(--tt-lead)}
+.gz-t-body{font-family:var(--ff-body);font-size:var(--fs-body);font-weight:var(--fw-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);font-style:var(--fst-body);text-transform:var(--tt-body)}
+.gz-t-small{font-family:var(--ff-small);font-size:var(--fs-small);font-weight:var(--fw-small);line-height:var(--lh-small);letter-spacing:var(--ls-small);font-style:var(--fst-small);text-transform:var(--tt-small)}
+.gz-t-caption{font-family:var(--ff-caption);font-size:var(--fs-caption);font-weight:var(--fw-caption);line-height:var(--lh-caption);letter-spacing:var(--ls-caption);font-style:var(--fst-caption);text-transform:var(--tt-caption)}
+.gz-t-label{font-family:var(--ff-label);font-size:var(--fs-label);font-weight:var(--fw-label);line-height:var(--lh-label);letter-spacing:var(--ls-label);font-style:var(--fst-label);text-transform:var(--tt-label)}
+.gz-t-meta{font-family:var(--ff-meta);font-size:var(--fs-meta);font-weight:var(--fw-meta);line-height:var(--lh-meta);letter-spacing:var(--ls-meta);font-style:var(--fst-meta);text-transform:var(--tt-meta)}
+.gz-t-quote{font-family:var(--ff-quote);font-size:var(--fs-quote);font-weight:var(--fw-quote);line-height:var(--lh-quote);letter-spacing:var(--ls-quote);font-style:var(--fst-quote);text-transform:var(--tt-quote)}
+.gz-t-num-xl{font-family:var(--ff-num-xl);font-size:var(--fs-num-xl);font-weight:var(--fw-num-xl);line-height:var(--lh-num-xl);letter-spacing:var(--ls-num-xl);font-style:var(--fst-num-xl);text-transform:var(--tt-num-xl)}
+.gz-t-num-l{font-family:var(--ff-num-l);font-size:var(--fs-num-l);font-weight:var(--fw-num-l);line-height:var(--lh-num-l);letter-spacing:var(--ls-num-l);font-style:var(--fst-num-l);text-transform:var(--tt-num-l)}
+.gz-t-num-m{font-family:var(--ff-num-m);font-size:var(--fs-num-m);font-weight:var(--fw-num-m);line-height:var(--lh-num-m);letter-spacing:var(--ls-num-m);font-style:var(--fst-num-m);text-transform:var(--tt-num-m)}
+
+:lang(zh){line-break:strict;text-spacing-trim:normal;text-autospace:normal;overflow-wrap:break-word}
+:lang(zh) .gz-prose em:not(:lang(en)){font-style:normal;text-emphasis:filled dot;text-emphasis-position:under right}
+.gz-tnum{font-variant-numeric:tabular-nums}
+
+/* 歸藏设计系统 · 共享组件
+ *
+ * 一份结构，三种介质：根节点 <html data-family="magazine|swiss" data-medium="slide|card|page">。
+ * 这里只管布局、颜色和间距；字号、字重、行高一律由 gz-t-<角色> 类提供，
+ * 所以同一个组件放进 PPT、卡片、网页会自动换成各自的字号。
+ * 颜色只用语义 token（--text-* / --line-* / --accent*），换主题不需要改组件。
+ */
+
+/* ---------- 家族差异 ---------- */
+[data-family="magazine"] { --img-pos: center top; --rule: 1px solid var(--line-strong); --rule-strong: 1px solid var(--line-strong) }
+[data-family="swiss"]    { --img-pos: center center; --rule: 1px solid var(--line); --rule-strong: 2px solid var(--ink) }
+
+/* ---------- 表面：反色块里文字角色跟着换 ---------- */
+[data-surface="ink"] {
+  background: var(--ink); color: var(--paper);
+  --text-primary: var(--paper); --text-body: rgba(var(--paper-rgb), .86); --text-secondary: rgba(var(--paper-rgb), .72);
+  --text-helper: rgba(var(--paper-rgb), .62); --line: rgba(var(--paper-rgb), .22); --line-strong: rgba(var(--paper-rgb), .45);
+  --accent-ink: var(--accent); --rule-strong: 2px solid var(--paper);
+}
+[data-family="magazine"] [data-surface="ink"], [data-family="magazine"][data-surface="ink"] { --rule-strong: 1px solid rgba(var(--paper-rgb), .45) }
+[data-surface="accent"] {
+  background: var(--accent); color: var(--accent-on);
+  --text-primary: var(--accent-on); --text-body: rgba(var(--accent-on-rgb), .88); --text-secondary: rgba(var(--accent-on-rgb), .78);
+  --text-helper: rgba(var(--accent-on-rgb), .7); --line: rgba(var(--accent-on-rgb), .3); --line-strong: rgba(var(--accent-on-rgb), .55);
+  --accent-ink: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
+}
+[data-surface="paper-2"] { background: var(--paper-2) }
+
+/* ---------- 页眉页脚 chrome ---------- */
+.gz-chrome { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-6); color: var(--text-helper); border-top: var(--rule); padding-top: var(--sp-4) }
+.gz-chrome[data-pos="top"] { border-top: 0; border-bottom: var(--rule); padding: 0 0 var(--sp-4) }
+.gz-chrome__group { display: flex; gap: var(--sp-5); min-width: 0 }
+.gz-chrome__accent { color: var(--accent-ink) }
+
+/* ---------- 封面 cover ---------- */
+.gz-cover { display: flex; flex-direction: column; gap: var(--sp-6); color: var(--text-primary) }
+.gz-cover__kicker { color: var(--text-helper) }
+[data-family="swiss"] .gz-cover__kicker { color: var(--accent-ink) }
+.gz-cover__body { width: 100%; container-type: inline-size }
+/* 标题按最长一行的字数自动收字号（render 写入 --chars），上限仍是 token 定的展示字号，任何画布都不溢出 */
+.gz-cover__title { margin: 0; font-size: min(var(--fs-display-zh), calc(100cqi / var(--chars, 1) * .94)) }
+.gz-cover__rule { width: 96px; height: 0; border-top: 2px solid var(--accent) }
+[data-family="swiss"] .gz-cover__rule { border-top-width: 3px }
+.gz-cover__sub { margin: 0; color: var(--text-body); max-width: 32em }
+.gz-cover__meta { margin-top: auto }
+/* 幻灯片、卡片：封面撑满画布，标题压在下半部 */
+[data-medium="slide"] .gz-cover, [data-medium="card"] .gz-cover { height: 100% }
+[data-medium="slide"] .gz-cover__body, [data-medium="card"] .gz-cover__body { margin-top: auto; display: flex; flex-direction: column; gap: var(--sp-7) }
+[data-medium="slide"] .gz-cover__meta, [data-medium="card"] .gz-cover__meta { margin-top: var(--sp-10) }
+/* 网页：杂志风居中，瑞士风左对齐 */
+[data-medium="page"] .gz-cover { padding: var(--sp-11) 0 var(--sp-9); border-bottom: var(--rule) }
+[data-medium="page"] .gz-cover__body { display: flex; flex-direction: column; gap: var(--sp-6) }
+[data-medium="page"][data-family="magazine"] .gz-cover { align-items: center; text-align: center }
+[data-medium="page"][data-family="magazine"] .gz-cover__body { align-items: center }
+[data-medium="page"] .gz-cover__meta { margin-top: var(--sp-6); border-top: 0; padding-top: 0; justify-content: center }
+[data-medium="page"][data-family="swiss"] .gz-cover__meta { justify-content: flex-start }
+
+/* ---------- 大数字 stat ---------- */
+.gz-stats { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: var(--sp-9) var(--sp-7) }
+.gz-stats[data-count="1"] { --cols: 1 } .gz-stats[data-count="2"] { --cols: 2 } .gz-stats[data-count="4"] { --cols: 4 }
+[data-medium="card"] .gz-stats { --cols: 2 }
+[data-medium="card"] .gz-stats[data-count="1"], [data-medium="card"] .gz-stats[data-count="3"] { --cols: 1 }
+.gz-stat { display: flex; flex-direction: column; gap: var(--sp-4); border-top: var(--rule-strong); padding-top: var(--sp-5); min-width: 0 }
+.gz-stat__label { color: var(--text-helper) }
+.gz-stat__value { display: flex; align-items: baseline; gap: .06em; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap }
+.gz-stat__unit { font-size: .4em; font-weight: 500; letter-spacing: 0; color: var(--text-secondary) }
+.gz-stat.is-accent .gz-stat__num { color: var(--accent-ink) }
+.gz-stat__note { margin: 0; color: var(--text-secondary); max-width: 24em }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat { display: grid; grid-template-columns: auto 1fr; align-items: end; column-gap: var(--sp-7) }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat__label { grid-column: 1 / -1 }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat__note { padding-bottom: .6em }
+
+/* ---------- 引言 quote ---------- */
+.gz-quote { margin: 0; display: flex; flex-direction: column; gap: var(--sp-7) }
+.gz-quote__text { margin: 0; color: var(--text-primary); text-wrap: balance }
+.gz-quote__text p { margin: 0; text-wrap: balance }
+[data-family="magazine"] .gz-quote__text::before { content: "\201C"; display: block; font-family: var(--font-display); font-style: normal; color: var(--accent); font-size: 1.8em; line-height: 1; height: .55em }
+[data-family="swiss"] .gz-quote { border-top: var(--rule-strong); padding-top: var(--sp-7) }
+.gz-quote__source { color: var(--text-helper) }
+[data-medium="page"][data-family="magazine"] .gz-quote { align-items: center; text-align: center; padding: var(--sp-9) 0 }
+
+/* ---------- 流程 process：幻灯片 / 网页横排，卡片竖排 ---------- */
+.gz-process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: var(--sp-7) }
+.gz-process__step { display: flex; flex-direction: column; gap: var(--sp-4); border-top: var(--rule-strong); padding-top: var(--sp-5); min-width: 0 }
+.gz-process__nb { color: var(--accent-ink) }
+.gz-process__title { margin: 0 }
+.gz-process__desc { margin: 0; color: var(--text-secondary) }
+[data-medium="card"] .gz-process { grid-template-columns: 1fr; gap: 0; border-bottom: var(--rule) }
+[data-medium="card"] .gz-process__step { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--sp-6); row-gap: var(--sp-3); padding: var(--sp-7) 0 }
+[data-medium="card"] .gz-process__step + .gz-process__step { border-top: var(--rule) }
+[data-medium="card"] .gz-process__nb { grid-row: span 2 }
+[data-medium="page"] .gz-process { --n: 2; row-gap: var(--sp-8) }
+
+/* ---------- 对比 compare：左右分栏，卡片上下叠 ---------- */
+.gz-compare { display: grid; grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr); gap: 0 var(--sp-9) }
+.gz-compare__rule { background: var(--line-strong) }
+.gz-compare__side { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0 }
+.gz-compare__tag { color: var(--text-helper) }
+.gz-compare__side[data-side="after"] .gz-compare__tag { color: var(--accent-ink) }
+.gz-compare__title { margin: 0 }
+.gz-compare__side[data-side="before"] .gz-compare__title { color: var(--text-secondary) }
+.gz-compare__desc { margin: 0; color: var(--text-secondary) }
+.gz-compare__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); color: var(--text-body) }
+.gz-compare__list li { padding-left: 1.2em; position: relative }
+.gz-compare__list li::before { content: ""; position: absolute; left: 0; top: .72em; width: .5em; border-top: 1px solid currentColor }
+[data-family="swiss"] .gz-compare__side[data-side="after"][data-surface] { padding: var(--sp-8) }
+[data-medium="card"] .gz-compare { grid-template-columns: 1fr; gap: var(--sp-8) 0 }
+[data-medium="card"] .gz-compare__rule { height: 1px }
+
+/* ---------- 图框 figure：照片 cover 裁切，截图 contain 放在底台上 ---------- */
+.gz-figure { margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0 }
+.gz-figure__well { position: relative; aspect-ratio: var(--ratio, 16 / 10); overflow: hidden; background: var(--paper-2) }
+.gz-figure__well > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-pos) }
+.gz-figure[data-ratio="16x9"] { --ratio: 16 / 9 } .gz-figure[data-ratio="16x10"] { --ratio: 16 / 10 } .gz-figure[data-ratio="4x3"] { --ratio: 4 / 3 }
+.gz-figure[data-ratio="3x2"] { --ratio: 3 / 2 } .gz-figure[data-ratio="1x1"] { --ratio: 1 } .gz-figure[data-ratio="3x4"] { --ratio: 3 / 4 } .gz-figure[data-ratio="21x9"] { --ratio: 21 / 9 }
+.gz-figure[data-kind="screenshot"] .gz-figure__well { display: flex; align-items: center; justify-content: center; padding: var(--inset, var(--sp-8)) }
+.gz-figure[data-kind="screenshot"] .gz-figure__well > img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--radius-sm); box-shadow: 0 0 0 1px var(--line) }
+[data-family="magazine"] .gz-figure[data-kind="screenshot"] .gz-figure__well > img { box-shadow: 0 0 0 1px var(--line), 0 18px 40px -24px rgba(var(--ink-rgb), .45) }
+[data-family="swiss"] .gz-figure[data-kind="screenshot"] .gz-figure__well { background: var(--grey-1); border-top: 3px solid var(--accent) }
+[data-family="swiss"] .gz-figure[data-kind="screenshot"] .gz-figure__well > img { border-radius: 0 }
+.gz-figure__cap { color: var(--text-helper); display: flex; gap: var(--sp-4) }
+.gz-figure__idx { color: var(--accent-ink); flex: none }
+
+/* ---------- 图片网格 gallery ---------- */
+.gz-gallery { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: var(--sp-7) var(--sp-6) }
+[data-medium="card"] .gz-gallery { --cols: 2 }
+[data-medium="card"] .gz-gallery[data-count="3"] > :first-child { grid-column: 1 / -1; --ratio: 16 / 9 }
+
+/* ---------- 条目清单 ledger ---------- */
+.gz-ledger { list-style: none; margin: 0; padding: 0; border-top: var(--rule-strong) }
+.gz-ledger__row { display: grid; grid-template-columns: var(--nb-w, 3.2em) minmax(0, 1fr) auto; column-gap: var(--sp-6); align-items: baseline; padding: var(--sp-6) 0; border-bottom: var(--rule) }
+.gz-ledger__nb { color: var(--accent-ink) }
+.gz-ledger__title { margin: 0 }
+.gz-ledger__note { margin: var(--sp-2) 0 0; color: var(--text-secondary) }
+.gz-ledger__value { color: var(--text-helper); text-align: right; white-space: nowrap }
+[data-medium="card"] .gz-ledger__row { --nb-w: 72px; padding: var(--sp-7) 0 }
+
+/* 歸藏设计系统 · 纹理与特效图层（纯 CSS，颜色全部来自 token）
+ * 来源：PPT 瑞士风 .dots / .dot-mat / .ring-mat / .cross-mat / .hatch，卡片杂志风 .grain / .paper-wash。
+ */
+
+/* 特效画布：铺满父容器、在内容下面、不挡点击。父容器需要 position: relative */
+.gz-effect { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+.gz-layer-content { position: relative; z-index: 1 }
+
+/* 点阵：前景色画点，跟随所在表面的文字色 */
+.gz-dots      { background-image: radial-gradient(currentColor 1px, transparent 1.2px); background-size: 12px 12px; opacity: .18 }
+.gz-dots-fine { background-image: radial-gradient(currentColor .8px, transparent 1px); background-size: 8px 8px; opacity: .14 }
+.gz-dots-bold { background-image: radial-gradient(currentColor 1.4px, transparent 1.6px); background-size: 18px 18px; opacity: .22 }
+
+.gz-dot-mat         { --mat: 14px; background-image: radial-gradient(currentColor 1.4px, transparent 1.6px); background-size: var(--mat) var(--mat); opacity: .5 }
+.gz-dot-mat.is-lg   { --mat: 22px } .gz-dot-mat.is-xl { --mat: 34px }
+.gz-dot-mat.is-dense{ --mat: 9px; opacity: .62 }
+.gz-ring-mat        { --mat: 18px; background-image: radial-gradient(circle, transparent 2px, currentColor 2px, currentColor 2.7px, transparent 2.9px); background-size: var(--mat) var(--mat); opacity: .55 }
+.gz-ring-mat.is-lg  { --mat: 28px }
+.gz-cross-mat       { --mat: 22px; background: currentColor; opacity: .42;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M8 8l6 6M14 8l-6 6' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / var(--mat) var(--mat);
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M8 8l6 6M14 8l-6 6' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / var(--mat) var(--mat) }
+.gz-cross-mat.is-lg { --mat: 32px }
+.gz-hatch           { background-image: repeating-linear-gradient(135deg, currentColor 0 1px, transparent 1px 8px); opacity: .55 }
+
+/* 纸张颗粒与墨色晕染：杂志风卡片的「氛围层」，叠在特效画布上、内容下 */
+.gz-grain      { position: absolute; inset: 0; pointer-events: none; z-index: 0; mix-blend-mode: multiply; opacity: .35;
+                 background-image: radial-gradient(rgba(0,0,0,.045) 1px, transparent 1px); background-size: 3px 3px }
+[data-scheme="dark"] .gz-grain, .gz-grain.is-dark { mix-blend-mode: screen; opacity: .26; background-image: radial-gradient(rgba(255,244,214,.10) 1px, transparent 1px) }
+.gz-paper-wash { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+                 background: linear-gradient(180deg, rgba(var(--ink-rgb), .02), rgba(var(--ink-rgb), .05) 60%, rgba(var(--ink-rgb), .08)) }
+.gz-ink-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+                 background: radial-gradient(circle at 18% 12%, rgba(var(--ink-rgb), .10), transparent 34%), radial-gradient(circle at 82% 80%, rgba(var(--accent-rgb), .10), transparent 38%) }
+
+/* PPT 杂志风：WebGL 背景上的纸 / 墨蒙版，保证文字可读（原 .slide.light/.dark::before） */
+.gz-veil       { position: absolute; inset: 0; pointer-events: none; z-index: 0; backdrop-filter: blur(3px); background: rgba(var(--paper-rgb), .78) }
+.gz-veil.is-ink{ background: rgba(var(--ink-rgb), .78) }
+.gz-veil.is-hero { backdrop-filter: none; background: rgba(var(--paper-rgb), .16) }
+.gz-veil.is-hero.is-ink { background: rgba(var(--ink-rgb), .12) }
+
+@media (prefers-reduced-motion: reduce) { .gz-effect { animation: none } }
+
+/* 旧变量名别名（迁移期保留） */
+:root{--mono:var(--font-mono);--serif-en:var(--font-display);--serif-body-en:var(--font-serif);--serif-zh:var(--font-serif-zh);--sans-zh:var(--font-sans);--paper-tint:var(--paper-2);--ink-tint:var(--text-body)}
+/* GZ:TOKENS:END */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{width:100%;height:100%;overflow:hidden;background:var(--ink);color:var(--paper);font-family:var(--sans-zh);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 
@@ -59,13 +578,13 @@
 
   /* ============ Magazine chrome：顶部 meta + 底部 foot ============
      （v1 布局 + v2 字号在此合并为唯一定义，不要在别处二次定义） */
-  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.2em;text-transform:uppercase;opacity:.62}
   .chrome .left,.chrome .right{display:flex;gap:2.4em;align-items:center}
   .chrome .sep{width:40px;height:1px;background:currentColor;opacity:.4}
-  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(11px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
-  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:13px}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:max(14px,.78vw);letter-spacing:.18em;text-transform:uppercase;opacity:.5}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.05em;text-transform:none;opacity:.75;font-size:14px}
 
-  .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
+  .tag{display:inline-block;font-family:var(--mono);font-size:14px;letter-spacing:.24em;text-transform:uppercase;padding:6px 14px;border:1px solid currentColor;opacity:.85}
   .rule{width:100%;height:1px;background:currentColor;opacity:.25;margin:3vh 0}
   .rule.v{width:1px;height:100%;margin:0}
 
@@ -74,7 +593,7 @@
      · 非衬线（Noto Sans SC）：正文描述、body、补充说明
      · 等宽（IBM Plex Mono）：kicker、meta 小标签、foot 右侧
   */
-  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
+  .kicker{font-family:var(--mono);font-size:14px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:2.6vh}
   .display{font-family:var(--serif-en);font-weight:700;font-size:11vw;line-height:.92;letter-spacing:-.025em}
   .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:7.8vw;line-height:1.04;letter-spacing:-.005em}
   .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:4.6vw;line-height:1.12;letter-spacing:-.005em}
@@ -83,7 +602,7 @@
   .body-zh{font-family:var(--sans-zh);font-weight:400;font-size:max(15px,1.22vw);line-height:1.75;opacity:.82;letter-spacing:.01em}
   .body-serif{font-family:var(--serif-zh);font-weight:400;font-size:max(15px,1.3vw);line-height:1.65;opacity:.88}
   .lead{font-family:var(--serif-zh);font-weight:400;font-size:1.75vw;line-height:1.5;opacity:.86}
-  .meta{font-family:var(--mono);font-size:max(11px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+  .meta{font-family:var(--mono);font-size:max(14px,.88vw);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
   .big-num{font-family:var(--serif-en);font-weight:800;font-size:10vw;line-height:.85;letter-spacing:-.03em;font-feature-settings:"tnum"}
   .mid-num{font-family:var(--serif-en);font-weight:700;font-size:5.5vw;line-height:.88;letter-spacing:-.02em;font-feature-settings:"tnum"}
   .ghost{font-family:var(--serif-en);font-weight:900;font-size:34vw;line-height:.8;opacity:.06;letter-spacing:-.04em;position:absolute;font-feature-settings:"tnum"}
@@ -108,21 +627,21 @@
   /* ============ Stat（数字矩阵） ============ */
   .stat{display:flex;flex-direction:column;gap:1vh;align-items:flex-start}
   .stat .n{font-family:var(--serif-en);font-weight:800;font-size:8vw;line-height:.88;letter-spacing:-.03em;font-feature-settings:"tnum"}
-  .stat .l{font-family:var(--sans-zh);font-size:max(13px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
-  .stat .m{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+  .stat .l{font-family:var(--sans-zh);font-size:max(16px,1.05vw);opacity:.7;margin-top:1vh;font-weight:400;line-height:1.5}
+  .stat .m{font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
 
   /* ============ Callout（引用框） ============ */
   .callout{padding:3vh 2.4vw;border-left:3px solid currentColor;position:relative;font-family:var(--serif-zh);font-size:max(15px,1.2vw);line-height:1.55;opacity:.92}
   .slide.light .callout{background:rgba(var(--ink-rgb),.05)}
   .slide.dark .callout{background:rgba(var(--paper-rgb),.06)}
-  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .callout .cite{display:block;margin-top:1.6vh;font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
   .callout .q-big{font-family:var(--serif-zh);font-weight:600;font-size:max(17px,1.6vw);line-height:1.42}
 
   /* ============ Platform（平台卡） ============ */
   .plat{display:flex;flex-direction:column;justify-content:flex-end;padding:2vh 0;border-top:1px solid currentColor;border-color:rgba(127,127,127,.35)}
   .plat .name{font-family:var(--serif-zh);font-weight:700;font-size:1.8vw;margin-bottom:.6vh}
   .plat .nb{font-family:var(--serif-en);font-weight:700;font-size:3.2vw;letter-spacing:-.02em;line-height:1;font-feature-settings:"tnum"}
-  .plat .sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
+  .plat .sub{font-family:var(--mono);font-size:14px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;margin-top:.6vh}
   .plat .fill{font-family:var(--sans-zh);font-weight:300;font-size:2.4vw;opacity:.28;letter-spacing:-.01em;line-height:1}
 
   /* ============ Rowline（表格行） ============ */
@@ -130,7 +649,7 @@
   .rowline:last-child{border-bottom:1px solid currentColor;border-color:rgba(127,127,127,.25)}
   .rowline .k{font-family:var(--serif-zh);font-weight:700;font-size:1.7vw}
   .rowline .v{font-family:var(--sans-zh);font-weight:400;font-size:max(14px,1.2vw);opacity:.85;line-height:1.55}
-  .rowline .m{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
+  .rowline .m{font-family:var(--mono);font-size:14px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;justify-self:end}
 
   /* ============ Pillar（支柱卡片） ============ */
   .pillar{display:flex;flex-direction:column;gap:1.8vh}
@@ -153,7 +672,7 @@
   .ico-sm{width:1.1vw;height:1.1vw;stroke-width:1.4;display:inline-block;vertical-align:-.15em;opacity:.7}
 
   /* ============ 图片占位（虚线框，提示设计师位置） ============ */
-  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
+  .img-slot{border:1.5px dashed rgba(127,127,127,.4);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1vh;padding:2vh 2vw;font-family:var(--mono);font-size:14px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;position:relative;aspect-ratio:16/9;width:100%;max-height:56vh;margin-inline:auto;box-sizing:border-box}
   .img-slot::before{content:"";position:absolute;inset:8px;border:1px solid currentColor;opacity:.2}
   .img-slot .plus{font-size:2vw;font-weight:300;opacity:.5;letter-spacing:0}
   .img-slot .label{position:relative;z-index:2;text-align:center}
@@ -180,8 +699,8 @@
   .frame-img.h-22{height:22vh}
   .frame-img.h-26{height:26vh}
   .frame-img.h-28{height:28vh}
-  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
-  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(13px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
+  .frame-cap{display:flex;justify-content:space-between;align-items:baseline;gap:1vw;margin-top:.8vh;font-family:var(--mono);font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+  .frame-cap .pf{font-family:var(--serif-zh);font-weight:600;font-size:max(14px,1vw);letter-spacing:.04em;text-transform:none;opacity:.94}
   .frame-cap .nb{font-family:var(--serif-en);font-style:italic;font-size:max(15px,1.2vw);letter-spacing:.02em;text-transform:none;opacity:.88}
   .frame-cap .idx{font-family:var(--mono);opacity:.5}
   figure.tile{display:flex;flex-direction:column;margin:0;min-width:0}
@@ -302,7 +821,7 @@
     align-items:baseline;
     flex-wrap:wrap;
     font-family:var(--mono);
-    font-size:max(12px,.92vw);
+    font-size:max(14px,.92vw);
     letter-spacing:.16em;
     text-transform:uppercase;
     opacity:.6;
@@ -320,7 +839,7 @@
   }
   .stat-card .stat-label{
     font-family:var(--mono);
-    font-size:max(10px,.78vw);
+    font-size:max(14px,.78vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.55;
@@ -345,7 +864,7 @@
   .stat-card .stat-note{
     font-family:var(--sans-zh);
     font-weight:400;
-    font-size:max(13px,1.05vw);
+    font-size:max(16px,1.05vw);
     line-height:1.5;
     opacity:.72;
     margin-top:.6vh;
@@ -368,7 +887,7 @@
   }
   .pipeline-label{
     font-family:var(--mono);
-    font-size:max(11px,.85vw);
+    font-size:max(14px,.85vw);
     letter-spacing:.24em;
     text-transform:uppercase;
     opacity:.62;
@@ -407,7 +926,7 @@
   .step-desc{
     font-family:var(--sans-zh);
     font-weight:400;
-    font-size:max(12px,.95vw);
+    font-size:max(16px,.95vw);
     line-height:1.45;
     opacity:.72;
   }
@@ -436,7 +955,7 @@
     flex:0 0 auto;
     padding:.7vh .9em .9vh;
     font-family:var(--mono);
-    font-size:max(10px,.8vw);
+    font-size:max(14px,.8vw);
     letter-spacing:.22em;
     text-transform:uppercase;
     opacity:.6;
@@ -446,7 +965,7 @@
     display:block;
     margin-top:1.6vh;
     font-family:var(--mono);
-    font-size:11px;
+    font-size:14px;
     letter-spacing:.2em;
     text-transform:uppercase;
     opacity:.6;
@@ -517,8 +1036,8 @@
   })();
 </script>
 
-<canvas id="bg-dark" class="bg"></canvas>
-<canvas id="bg-light" class="bg"></canvas>
+<canvas id="bg-dark" class="bg" data-gz-effect="dispersion"></canvas>
+<canvas id="bg-light" class="bg" data-gz-effect="vortex"></canvas>
 <div id="hint" role="toolbar" aria-label="快捷控制">
   <span>← → 翻页</span><span class="ppt-sep">·</span>
   <button id="ppt-low-power-btn" type="button"><span class="ppt-key">B</span><span class="ppt-low-power-label">静态</span></button><span class="ppt-sep">·</span>
@@ -556,133 +1075,308 @@ window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 </script>
 
 <script>
-/* =============== WebGL 双背景 ===============
-   深色页：Holographic Dispersion（全息色散 · 钛金暗流）—— 彩虹微扰、鼠标径向涟漪
-   浅色页：Spiral Vortex（旋转涡流 · 银色珍珠）—— domain-warp 流动、无中心
-   修改风格请参考 references/webgl-backgrounds.md
-*/
-const VS = `attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}`;
+/* GZ:EFFECTS:START · guizang-design 特效运行时，不要手改；运行 scripts/sync-skill.mjs 更新 */
+/* 歸藏设计系统 · 特效运行时（无依赖，可直接内联进单文件 HTML）
+ *
+ * 用法：<canvas class="gz-effect" data-gz-effect="vortex" data-strength=".3" data-frozen="12.5"></canvas>
+ * 页面加载后自动挂载；也可以 GZEffects.mount(canvas, { effect, strength, frozen, colors })。
+ *
+ * 特效：
+ *   dispersion  全息色散（PPT 杂志风深色页）
+ *   vortex      银色涡流（PPT 杂志风浅色页）
+ *   grid        漂移网格 + 点阵（PPT 瑞士风）
+ *   inkflow     墨流等高线（图文卡片杂志风，带透明度，叠在纸色上）
+ *   ascii       ASCII 呼吸场（瑞士风封面 / 封底的强调色块）
+ *
+ * 统一行为：
+ *   - 一个 requestAnimationFrame 循环驱动全部特效，不在视口里的不画
+ *   - 动效开关：localStorage gz-motion、系统「减少动态效果」、<html data-motion="off">；
+ *     关闭时停在一帧静态画面，不留空白。兼容旧事件 ppt-low-power-change / swiss-low-power-change
+ *   - data-frozen 把时间定格：卡片出 PNG 时每次渲染结果一致。GZEffects.ready 在首帧画完后 resolve
+ *   - 颜色从 canvas 所在位置的 token 读（--ink-rgb / --paper-rgb / --accent-rgb / --accent-on-rgb），
+ *     放进反色块或切换 data-theme 时自动跟随
+ */
+(function () {
+  'use strict'
+  if (window.GZEffects) return
 
-const FS_DARK = `precision highp float;
-uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
-vec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
-  vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;
-  vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;
-  float md=length(p-m);
-  float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;
-  vec2 p0=p;
-  for(float i=1.0;i<4.0;i++){
-    p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;
-    p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;
+  var VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'
+  var HEAD = 'precision highp float;uniform vec2 R;uniform float T;uniform vec2 M;uniform vec3 INK;uniform vec3 PAPER;uniform vec3 ACC;uniform float S;uniform float DARK;'
+  var NOISE =
+    'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}' +
+    'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);' +
+    'return mix(mix(hash(i),hash(i+vec2(1,0)),u.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),u.x),u.y);}'
+
+  var SHADERS = {
+    // 原 PPT template.html FS_DARK，颜色是设计时定死的钛金暗色（themes.md 注明不跟主题）
+    dispersion: HEAD +
+      'vec3 pal(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}' +
+      'void main(){vec2 uv=gl_FragCoord.xy/R;vec2 p=uv*2.-1.;p.x*=R.x/R.y;vec2 m=M*2.-1.;m.x*=R.x/R.y;' +
+      'float md=length(p-m);p+=sin(md*15.-T*4.)*exp(-md*3.)*.08;vec2 p0=p;' +
+      'for(float i=1.;i<4.;i++){p.x+=.1/i*sin(i*3.*p.y+T*.4)+.05;p.y+=.1/i*cos(i*2.*p.x+T*.3)-.05;}' +
+      'float r=length(p);float ang=atan(p.y,p.x);' +
+      'vec3 col=pal(r*1.5+p0.x*.5+T*.1,vec3(.12,.12,.13),vec3(.03,.04,.05),vec3(1.),vec3(.1,.2,.4));' +
+      'float disp=sin(r*25.-T*1.5+ang*2.)*.5+.5;col+=vec3(disp*.015,disp*.01,disp*.02);' +
+      'col+=pow(sin(p.x*4.+p.y*3.+T)*.5+.5,8.)*.08;col=mix(vec3(.05,.05,.06),col,.85);gl_FragColor=vec4(col,1.);}',
+
+    // 原 FS_LIGHT。colors:"theme" 时用主题纸色替换银白，深浅关系不变
+    vortex: HEAD + NOISE +
+      'float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(.8,.6,-.6,.8);for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=.5;}return v;}' +
+      'uniform float THEME;' +
+      'void main(){vec2 uv=gl_FragCoord.xy/R;vec2 p=uv;p.x*=R.x/R.y;vec2 m=M;m.x*=R.x/R.y;vec2 md=p-m;float dl=length(md);' +
+      'p+=normalize(md+vec2(.0001))*exp(-dl*5.)*.03;' +
+      'vec2 q=vec2(fbm(p*1.8+T*.07),fbm(p*1.8+vec2(5.2,1.3)+T*.06));' +
+      'vec2 r=vec2(fbm(p*2.+q*1.3+vec2(1.7,9.2)+T*.05),fbm(p*2.+q*1.3+vec2(8.3,2.8)+T*.04));' +
+      'float f=fbm(p*2.2+r*1.5);' +
+      'vec3 hi=mix(vec3(.955,.945,.925),PAPER,THEME);vec3 lo=mix(vec3(.86,.85,.84),mix(PAPER,INK,.1),THEME);' +
+      'vec3 col=mix(lo,hi,f);float ph=r.x*2.2+T*.35;' +
+      'col+=vec3(.78,.62,.92)*sin(ph)*.055;col+=vec3(.55,.72,.95)*sin(ph*.8+2.)*.05;col+=smoothstep(.48,.92,f)*.06;' +
+      'gl_FragColor=vec4(col,1.);}',
+
+    // 原 PPT template-swiss.html 网格背景
+    grid: HEAD +
+      'float gl(vec2 uv,float s,float t){vec2 g=abs(fract(uv/s)-.5);float d=min(g.x,g.y);return 1.-smoothstep(t-.005,t+.005,d);}' +
+      'void main(){vec2 uv=gl_FragCoord.xy/R;float a=R.x/R.y;vec2 p=uv;p.x*=a;vec2 gp=p+vec2(T*.008,T*.005);' +
+      'float g=gl(gp,.12,.012)+gl(gp,.024,.04)*.2;vec2 m=M;m.x*=a;float mi=exp(-length(p-m)*4.)*.5;' +
+      'vec2 dg=fract(gp*50.)-.5;float dm=1.-smoothstep(.05,.14,length(dg));' +
+      'dm*=smoothstep(-.3,.6,sin(gp.x*1.4+T*.15)*cos(gp.y*1.6-T*.12))*.6;' +
+      'vec3 line=mix(vec3(.08),vec3(.92),DARK);vec3 bg=PAPER;' +
+      'vec3 col=mix(bg,line,g*(.45+mi)*.55);col=mix(col,line,dm*.35);col=mix(col,ACC,mi*.18);gl_FragColor=vec4(col,1.);}',
+
+    // 原卡片 magazine-bg-webgl.js：输出带透明度，叠在纸色上
+    inkflow: HEAD + NOISE +
+      'float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*1.18;a*=.52;}return v;}' +
+      'void main(){vec2 p=(gl_FragCoord.xy-.5*R)/min(R.x,R.y);float t=T*.045;' +
+      'float n=fbm(p*2.2+vec2(t,-t*.7));float n2=fbm(p*5.4-vec2(t*1.7,t));' +
+      'float contour=smoothstep(.015,0.,abs(fract((n+n2*.35)*7.)-.5));float wash=smoothstep(.22,.88,n);' +
+      'float vig=1.-smoothstep(.28,.92,length(p));vec3 col=mix(PAPER,INK,wash*.42+contour*.18);' +
+      'col=mix(col,ACC,(.18+.25*n2)*contour);float al=S*(.18+wash*.42+contour*.3)*(.55+.45*vig);' +
+      'gl_FragColor=vec4(col*al,al);}',
   }
-  float r=length(p);float ang=atan(p.y,p.x);
-  vec3 a=vec3(0.12,0.12,0.13);
-  vec3 b=vec3(0.03,0.04,0.05);
-  vec3 c=vec3(1.0,1.0,1.0);
-  vec3 d=vec3(0.1,0.2,0.4);
-  vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);
-  float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;
-  col+=vec3(disp*0.015,disp*0.01,disp*0.02);
-  float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);
-  col+=hi*0.08;
-  vec3 base=vec3(0.05,0.05,0.06);
-  col=mix(base,col,0.85);
-  gl_FragColor=vec4(col,1.0);
-}`;
 
-const FS_LIGHT = `precision highp float;
-uniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;
-float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
-float noise(vec2 p){
-  vec2 i=floor(p),f=fract(p);
-  float a=hash(i),b=hash(i+vec2(1,0));
-  float c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));
-  vec2 u=f*f*(3.0-2.0*f);
-  return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
-}
-float fbm(vec2 p){
-  float v=0.0,a=0.5;
-  mat2 m=mat2(0.80,0.60,-0.60,0.80);
-  for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}
-  return v;
-}
-void main(){
-  vec2 uv=gl_FragCoord.xy/u_resolution.xy;
-  vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;
-  vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;
-  vec2 md=p-m;float dl=length(md);
-  p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;
-  vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));
-  vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),
-              fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));
-  float f=fbm(p*2.2+r*1.5);
-  vec3 silverDark=vec3(0.86,0.85,0.84);
-  vec3 paper=vec3(0.955,0.945,0.925);
-  vec3 col=mix(silverDark,paper,f);
-  float ph=r.x*2.2+u_time*0.35;
-  col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;
-  col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;
-  float hl=smoothstep(0.48,0.92,f);
-  col+=hl*0.06;
-  gl_FragColor=vec4(col,1.0);
-}`;
-
-const mouse={x:0.5,y:0.5};
-addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
-
-function bootGL(canvasId, fsSrc){
-  const canvas=document.getElementById(canvasId);
-  const gl=canvas.getContext('webgl',{alpha:false,antialias:true});
-  if(!gl) return ()=>false;
-  const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh};
-  const prog=gl.createProgram();
-  gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));
-  gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,fsSrc));
-  gl.linkProgram(prog);gl.useProgram(prog);
-  const buf=gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
-  const pos=gl.getAttribLocation(prog,'position');
-  gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
-  const lRes=gl.getUniformLocation(prog,'u_resolution');
-  const lT=gl.getUniformLocation(prog,'u_time');
-  const lM=gl.getUniformLocation(prog,'u_mouse');
-  const resize=()=>{
-    const d=Math.min(window.devicePixelRatio||1,2);
-    canvas.width=innerWidth*d;canvas.height=innerHeight*d;
-    gl.viewport(0,0,canvas.width,canvas.height);
-  };
-  addEventListener('resize',resize);resize();
-  return (tSec)=>{
-    gl.uniform2f(lRes,canvas.width,canvas.height);
-    gl.uniform1f(lT,tSec);
-    gl.uniform2f(lM,mouse.x,1-mouse.y);
-    gl.drawArrays(gl.TRIANGLES,0,6);
-    return true;
-  };
-}
-let drawDark=null, drawLight=null, glRAF=0, glT0=Date.now();
-function startGL(){
-  if(window.__lowPowerMode || glRAF) return;
-  if(!drawDark) drawDark=bootGL('bg-dark',FS_DARK);
-  if(!drawLight) drawLight=bootGL('bg-light',FS_LIGHT);
-  glT0=Date.now();
-  function loop(){
-    if(window.__lowPowerMode){glRAF=0;return;}
-    const t=(Date.now()-glT0)/1000;
-    drawDark(t);drawLight(t);
-    glRAF=requestAnimationFrame(loop);
+  // ---------- 动效开关 ----------
+  var KEY = 'gz-motion'
+  function storedMotion() { try { return localStorage.getItem(KEY) } catch (e) { return null } }
+  function computeMotion() {
+    if (document.documentElement.getAttribute('data-motion') === 'off') return false
+    var s = storedMotion()
+    if (s === 'off') return false
+    if (s === 'on') return true
+    return !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)
   }
-  glRAF=requestAnimationFrame(loop);
-}
-function stopGL(){
-  if(glRAF) cancelAnimationFrame(glRAF);
-  glRAF=0;
-}
-startGL();
-addEventListener('ppt-low-power-change', e=>{e.detail.on ? stopGL() : startGL();});
+  var motion = computeMotion()
+
+  // ---------- 颜色 ----------
+  function rgbVar(cs, name, fb) {
+    var v = cs.getPropertyValue(name).trim()
+    if (!v) return fb
+    var n = v.split(',').map(Number)
+    return n.length === 3 && n.every(isFinite) ? n.map(function (x) { return x / 255 }) : fb
+  }
+  function readColors(el) {
+    var cs = getComputedStyle(el)
+    var paper = rgbVar(cs, '--paper-rgb', [0.97, 0.97, 0.96])
+    return {
+      ink: rgbVar(cs, '--ink-rgb', [0.04, 0.04, 0.04]),
+      paper: paper,
+      accent: rgbVar(cs, '--accent-rgb', [0, 0.18, 0.65]),
+      accentOn: rgbVar(cs, '--accent-on-rgb', [1, 1, 1]),
+      dark: 0.2126 * paper[0] + 0.7152 * paper[1] + 0.0722 * paper[2] < 0.5 ? 1 : 0,
+      mono: (cs.getPropertyValue('--font-mono') || 'ui-monospace,monospace').trim(),
+    }
+  }
+
+  var mouse = [0.5, 0.5]
+  addEventListener('mousemove', function (e) { mouse = [e.clientX / innerWidth, 1 - e.clientY / innerHeight] }, { passive: true })
+
+  // ---------- WebGL 特效 ----------
+  function glEffect(canvas, o) {
+    var gl = canvas.getContext('webgl', { alpha: o.effect === 'inkflow', premultipliedAlpha: true, antialias: true, preserveDrawingBuffer: o.frozen != null })
+    if (!gl) return null
+    function sh(t, s) {
+      var x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x)
+      if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error('gz-effects ' + o.effect + ': ' + gl.getShaderInfoLog(x))
+      return x
+    }
+    var prog = gl.createProgram()
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS))
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, SHADERS[o.effect]))
+    gl.linkProgram(prog); gl.useProgram(prog)
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW)
+    var loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
+    var U = {}
+    ;['R', 'T', 'M', 'INK', 'PAPER', 'ACC', 'S', 'DARK', 'THEME'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n) })
+    return function (t, c) {
+      gl.viewport(0, 0, canvas.width, canvas.height)
+      gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT)
+      gl.uniform2f(U.R, canvas.width, canvas.height); gl.uniform1f(U.T, t); gl.uniform2f(U.M, mouse[0], mouse[1])
+      gl.uniform3fv(U.INK, c.ink); gl.uniform3fv(U.PAPER, c.paper); gl.uniform3fv(U.ACC, c.accent)
+      gl.uniform1f(U.S, o.strength); gl.uniform1f(U.DARK, o.dark != null ? +o.dark : c.dark)
+      if (U.THEME) gl.uniform1f(U.THEME, o.colors === 'theme' ? 1 : 0)
+      gl.drawArrays(gl.TRIANGLES, 0, 6)
+    }
+  }
+
+  // ---------- ASCII 呼吸场（Canvas 2D） ----------
+  var PALETTE = '   ...:::---+++***◦◦••▢▣'
+  function asciiEffect(canvas) {
+    var ctx = canvas.getContext('2d')
+    var draw = function (t, c, w, h, dpr) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      ctx.clearRect(0, 0, w, h)
+      var font = '500 13px ' + c.mono
+      if (ctx.font !== font) ctx.font = font
+      ctx.textBaseline = 'top'
+      var cell = 16, cols = Math.ceil(w / cell), rows = Math.ceil(h / cell), tt = t * 0.55
+      var rgb = c.accentOn.map(function (x) { return Math.round(x * 255) }).join(',')
+      // 字色取 accent-on：IKB / 橙上是白字，黄 / 绿上是墨色字（修复原来只画白字的问题）
+      var blend = c.accentOn[0] + c.accentOn[1] + c.accentOn[2] > 1.5 ? 'screen' : 'multiply'
+      if (canvas.style.mixBlendMode !== blend) canvas.style.mixBlendMode = blend
+      for (var r = 0; r < rows; r++) for (var k = 0; k < cols; k++) {
+        var n = (Math.sin(k * 0.18 + tt) + Math.sin(r * 0.24 - tt * 0.7) + Math.sin((k + r) * 0.12 + tt * 0.45) +
+          Math.sin(Math.hypot(k - cols * 0.5, r - rows * 0.5) * 0.16 - tt * 0.55)) / 4
+        var v = (n + 1) / 2
+        if (v < 0.22) continue
+        var ch = PALETTE[Math.min(PALETTE.length - 1, Math.floor(v * PALETTE.length))]
+        if (ch === ' ') continue
+        ctx.fillStyle = 'rgba(' + rgb + ',' + (0.08 + (v - 0.22) * 0.55).toFixed(3) + ')'
+        ctx.fillText(ch, k * cell, r * cell)
+      }
+    }
+    // 呼吸场变化很慢，24 帧和 60 帧肉眼无差别；逐字绘制在 CPU 上开销大，限帧省电
+    draw.interval = 1000 / 24
+    return draw
+  }
+
+  // WebGL 不可用时：几层径向渐变，模拟墨色晕染（不画椭圆，遵守卡片「不用椭圆」规则）
+  function fallback2d(canvas) {
+    var ctx = canvas.getContext('2d')
+    return function (t, c, w, h, dpr) {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      ctx.fillStyle = 'rgb(' + c.paper.map(function (x) { return Math.round(x * 255) }).join(',') + ')'
+      ctx.fillRect(0, 0, w, h)
+      for (var i = 0; i < 5; i++) {
+        var x = w * (0.14 + ((i * 0.19 + 0.17) % 0.72)), y = h * (0.1 + ((i * 0.29 + 0.23) % 0.78)), r = Math.max(w, h) * (0.22 + i * 0.045)
+        var g = ctx.createRadialGradient(x, y, 0, x, y, r)
+        var col = (i % 2 ? c.accent : c.ink).map(function (v) { return Math.round(v * 255) }).join(',')
+        g.addColorStop(0, 'rgba(' + col + ',' + (i % 2 ? 0.1 : 0.12) + ')'); g.addColorStop(1, 'rgba(' + col + ',0)')
+        ctx.fillStyle = g; ctx.fillRect(0, 0, w, h)
+      }
+    }
+  }
+
+  // ---------- 挂载与循环 ----------
+  var items = []
+  var STATIC_T = 12.5 // 动效关闭时的静态帧时刻
+  var readyResolve
+  var ready = new Promise(function (r) { readyResolve = r })
+  var pendingFirst = 0
+
+  function size(it) {
+    var rect = it.canvas.getBoundingClientRect()
+    var dpr = Math.min(window.devicePixelRatio || 1, 2)
+    var w = Math.max(1, Math.round(rect.width)), h = Math.max(1, Math.round(rect.height))
+    if (it.w !== w || it.h !== h || it.dpr !== dpr) {
+      it.w = w; it.h = h; it.dpr = dpr
+      it.canvas.width = Math.round(w * dpr); it.canvas.height = Math.round(h * dpr)
+      it.dirty = true
+    }
+  }
+
+  function drawOne(it, now) {
+    size(it)
+    if (!it.colors || it.colorsStale) { it.colors = readColors(it.canvas); it.colorsStale = false }
+    var t = it.o.frozen != null ? it.o.frozen : motion ? (now - it.t0) / 1000 : STATIC_T
+    it.draw(t, it.colors, it.w, it.h, it.dpr)
+    it.dirty = false
+    if (!it.drawn) { it.drawn = true; if (--pendingFirst === 0) readyResolve() }
+  }
+
+  function mount(canvas, opts) {
+    if (typeof canvas === 'string') canvas = document.querySelector(canvas)
+    if (!canvas || canvas.__gz) return canvas && canvas.__gz
+    var d = canvas.dataset
+    var o = Object.assign({
+      effect: d.gzEffect || 'vortex',
+      strength: d.strength != null ? +d.strength : 0.34,
+      frozen: d.frozen != null ? +d.frozen : null,
+      colors: d.colors || 'fixed',
+      dark: d.dark != null ? d.dark === 'true' || d.dark === '1' : null,
+    }, opts || {})
+    var draw = o.effect === 'ascii' ? asciiEffect(canvas) : SHADERS[o.effect] ? glEffect(canvas, o) : null
+    if (!draw && o.effect !== 'ascii') draw = fallback2d(canvas)
+    var it = { canvas: canvas, o: o, draw: draw, t0: performance.now(), visible: true, last: 0, interval: (draw && draw.interval) || 0 }
+    canvas.__gz = it
+    items.push(it)
+    pendingFirst++
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { es.forEach(function (e) { it.visible = e.isIntersecting }) }).observe(canvas)
+    }
+    drawOne(it, performance.now())
+    schedule()
+    return it
+  }
+
+  var raf = 0
+  function schedule() { if (!raf) raf = requestAnimationFrame(loop) }
+  function loop(now) {
+    raf = 0
+    var again = false
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i]
+      var live = motion && it.o.frozen == null
+      var due = now - it.last >= it.interval
+      if ((live && it.visible && due) || it.dirty || it.colorsStale) { drawOne(it, now); it.last = now }
+      if (live) again = true
+    }
+    if (again) schedule()
+  }
+
+  function setMotion(on, persist) {
+    motion = !!on
+    if (persist !== false) try { localStorage.setItem(KEY, on ? 'on' : 'off') } catch (e) {}
+    items.forEach(function (it) { it.dirty = true; if (on) it.t0 = performance.now() - STATIC_T * 1000 })
+    schedule()
+    dispatchEvent(new CustomEvent('gz-motion-change', { detail: { on: motion } }))
+  }
+
+  // 旧模板的低功耗事件：迁移期间继续认
+  ;['ppt-low-power-change', 'swiss-low-power-change'].forEach(function (n) {
+    addEventListener(n, function (e) { if (e.detail && 'on' in e.detail) setMotion(!e.detail.on, false) })
+  })
+  if (window.matchMedia) {
+    var mq = matchMedia('(prefers-reduced-motion: reduce)')
+    mq.addEventListener && mq.addEventListener('change', function () { if (!storedMotion()) setMotion(computeMotion(), false) })
+  }
+  // 主题、反色块切换：标记颜色过期，下一帧重读
+  new MutationObserver(function () {
+    if (computeMotion() !== motion && document.documentElement.getAttribute('data-motion') === 'off') setMotion(false, false)
+    items.forEach(function (it) { it.colorsStale = true }); schedule()
+  }).observe(document.documentElement, { attributes: true, subtree: true, attributeFilter: ['data-theme', 'data-surface', 'data-motion', 'class'] })
+  addEventListener('resize', function () { items.forEach(function (it) { it.dirty = true }); schedule() }, { passive: true })
+
+  function autoMount() {
+    var list = document.querySelectorAll('canvas[data-gz-effect]')
+    for (var i = 0; i < list.length; i++) mount(list[i])
+    if (!list.length) readyResolve()
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', autoMount)
+  else autoMount()
+
+  window.GZEffects = {
+    mount: mount, ready: ready, setMotion: setMotion,
+    get motion() { return motion },
+    effects: Object.keys(SHADERS).concat('ascii'),
+  }
+})()
+/* GZ:EFFECTS:END */
+</script>
+<script>
+/* =============== 背景特效（gz-effects） ===============
+   深色页 #bg-dark 全息色散、浅色页 #bg-light 银色涡流，body.light-bg 切换时由 CSS 交叉淡入。
+   低功耗开关沿用 window.__lowPowerMode 与 ppt-low-power-change 事件，运行时会自动跟随。 */
+GZEffects.setMotion(!window.__lowPowerMode, false);
 
 // =============== 导航（翻页 / 圆点 / 键盘 / 滚轮 / 触屏） ===============
 const deck=document.getElementById('deck');
