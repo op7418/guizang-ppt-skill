@@ -78,7 +78,7 @@ node <SKILL_ROOT>/scripts/gz-theme.mjs brand "#4D6BFE" --family magazine
 
 | paper | ink | accent | accent-ink | accent-on | 正文对比度 |
 |---|---|---|---|---|---|
-| `#eedfc7` | `#2a1e13` | `#9b5a2e` | `#935326` | `#eedfc7` | 8.1 / 77 |
+| `#eedfc7` | `#2a1e13` | `#9b5a2e` | `#804212` | `#eedfc7` | 8.1 / 77 |
 
 ---
 
@@ -89,7 +89,7 @@ node <SKILL_ROOT>/scripts/gz-theme.mjs brand "#4D6BFE" --family magazine
 
 | paper | ink | accent | accent-ink | accent-on | 正文对比度 |
 |---|---|---|---|---|---|
-| `#f0e6d2` | `#1f1a14` | `#8f7650` | `#7b633e` | `#f0e6d2` | 9.2 / 82 |
+| `#f0e6d2` | `#1f1a14` | `#8f7650` | `#705833` | `#f0e6d2` | 9.2 / 82 |
 
 > 强调色色块上的文字只用大号粗体（APCA 60）。
 

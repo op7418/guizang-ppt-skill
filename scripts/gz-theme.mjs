@@ -158,6 +158,9 @@ const ROLE_FLOORS = {
   textSecondary: { apca: 60, wcag: 4.5 },
   textHelper: { apca: 60, wcag: 4.5 },
   accentInk: { apca: 60, wcag: 4.5 },
+  // 色块上的正文级文字（≥ 16px）：WCAG 4.5 + APCA 45。饱和中等明度的底色（安全橙）上 APCA 会低估深色字，
+  // WCAG 会高估白字，两个都要过
+  onText: { apca: 45, wcag: 4.5 },
   // 大字（标题、KPI 大数字）只看 APCA 标题线 45：WCAG 对明亮饱和色（安全橙）严重低估可读性
   accentDisplay: { apca: 45, wcag: 0 },
 }
@@ -204,6 +207,17 @@ function onColor(bg, candidates) {
   return candidates.reduce((best, c) => (Math.abs(apca(c, bg)) > Math.abs(apca(best, bg)) ? c : best))
 }
 
+// 色块上的正文级文字（高亮块正文、标签）：设计指定的 accent-on 达到 ROLE_FLOORS.onText 就用它；
+// 不达标（安全橙、中等明度的品牌绿上的白字）换成达标的候选；都不达标取 WCAG 最高的
+function onText(bg, preferred, candidates) {
+  const floor = ROLE_FLOORS.onText
+  if (passes(preferred, bg, floor)) return preferred
+  return candidates.find((c) => passes(c, bg, floor)) || candidates.reduce((best, c) => (wcag(c, bg) > wcag(best, bg) ? c : best))
+}
+
+// 强调色小字既出现在纸色上，也出现在 paper-2 / 灰底卡片上：按两者里对比更低的那个底色来调
+const harderBg = (fg, bgs) => bgs.reduce((a, b) => (Math.abs(apca(fg, b)) < Math.abs(apca(fg, a)) ? b : a))
+
 function deriveMagazine(t) {
   const roles = {
     textBody: inkRole(t.ink, t.paper, 0.82, ROLE_FLOORS.textBody),
@@ -215,7 +229,7 @@ function deriveMagazine(t) {
     lineStrong: inkRole(t.ink, t.paper, 0.45),
     line: inkRole(t.ink, t.paper, 0.22),
     lineSubtle: inkRole(t.ink, t.paper, 0.12),
-    accentInk: textSafeAccent(t.accent, t.paper),
+    accentInk: textSafeAccent(t.accent, harderBg(t.accent, [t.paper, t.paper2])),
   }
   return {
     vars: {
@@ -235,6 +249,8 @@ function deriveMagazine(t) {
       '--line-subtle': roles.lineSubtle.hex,
       '--ink-rgb': rgbTriplet(t.ink), '--paper-rgb': rgbTriplet(t.paper), '--accent-rgb': rgbTriplet(t.accent),
       '--accent-on-rgb': rgbTriplet(onColor(t.accent, [t.ink, t.paper])),
+      '--accent-on-text': onText(t.accent, onColor(t.accent, [t.ink, t.paper]), [t.ink, t.paper, '#ffffff']),
+      '--accent-on-text-rgb': rgbTriplet(onText(t.accent, onColor(t.accent, [t.ink, t.paper]), [t.ink, t.paper, '#ffffff'])),
     },
     roles,
   }
@@ -263,6 +279,8 @@ function deriveSwiss(n, t) {
       '--line-subtle': n.borderSubtle,
       '--ink-rgb': rgbTriplet(n.ink), '--paper-rgb': rgbTriplet(n.paper), '--accent-rgb': rgbTriplet(t.accent),
       '--accent-on-rgb': rgbTriplet(t.accentOn),
+      '--accent-on-text': onText(t.accent, t.accentOn, [n.ink, '#ffffff']),
+      '--accent-on-text-rgb': rgbTriplet(onText(t.accent, t.accentOn, [n.ink, '#ffffff'])),
     },
     roles: { textBody },
   }
@@ -282,6 +300,16 @@ function auditTheme(vars) {
     const fg = vars[k]
     const r = { token: k, fg, bg, wcag: +wcag(fg, bg).toFixed(2), apca: +apca(fg, bg).toFixed(1) }
     if (!passes(fg, bg, floor)) out.push({ ...r, floor })
+  }
+  // 强调色小字也会放在 paper-2 / 灰底卡片上
+  const bg2 = vars['--paper-2']
+  if (bg2 && !passes(vars['--accent-ink'], bg2, ROLE_FLOORS.accentInk)) {
+    out.push({ token: '--accent-ink', fg: vars['--accent-ink'], bg: bg2, wcag: +wcag(vars['--accent-ink'], bg2).toFixed(2), apca: +apca(vars['--accent-ink'], bg2).toFixed(1), floor: ROLE_FLOORS.accentInk })
+  }
+  // 色块上的正文级文字
+  const onT = vars['--accent-on-text']
+  if (onT && !passes(onT, vars['--accent'], ROLE_FLOORS.onText)) {
+    out.push({ token: '--accent-on-text', fg: onT, bg: vars['--accent'], apca: +apca(onT, vars['--accent']).toFixed(1), wcag: +wcag(onT, vars['--accent']).toFixed(2), note: '色块上只放大号粗体' })
   }
   // accent 上的文字：大号粗体允许到 Lc 45（APCA 标题线），小字要 60
   const onLc = Math.abs(apca(vars['--accent-on'], vars['--accent']))
@@ -366,7 +394,8 @@ function swissFromBrand(brandHex, neutrals, { name = '品牌主题' } = {}) {
   // accent-on / accent-ink 交给派生规则算，和内置主题一致
   const probe = deriveSwiss(neutrals, { ...t, accentOn: neutrals.ink, accentInk: accent })
   t.accentOn = pickOn(accent, neutrals)
-  t.accentInk = probe.vars['--accent-ink'] === accent ? textSafe(accent, neutrals.paper) : probe.vars['--accent-ink']
+  // 强调色小字也放在灰底卡片（grey-1）上，按更暗的灰底来调
+  t.accentInk = textSafe(accent, neutrals.grey1)
   return finish('swiss', t, deriveSwiss(neutrals, t), notes)
 }
 
@@ -393,6 +422,13 @@ if (args[0] !== 'brand' || !args[1]) {
 const family = opt('--family', 'magazine'), id = opt('--id', 'brand')
 const r = family === 'swiss' ? swissFromBrand(args[1], SWISS_NEUTRALS) : magazineFromBrand(args[1])
 if (!r.ok) { console.error('✗ ' + r.reason); process.exit(1) }
-const notes = [...r.notes, ...r.limits]
-console.log(`/* 品牌主题 ${args[1]} · ${family}${notes.length ? '：' + notes.join('；') : ''} */`)
+const v = r.vars
+// 一行说清楚：强调色调了什么、小字和色块上的文字各用什么颜色、有什么限制
+const parts = [
+  r.notes.length ? r.notes.join('；') : `强调色保持 ${v['--accent']}`,
+  `小字强调色 ${v['--accent-ink']}`,
+  `色块上的文字 ${v['--accent-on-text']}${v['--accent-on-text'] !== v['--accent-on'] ? `（${v['--accent-on']} 只够大号粗体）` : ''}`,
+  ...r.limits.filter((l) => !l.startsWith('--accent-on：')),
+]
+console.log(`/* 品牌主题 ${args[1]} · ${family}：${parts.join('；')} */`)
 console.log(`[data-theme="${id}"]{${Object.entries(r.vars).map(([k, v]) => `${k}:${v}`).join(';')};color-scheme:light}`)
