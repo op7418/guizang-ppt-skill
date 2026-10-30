@@ -395,4 +395,4 @@ const r = family === 'swiss' ? swissFromBrand(args[1], SWISS_NEUTRALS) : magazin
 if (!r.ok) { console.error('✗ ' + r.reason); process.exit(1) }
 const notes = [...r.notes, ...r.limits]
 console.log(`/* 品牌主题 ${args[1]} · ${family}${notes.length ? '：' + notes.join('；') : ''} */`)
-console.log(`[data-theme="${id}"]{${Object.entries(r.vars).map(([k, v]) => `${k}:${v}`).join(';')}}`)
+console.log(`[data-theme="${id}"]{${Object.entries(r.vars).map(([k, v]) => `${k}:${v}`).join(';')};color-scheme:light}`)

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>[必填] 替换为 PPT 标题 · Deck Title</title>
-<!-- GZ:FONTS:START · 字体由 guizang-design 字体清单生成；本机内置用 node scripts/fonts.mjs embed -->
+<!-- GZ:FONTS:START · 字体由 guizang-design 字体清单生成；需要把字体内置进 HTML 时用 gz-fonts.mjs embed（卡片 skill 的 render.mjs 会自动内置） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" data-gz-fonts="playfair-display noto-serif-sc source-serif-4 noto-sans-sc ibm-plex-mono" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+SC:wght@200..900&family=Source+Serif+4:ital,wght@0,200..900;1,200..900&family=Noto+Sans+SC:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -357,8 +357,9 @@
  */
 
 /* ---------- 家族差异 ---------- */
-[data-family="magazine"] { --img-pos: center top; --rule: 1px solid var(--line-strong); --rule-strong: 1px solid var(--line-strong) }
-[data-family="swiss"]    { --img-pos: center center; --rule: 1px solid var(--line); --rule-strong: 2px solid var(--ink) }
+/* 单张卡片 / 单页换主题（[data-theme]）或反色（[data-surface]）时，线条变量要在那一层重新计算，否则沿用根节点的颜色 */
+[data-family="magazine"], [data-family="magazine"] [data-theme], [data-family="magazine"] [data-surface] { --img-pos: center top; --rule: 1px solid var(--line-strong); --rule-strong: 1px solid var(--line-strong) }
+[data-family="swiss"], [data-family="swiss"] [data-theme], [data-family="swiss"] [data-surface] { --img-pos: center center; --rule: 1px solid var(--line); --rule-strong: 2px solid var(--ink) }
 
 /* ---------- 表面：反色块里文字角色跟着换 ---------- */
 [data-surface="ink"] {
@@ -387,7 +388,7 @@
 .gz-cover__kicker { color: var(--text-helper) }
 [data-family="swiss"] .gz-cover__kicker { color: var(--accent-ink) }
 .gz-cover__body { width: 100%; container-type: inline-size }
-/* 标题按最长一行的字数自动收字号（render 写入 --chars），上限仍是 token 定的展示字号，任何画布都不溢出 */
+/* 标题按最长一行的字数自动收字号：--chars 由 components/render.mjs 算好写进 style；手写时填最长一行的字数（中文 1、西文约 0.56）。上限仍是 token 定的展示字号 */
 .gz-cover__title { margin: 0; font-size: min(var(--fs-display-zh), calc(100cqi / var(--chars, 1) * .94)) }
 .gz-cover__rule { width: 96px; height: 0; border-top: 2px solid var(--accent) }
 [data-family="swiss"] .gz-cover__rule { border-top-width: 3px }

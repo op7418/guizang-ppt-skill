@@ -34,7 +34,7 @@ node <SKILL_ROOT>/scripts/gz-theme.mjs brand "#4D6BFE" --family swiss
 ```
 
 把输出的 `[data-theme="brand"]{…}` 贴到 deck `<style>` 的末尾，再把 `data-theme` 改成 `brand`。
-脚本会把颜色收进本风格精调色板的明度 / 彩度区间，并检查 WCAG 与 APCA 对比度；不达标时会说明原因，这时从下面的预设里选。
+脚本会把颜色收进本风格精调色板的明度 / 彩度区间，并检查 WCAG 与 APCA 对比度；不达标时会说明原因，这时从下面的预设里选。杂志风会把彩度压到 0.12 以内，高饱和的品牌色会变得更克制（例如 #FF2442 → #b75a59，第一行注释会写明调整）；需要保留鲜艳度时用瑞士风。
 
 ---
 
