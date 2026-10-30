@@ -58,7 +58,7 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
 
 ### D. 主题色与主题节奏
 
-- 主题色从 `references/themes.md` 的 5 套预设里选一套,不允许自定义 hex 值
+- 主题色从 `references/themes.md` 的 5 套预设里选一套（改 `<html data-theme>`）；用户有品牌色时按 themes.md 的品牌色流程生成，不直接写 hex 值
 - 主题节奏(每页用 light / dark / hero light / hero dark 哪一个)在下文"主题节奏规划"一节有硬规则,生成前必读
 - 两件事都要在挑布局之前决定,避免返工
 

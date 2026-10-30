@@ -75,7 +75,7 @@
 **硬规则:**
 - 同一页内,字号越小的元素字重必须 ≥ 字号越大的元素(不允许 16px 正文用 300 而 1.8vw 标题用 500)
 - 16px 左右的小字拒绝使用 weight 300(太细不可读),最低 400,推荐 500
-- 封面/IKB 反白大标题内强调字用 `italic + weight 300`,不要用 accent 色(蓝压蓝看不见)
+- 封面/IKB 反白大标题内强调字：英文用 `italic + weight 300`；中文不用斜体（中文没有斜体字形，浏览器会硬掰变形），改用 `font-weight:400`。都不要用 accent 色(蓝压蓝看不见)
 
 **网格**(IBM Carbon 2x Grid 改造)
 - 16 列 grid:`grid-template-columns:repeat(16,1fr)` + `gap:16px`
@@ -255,7 +255,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 **默认推荐:IKB 满屏 + ASCII 呼吸场** ⭐
 - `<section class="slide accent">` 满屏 IKB,**不是** light 白底
 - `.canvas-card` 内首位插入 `<canvas class="ascii-bg" aria-hidden="true">`,模板底部 IIFE 自动驱动 sin/cos 二维噪声呼吸场
-- 主标题反白 weight 200,微强调字用斜体(`font-style:italic;font-weight:300`)而非 IKB 蓝(底已是蓝、蓝压蓝看不见)
+- 主标题反白 weight 200,微强调：英文用斜体(`font-style:italic;font-weight:300`)，中文用 `font-weight:400`，不要用 IKB 蓝(底已是蓝、蓝压蓝看不见)
 - **不要**再放编号大字"01"——chrome-min 已经标 01/NN
 - 与 P9 Closing 的 IKB 半屏配合形成"开场全 IKB ↔ 收尾半 IKB"色彩闭环
 
@@ -272,13 +272,13 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
       <div class="r">SS · 26.05.10 · 01 / NN</div>
     </div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:2.6vh">
-      <div data-anim="kicker" class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em">[必填] 章节英文 / Section En</div>
-      <h1 data-anim="title" style="align-self:center;font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(11.6vw,19vh);line-height:.94;letter-spacing:-.025em;color:#fff">[必填] 中文主标题<br/>(可在某字加 <span style="font-style:italic;font-weight:300">italic</span> 微强调)</h1>
-      <div data-anim="bottom" style="display:grid;grid-template-rows:auto auto;gap:1.6vh;border-top:1px solid rgba(255,255,255,.22);padding-top:2vh">
-        <div data-anim="lead" class="lead" style="max-width:52ch;color:rgba(255,255,255,.86);font-weight:300">[必填] 一段 1-2 行的副标 / 引子,定调全场.</div>
+      <div data-anim="kicker" class="t-meta" style="color:rgba(var(--accent-on-rgb),.78);letter-spacing:.22em">[必填] 章节英文 / Section En</div>
+      <h1 data-anim="title" style="align-self:center;font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(11.6vw,19vh);line-height:.94;letter-spacing:-.025em;color:var(--accent-on)">[必填] 中文主标题<br/>(可在某字加 <span style="font-style:italic;font-weight:300">italic</span> 微强调)</h1>
+      <div data-anim="bottom" style="display:grid;grid-template-rows:auto auto;gap:1.6vh;border-top:1px solid rgba(var(--accent-on-rgb),.22);padding-top:2vh">
+        <div data-anim="lead" class="lead" style="max-width:52ch;color:rgba(var(--accent-on-rgb),.86);font-weight:300">[必填] 一段 1-2 行的副标 / 引子,定调全场.</div>
         <div style="display:flex;justify-content:space-between;align-items:end">
-          <div class="t-meta" style="color:rgba(255,255,255,.6)">[选填] 作者 · 日期 · 出处</div>
-          <div class="t-meta" style="color:rgba(255,255,255,.6)">→ swipe / arrow keys</div>
+          <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.6)">[选填] 作者 · 日期 · 出处</div>
+          <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.6)">→ swipe / arrow keys</div>
         </div>
       </div>
     </div>
@@ -486,7 +486,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 - 用 `<section class="slide split">` + 左半 `.half.b-accent` + ASCII canvas + 右半白底 takeaway
 - 与 P1 封面的全 IKB 形成"开场全 IKB ↔ 收尾半 IKB"色彩闭环
 - 右侧第 03 条 takeaway 用 `var(--accent)` 强调,把 IKB 蓝从左半穿到右半,完成色彩缝合
-- 大标题反白 weight 200,强调字用斜体(底已是蓝、不要再用 `var(--accent)` 标蓝)
+- 大标题反白 weight 200,强调字：英文斜体、中文加字重到 400(底已是蓝、不要再用 `var(--accent)` 标蓝)
 
 **关键类**:`.slide.split` `.half.b-accent` `.ascii-bg`(IIFE 自动启动)
 **动效 recipe**:`split-statement` — 左 ink/IKB 标题字符序列升起 → 右白半 takeaway 三条尾随
@@ -504,13 +504,13 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
           <div class="r">CLOSING</div>
         </div>
         <div data-anim="manifesto" style="display:flex;flex-direction:column;gap:2vh;position:relative;z-index:1">
-          <div class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em;margin-bottom:1.6vh">MANIFESTO</div>
-          <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(8vw,14vh);line-height:.94;letter-spacing:-.025em;font-weight:200;color:#fff">[必填] Build a model.<br/>Run <span style="font-style:italic;font-weight:300">forever</span>.</h2>
-          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1vw);line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;max-width:36ch;margin-top:1.4vh">[必填] 一句中英文落地注脚.</div>
+          <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.78);letter-spacing:.22em;margin-bottom:1.6vh">MANIFESTO</div>
+          <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(8vw,14vh);line-height:.94;letter-spacing:-.025em;font-weight:200;color:var(--accent-on)">[必填] Build a model.<br/>Run <span style="font-style:italic;font-weight:300">forever</span>.</h2>
+          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1vw);line-height:1.6;color:rgba(var(--accent-on-rgb),.82);font-weight:300;max-width:36ch;margin-top:1.4vh">[必填] 一句中英文落地注脚.</div>
         </div>
-        <div data-anim="signature" style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(255,255,255,.22);padding-top:2vh;position:relative;z-index:1">
-          <div class="t-meta" style="color:rgba(255,255,255,.62)">[选填] 作者 · 头衔</div>
-          <div class="t-meta" style="color:rgba(255,255,255,.62)">YY.MM.DD</div>
+        <div data-anim="signature" style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(var(--accent-on-rgb),.22);padding-top:2vh;position:relative;z-index:1">
+          <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.62)">[选填] 作者 · 头衔</div>
+          <div class="t-meta" style="color:rgba(var(--accent-on-rgb),.62)">YY.MM.DD</div>
         </div>
       </div>
       <!-- 右半 · 白底 takeaway,第 03 条用 IKB 蓝强调,首尾色彩闭环 -->
@@ -729,7 +729,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
       <div class="image-hero-stats" style="gap:4vw">
         <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 01</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">12×</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
         <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 02</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">3.4h</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
-        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 03</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em;color:var(--accent)">100%</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
+        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 03</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em;color:var(--accent-display)">100%</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
       </div>
     </div>
   </div>
@@ -771,7 +771,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
       </div>
       <div class="swiss-img-split align-image-bottom" data-anim="up">
         <div class="swiss-img-copy">
-          <div class="t-cat" style="color:var(--accent)">Why it matters</div>
+          <div class="t-cat" style="color:var(--accent-ink)">Why it matters</div>
           <p class="lead" style="font-weight:300;max-width:36ch">[必填] 2-3 行解释图片与论点的关系.</p>
           <div class="body" style="font-weight:300;color:var(--text-secondary)">[必填] 可以放 2-3 条短 bullet 或一段说明,保持左对齐和充足留白.</div>
         </div>
