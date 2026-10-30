@@ -5,7 +5,9 @@
 用法：页面根节点写 `<html data-family="magazine|swiss" data-medium="slide|card|page" data-theme="…">`，
 引入 `gz-<family>.css`、`gz-<family>-<medium>.css`、`gz-components.css`。组件只管布局和颜色，
 字号来自 `gz-t-<角色>` 类，所以同一段 HTML 在 PPT、卡片、网页里会自动换成各自的字号和排法。
-反色块加 `data-surface="ink|accent|paper-2"`，块内文字颜色自动切换。
+反色块加 `data-surface="ink|accent|paper-2"`，块内文字颜色自动切换；整张强调色或墨色的卡片 / 页面，把它加在 `<section class="poster">` 或 `<section class="slide">` 上。
+强调色当文字色时不要直接写 `var(--accent)`：小字用 `.gz-c-accent`（`--accent-ink`），大字和大数字用 `.gz-c-accent-display`（`--accent-display`）。
+条目清单的编号用 `gz-t-label`，大数字组件把数字角色类（如 `gz-t-num-l`）加在 `.gz-stat__value` 上，单位按它的 0.4 倍显示。
 
 ## 页眉页脚 · `chrome`
 
